@@ -4,6 +4,7 @@
 package es.nebsyst.sarlabinit.daemon;
 
 import es.nebsyst.sarlabinit.main.PanelJarProcessMain;
+import es.nebsyst.sarlabinit.main.PanelJarProcessMain;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
 import java.io.IOException;

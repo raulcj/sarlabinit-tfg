@@ -5,7 +5,7 @@
  */
 package es.nebsyst.sarlabinit.daemon;
 
-import es.nebsyst.sarlabinit.vista.PanelEJSAppList;
+//import es.nebsyst.sarlabinit.vista.PanelEJSAppList;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
 import java.io.IOException;
@@ -42,9 +42,9 @@ public class pruebas {
             ejsWorkspace=pro.getProperty("UserDir",userHome);
 
         } catch (FileNotFoundException ex) {
-            java.util.logging.Logger.getLogger(PanelEJSAppList.class.getName()).log(Level.SEVERE, null, ex);
+            //java.util.logging.Logger.getLogger(PanelEJSAppList.class.getName()).log(Level.SEVERE, null, ex);
         } catch (IOException ex) {
-            java.util.logging.Logger.getLogger(PanelEJSAppList.class.getName()).log(Level.SEVERE, null, ex);
+            //java.util.logging.Logger.getLogger(PanelEJSAppList.class.getName()).log(Level.SEVERE, null, ex);
         }
         /*
         String fileConfig="C:/sarlab/service/servicesarlab.xml";
