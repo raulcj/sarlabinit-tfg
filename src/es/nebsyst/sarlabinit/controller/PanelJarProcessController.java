@@ -28,8 +28,11 @@ public class PanelJarProcessController implements Initializable {
     private ObservableList<String> listModel;
     private ListView<String> jList1;
         
-    private void createList() {
-         try {
+    private void initList() {
+         jList1 = new ListView<>();
+    }
+    private void setList() {
+        try {               
             listModel = (ObservableList<String>) GesJarProcess.listProcessJarRunning();
             jList1.setItems(listModel);
         } catch (Exception ex) {
@@ -72,7 +75,8 @@ public class PanelJarProcessController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        createList();
+        initList();
+        setList();
     }
 
 }
