@@ -21,11 +21,17 @@ import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
+import javafx.stage.FileChooser;
+import javafx.stage.Window;
 import javax.swing.DefaultListModel;
+import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
 
@@ -153,6 +159,86 @@ public class PanelEJSAppListController implements Initializable {
             return true;
         } else {
             return false;
+        }
+    }
+    
+    public static void printProperties() {
+        System.out.println("fileConfig    = " + fileConfig);
+        System.out.println("pathDirConfig = " + pathDirConfig);
+    }
+    
+    public void selectFile() throws IOException {
+        FileChooser chooser = new FileChooser();
+        chooser.setInitialDirectory(new java.io.File(pathDirConfig));
+        //chooser.showOpenDialog(this);
+        //Titulo que llevara la ventana
+        chooser.setTitle("Selector de fichero");
+        //Elegiremos archivos del directorio
+        //SE PUEDE BORRAR PORQUE FileChooser por defecto solo permite archivos
+        //chooser.setFileSelectionMode(JFileChooser.FILES_ONLY); 
+        //chooser.setAcceptAllFileFilterUsed(false);
+        //Creamos el filtro
+        //FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jar", "jar");
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("JAVA files", "*.jar", "jar");
+        chooser.getExtensionFilters().add(filtro);
+        //chooser.setFileFilter(filtro);
+        //Seleccionamos el filtro
+        chooser.setSelectedExtensionFilter(filtro);
+        //Si seleccionamos algún archivo retornaremos su directorio
+        // COMPROBAR: si el stage principal (PanelEJSAppList) es el que hay que elegir o no
+        FXMLLoader fxmlLoader = new FXMLLoader(PanelEJSAppListMain.class.getResource("../view/PanelEJSAppList.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        File selectedFile = chooser.showOpenDialog(scene.getWindow());
+        if (selectedFile != null) {
+            // jTextFieldNameEJSApp.setText(chooser.getSelectedFile().getName());
+            //Si no seleccionamos nada retornaremos No seleccion
+        } else {
+            // System.out.println("No seleccion ");
+        }
+    }
+     
+    public void copyFile() throws IOException {
+        FileChooser chooser = new FileChooser();
+        chooser.setInitialDirectory(new java.io.File(pathDirEJSExport));
+        //chooser.showOpenDialog(this);
+        //Titulo que llevara la ventana
+        chooser.setTitle("Selector de fichero");
+        //Elegiremos archivos del directorio
+        //chooser.setFileSelectionMode(JFileChooser.FILES_ONLY);
+        //chooser.setAcceptAllFileFilterUsed(false);
+        //Creamos el filtro
+        //FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jar", "jar");
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("JAVA files", "*.jar", "jar");
+        chooser.getExtensionFilters().add(filtro);
+        //chooser.setFileFilter(filtro);
+        //Seleccionamos el filtro
+        chooser.setSelectedExtensionFilter(filtro);
+        //Si seleccionamos algún archivo retornaremos su directorio
+        // COMPROBAR: si el stage principal (PanelEJSAppList) es el que hay que elegir o no
+        FXMLLoader fxmlLoader = new FXMLLoader(PanelEJSAppListMain.class.getResource("../view/PanelEJSAppList.fxml"));
+        Scene scene = new Scene(fxmlLoader.load());
+        File selectedFile = chooser.showOpenDialog(scene.getWindow());
+        if (selectedFile != null) {
+            //System.out.println("Directorio: " + chooser.getCurrentDirectory());
+            //System.out.println("Fichero: " + chooser.getSelectedFile().getName());
+            Runtime rt = Runtime.getRuntime();
+            String command = "";
+            String s = File.separator;
+            if (OS.isWindows()) {
+                command = "cmd /C copy " + chooser.getInitialDirectory() + s + selectedFile.getName() + " C:\\sarlab\\init.d";
+            } else {
+                command = "cp " + chooser.getInitialDirectory() + s + selectedFile.getName() + " /sarlab/init.d";
+            }
+            try {
+                //rt.exec("cmd /C copy "+chooser.getCurrentDirectory()+s+chooser.getSelectedFile().getName()+" C:\\sarlab\\init.d");
+                rt.exec(command);
+            } catch (IOException ioe) {
+                ioe.printStackTrace();
+            }
+            //jTextFieldNameEJSApp.setText(chooser.getSelectedFile().getName());
+            //Si no seleccionamos nada retornaremos No seleccion
+        } else {
+            // System.out.println("No seleccion ");
         }
     }
     
