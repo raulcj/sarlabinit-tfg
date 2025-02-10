@@ -23,10 +23,12 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.ListView;
 import javafx.stage.FileChooser;
+import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
@@ -242,9 +244,19 @@ public class PanelEJSAppListController implements Initializable {
         }
     }
     
+    /*
+    * Comprueba el nº total de Stages abiertos
+    */
+    private int getOpenStagesCount() {
+        return (int) Window.getWindows().stream().filter(w -> w instanceof Stage).count();
+    }
+    
     @FXML
     void startPanelJarProcess() throws IOException {
-        PanelEJSAppListMain.startPanelJarProcess();
+        // nº de PanelJarProcess abiertos <= 1
+        if (getOpenStagesCount() < 2) {
+            PanelEJSAppListMain.startPanelJarProcess();
+        }
     }
     
     @Override
