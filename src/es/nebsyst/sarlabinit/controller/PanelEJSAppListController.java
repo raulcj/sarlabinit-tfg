@@ -7,6 +7,7 @@ package es.nebsyst.sarlabinit.controller;
 import es.nebsyst.sarlabinit.daemon.GesJarProcess;
 import es.nebsyst.sarlabinit.daemon.ServerRuntime;
 import es.nebsyst.sarlabinit.daemon.model.DirectoryEjsApp;
+import es.nebsyst.sarlabinit.daemon.model.EjsApp;
 import es.nebsyst.sarlabinit.main.PanelEJSAppListMain;
 import es.nebsyst.util.OS;
 import java.io.File;
@@ -26,13 +27,19 @@ import javafx.fxml.Initializable;
 import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
+import javafx.scene.control.Button;
 import javafx.scene.control.ListView;
+import javafx.scene.control.ScrollPane;
+import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
+import javafx.scene.layout.Border;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
 import javafx.stage.Window;
 import javax.swing.DefaultListModel;
 import javax.swing.JFileChooser;
 import javax.swing.JOptionPane;
+import javax.swing.border.TitledBorder;
 import javax.swing.filechooser.FileNameExtensionFilter;
 import org.apache.log4j.Logger;
 import org.apache.log4j.PropertyConfigurator;
@@ -81,31 +88,40 @@ public class PanelEJSAppListController implements Initializable {
     private ListView<String> jList1;
     
     // SUSTITUIR EN SCENE BUILDER
-    private javax.swing.JPanel jPanel3;
-    private javax.swing.JTextField jTextFieldNameEJSApp;
-    
-    
-    static public String initPathDirEJSExport() {
-        String userHome = System.getProperty("user.home");
-        String fileSeparator = System.getProperty("file.separator");
-        String configEjs = userHome + fileSeparator + ".EjsConsole.txt";
+    //private javax.swing.JPanel jPanel3;
 
-        Properties pro = new Properties();
-        try {
-            pro.load(new FileReader(configEjs));
-            String ejsWorkspace = pro.getProperty("UserDir");
-            if (ejsWorkspace != null) {
-                return ejsWorkspace + "export";
-            } else {
-                return ejsWorkspace;
-            }
-        } catch (FileNotFoundException ex) {
-            //java.util.logging.Logger.getLogger(PanelEJSAppList.class.getName()).log(Level.SEVERE, null, ex);
-        } catch (IOException ex) {
-            //java.util.logging.Logger.getLogger(PanelEJSAppList.class.getName()).log(Level.SEVERE, null, ex);
-        }
-        return "/";
-    }
+    
+    
+    @FXML
+    private ScrollPane jScrollPane1;
+    @FXML
+    private TitledPane jPanel3;
+    @FXML
+    private Button jButtonEdit;
+    @FXML
+    private Button jButtonErase;
+    @FXML
+    private Button jButtonNew;
+    @FXML
+    private Button jButton1;
+    @FXML
+    private Button jButton3;
+    @FXML
+    private Button jButton4;
+    @FXML
+    private Button jButton5;
+    @FXML
+    private Button jButton2;
+    @FXML
+    private Button jButton7;
+    @FXML 
+    private Button jButtonAñadirModificar;
+    @FXML
+    private TextField jTextFieldNameEJSApp;
+    @FXML
+    private TextField jTextFieldParam;
+    @FXML
+    private TextField jTextFieldDescrip;
     
     private void initPanelEJSAppList() {
         PropertyConfigurator.configure(configLog4j);
@@ -131,7 +147,38 @@ public class PanelEJSAppListController implements Initializable {
         initProperties();
         //printProperties();
         directoryEjsApp.execJar();
+        
+        // Se inician los componentes de initComponents() de la clase PanelEJSAppList.java original de Swing
+        jPanel3 = new TitledPane();
+        jList1.prefWidthProperty().bind(jScrollPane1.widthProperty());
+        jScrollPane1.setContent(jList1);
+        
+        // CONTINUAR ???...
     }
+    
+    static public String initPathDirEJSExport() {
+        String userHome = System.getProperty("user.home");
+        String fileSeparator = System.getProperty("file.separator");
+        String configEjs = userHome + fileSeparator + ".EjsConsole.txt";
+
+        Properties pro = new Properties();
+        try {
+            pro.load(new FileReader(configEjs));
+            String ejsWorkspace = pro.getProperty("UserDir");
+            if (ejsWorkspace != null) {
+                return ejsWorkspace + "export";
+            } else {
+                return ejsWorkspace;
+            }
+        } catch (FileNotFoundException ex) {
+            //java.util.logging.Logger.getLogger(PanelEJSAppList.class.getName()).log(Level.SEVERE, null, ex);
+        } catch (IOException ex) {
+            //java.util.logging.Logger.getLogger(PanelEJSAppList.class.getName()).log(Level.SEVERE, null, ex);
+        }
+        return "/";
+    }
+    
+    
     
     public static void initProperties() {
         try {
@@ -155,23 +202,27 @@ public class PanelEJSAppListController implements Initializable {
         }
     }
     
-    public boolean exitConfig() {
-        File fichero = new File(fileConfig);
-        if (fichero.exists()) {
-            return true;
-        } else {
-            return false;
-        }
-    }
-    
     public static void printProperties() {
         System.out.println("fileConfig    = " + fileConfig);
         System.out.println("pathDirConfig = " + pathDirConfig);
     }
     
+    public boolean exitConfig() {
+        File fichero = new File(fileConfig);
+        return fichero.exists();
+    }
+    
+    public void clearText() {
+        jTextFieldNameEJSApp.setText("");
+        jTextFieldParam.setText("");
+        jTextFieldDescrip.setText("");
+        jTextFieldNameEJSApp.requestFocus();
+    }
+     
     public void selectFile() throws IOException {
         FileChooser chooser = new FileChooser();
-        chooser.setInitialDirectory(new java.io.File(pathDirConfig));
+        //chooser.setInitialDirectory(new java.io.File(pathDirConfig)) ESTA RUTA DA ERROR;
+        chooser.setInitialDirectory(new java.io.File(pathDirEJSExport));
         //chooser.showOpenDialog(this);
         //Titulo que llevara la ventana
         chooser.setTitle("Selector de fichero");
@@ -258,6 +309,150 @@ public class PanelEJSAppListController implements Initializable {
             PanelEJSAppListMain.startPanelJarProcess();
         }
     }
+    
+    @FXML
+    void jButtonEditActionPerformed() {
+         // TODO add your handling code here:
+        newApp = true;
+        int ind = jList1.getSelectionModel().getSelectedIndex();
+        if (ind != -1) {
+            jPanel3.setText(Estado1);  
+            jButtonAñadirModificar.setText("Modificar");
+            EjsApp ejsApp = directoryEjsApp.get(ind);
+            jTextFieldNameEJSApp.setText(ejsApp.getNameEjsApp());
+            jTextFieldParam.setText(ejsApp.getSettings());
+            jTextFieldDescrip.setText(ejsApp.getDescriction());
+        }   
+    }
+    
+    @FXML
+    void jButtonEraseActionPerformed() {
+        // TODO add your handling code here:
+        newApp = true;
+        jPanel3.setText(Estado0);
+        jButtonAñadirModificar.setText("Anadir ...");
+        int ind = jList1.getSelectionModel().getSelectedIndex();
+        if (OS.isWindows()) {
+            fileConfig = "C:/sarlab/service/servicesarlab.xml";
+        }
+        if (ind != -1) {
+            listModel.remove(ind);
+            directoryEjsApp.remove(ind);
+            directoryEjsApp.generateXML(fileConfig);
+            clearText();
+        }
+    }
+    
+    @FXML
+    void jButtonNewActionPerformed() {                                           
+        newApp = true;
+        jPanel3.setText(Estado0);
+        jButtonAñadirModificar.setText("Anadir ...");
+        clearText();
+    }         
+    
+    @FXML
+    void jButton1ActionPerformed() {                                         
+        // TODO add your handling code here:
+        directoryEjsApp.execJar();
+    }  
+    
+    @FXML
+    void jButton3ActionPerformed() throws IOException {                                         
+        // TODO add your handling code here:
+        directoryEjsApp.killJar();
+    }    
+    
+    @FXML
+    void jButton4ActionPerformed() throws IOException {                                         
+        startPanelJarProcess();
+    }  
+    
+    @FXML
+    void jButton5ActionPerformed() throws IOException {                                         
+        copyFile();
+    } 
+     
+    @FXML
+    void jButton2ActionPerformed() throws IOException {                                         
+        selectFile();
+    } 
+    @FXML
+    void jButton7ActionPerformed() {                                         
+        newApp = true;
+        jPanel3.setText(Estado0);
+        jButtonAñadirModificar.setText("Anadir ...");
+        clearText();
+    }    
+    
+    @FXML
+    void jButtonAñadirModificarActionPerformed() {                                                       
+        String patron = "%-45s %-70s  %-80s";
+        String nameEjsApp, settings, descriction;
+        nameEjsApp = jTextFieldNameEJSApp.getText();
+        settings = jTextFieldParam.getText();
+        descriction = jTextFieldDescrip.getText();
+        if (OS.isWindows()) {
+            fileConfig = "C:/sarlab/service/servicesarlab.xml";
+        }
+        if (newApp) {
+            if (directoryEjsApp.add(nameEjsApp, descriction, settings)) {
+                listModel.addAll(String.format(patron, nameEjsApp, settings, descriction));
+            }
+            clearText();
+            directoryEjsApp.generateXML(fileConfig);
+        } else {
+            int ind = jList1.getSelectionModel().getSelectedIndex();
+            if (ind != -1) {
+                directoryEjsApp.set(ind, new EjsApp(nameEjsApp, descriction, settings));
+                listModel.set(ind, String.format(patron, nameEjsApp, settings, descriction));
+                directoryEjsApp.generateXML(fileConfig);
+            }
+        }
+    }              
+    
+    @FXML
+    void jList1ValueChanged() {                                    
+        // TODO add your handling code here:
+        newApp = true;
+        int ind = jList1.getSelectionModel().getSelectedIndex();
+        if (ind != -1) {
+            jPanel3.setText(Estado1);
+            jButtonAñadirModificar.setText("Modificar");
+            EjsApp ejsApp = directoryEjsApp.get(ind);
+            jTextFieldNameEJSApp.setText(ejsApp.getNameEjsApp());
+            jTextFieldParam.setText(ejsApp.getSettings());
+            jTextFieldDescrip.setText(ejsApp.getDescriction());
+        }
+    }                                   
+   
+    @FXML
+    private void jList1MouseClicked() {                                    
+        newApp = false;
+        int ind = jList1.getSelectionModel().getSelectedIndex();
+        if (ind != -1) {
+            jPanel3.setText(Estado1);
+            jButtonAñadirModificar.setText("Modificar");
+            EjsApp ejsApp = directoryEjsApp.get(ind);
+            jTextFieldNameEJSApp.setText(ejsApp.getNameEjsApp());
+            jTextFieldParam.setText(ejsApp.getSettings());
+            jTextFieldDescrip.setText(ejsApp.getDescriction());
+        }
+    }            
+     
+    @FXML
+    void jList1MousePressed() {                                    
+        newApp = false;
+        int ind = jList1.getSelectionModel().getSelectedIndex();
+        if (ind != -1) {
+            jPanel3.setText(Estado1);
+            jButtonAñadirModificar.setText("Modificar");
+            EjsApp ejsApp = directoryEjsApp.get(ind);
+            jTextFieldNameEJSApp.setText(ejsApp.getNameEjsApp());
+            jTextFieldParam.setText(ejsApp.getSettings());
+            jTextFieldDescrip.setText(ejsApp.getDescriction());
+        }
+    }          
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
