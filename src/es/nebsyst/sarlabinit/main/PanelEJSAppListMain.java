@@ -6,6 +6,7 @@ package es.nebsyst.sarlabinit.main;
 
 import java.io.IOException;
 import javafx.application.Application;
+import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
@@ -20,12 +21,16 @@ public class PanelEJSAppListMain extends Application {
     @Override
     public void start(Stage panelEJSAppListStage) throws IOException {
         FXMLLoader fxmlLoader = new FXMLLoader(PanelEJSAppListMain.class.getResource("../view/PanelEJSAppList.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());
+        Scene scene = new Scene(fxmlLoader.load());       
         panelEJSAppListStage.setTitle("Poner titulo en esta ventana? (PanelEJSAppList)");
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
         panelEJSAppListStage.getIcons().add(icono);
         panelEJSAppListStage.setScene(scene);
-        panelEJSAppListStage.show();  
+        // Evita que se muestra la pantalla
+        //panelEJSAppListStage.initStyle(StageStyle.UTILITY);
+        //panelEJSAppListStage.show();  
+        Platform.setImplicitExit(false);
+        MySystemTray mySystemTray = new MySystemTray(panelEJSAppListStage);
     }
     
     public static void startPanelJarProcess() throws IOException {

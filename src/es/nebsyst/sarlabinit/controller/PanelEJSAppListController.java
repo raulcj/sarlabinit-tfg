@@ -9,7 +9,9 @@ import es.nebsyst.sarlabinit.daemon.ServerRuntime;
 import es.nebsyst.sarlabinit.daemon.model.DirectoryEjsApp;
 import es.nebsyst.sarlabinit.daemon.model.EjsApp;
 import es.nebsyst.sarlabinit.main.PanelEJSAppListMain;
+import es.nebsyst.sarlabinit.main.MySystemTray;
 import es.nebsyst.util.OS;
+import java.awt.SystemTray;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileReader;
@@ -18,6 +20,7 @@ import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
 import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
@@ -32,6 +35,7 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Border;
 import javafx.stage.FileChooser;
 import javafx.stage.Stage;
@@ -52,10 +56,6 @@ public class PanelEJSAppListController implements Initializable {
 
     /*Copied*/
     private final static Logger log = Logger.getLogger(PanelEJSAppListController.class);
-    
-    /*Copied*/
-    //MySystemTray mySystemTray = new MySystemTray(this);
-    
     /*Copied*/
     public static ServerRuntime serverRuntime;
     
@@ -82,8 +82,7 @@ public class PanelEJSAppListController implements Initializable {
     String labelBoton;
     String bAnadir = "Añadir...";
     String bModificar = "Modificar";
-    
-    
+   
     private ListView<String> jList1;
     
     @FXML
@@ -117,7 +116,7 @@ public class PanelEJSAppListController implements Initializable {
     @FXML
     private TextField jTextFieldDescrip;
     
-    private void initPanelEJSAppList() {
+    private void initPanelEJSAppList() throws IOException { 
         PropertyConfigurator.configure(configLog4j);
         log.debug("****** Iniciando SARLAB init **********");
         log.debug("fileConfig = " + fileConfig);
@@ -172,8 +171,6 @@ public class PanelEJSAppListController implements Initializable {
         }
         return "/";
     }
-    
-    
     
     public static void initProperties() {
         try {
@@ -451,7 +448,11 @@ public class PanelEJSAppListController implements Initializable {
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        initPanelEJSAppList();
+        try {
+            initPanelEJSAppList();
+        } catch (IOException ex) {
+            java.util.logging.Logger.getLogger(PanelEJSAppListController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
 }
