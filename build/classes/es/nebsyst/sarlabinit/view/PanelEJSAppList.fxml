@@ -34,7 +34,7 @@
                   </Text>
                </children>
             </Pane>
-            <TitledPane fx:id="jPanel2" collapsible="false" prefHeight="300.0" prefWidth="600.0">
+            <TitledPane fx:id="jPanel2" collapsible="false" prefHeight="300.0" prefWidth="600.0" text="Servicios">
                <content>
                   <Pane prefHeight="200.0" prefWidth="200.0">
                      <children>
@@ -85,7 +85,7 @@
                   </Pane>
                </content>
             </TitledPane>
-            <TitledPane fx:id="jPanel13" collapsible="false" prefHeight="190.0" prefWidth="600.0">
+            <TitledPane fx:id="jPanel3" collapsible="false" prefHeight="190.0" prefWidth="600.0" text="Nueva aplicación EJS">
                <content>
                   <Pane prefHeight="126.0" prefWidth="598.0">
                      <children>

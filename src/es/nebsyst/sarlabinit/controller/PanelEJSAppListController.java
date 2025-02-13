@@ -73,7 +73,6 @@ public class PanelEJSAppListController implements Initializable {
     
     /*Copied*/
     DirectoryEjsApp directoryEjsApp = new DirectoryEjsApp();
-    // MIRAR: si puede cambiarse por ObservableList
     // FUNCIONA: ObservableList<String> listModel = observableArrayList(new ArrayList<>());
     ObservableList<String> listModel;
     
@@ -86,11 +85,6 @@ public class PanelEJSAppListController implements Initializable {
     
     
     private ListView<String> jList1;
-    
-    // SUSTITUIR EN SCENE BUILDER
-    //private javax.swing.JPanel jPanel3;
-
-    
     
     @FXML
     private ScrollPane jScrollPane1;
@@ -139,7 +133,8 @@ public class PanelEJSAppListController implements Initializable {
         }
         jList1 = new ListView<>();
         jList1.setItems(listModel);
-        //jPanel3.setBorder(javax.swing.BorderFactory.createTitledBorder(Estado0));
+        jPanel3 = new TitledPane();
+        jPanel3.setText(Estado0);
         //jTextFieldNameEJSApp.requestFocus();
         newApp = true;
         GesJarProcess.initProperties();
@@ -149,7 +144,7 @@ public class PanelEJSAppListController implements Initializable {
         directoryEjsApp.execJar();
         
         // Se inician los componentes de initComponents() de la clase PanelEJSAppList.java original de Swing
-        jPanel3 = new TitledPane();
+        
         jList1.prefWidthProperty().bind(jScrollPane1.widthProperty());
         jScrollPane1.setContent(jList1);
         
@@ -232,7 +227,7 @@ public class PanelEJSAppListController implements Initializable {
         //chooser.setAcceptAllFileFilterUsed(false);
         //Creamos el filtro
         //FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jar", "jar");
-        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("JAVA files", "*.jar", "jar");
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("*.jar", "jar");
         chooser.getExtensionFilters().add(filtro);
         //chooser.setFileFilter(filtro);
         //Seleccionamos el filtro
@@ -261,7 +256,7 @@ public class PanelEJSAppListController implements Initializable {
         //chooser.setAcceptAllFileFilterUsed(false);
         //Creamos el filtro
         //FileNameExtensionFilter filtro = new FileNameExtensionFilter("*.jar", "jar");
-        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("JAVA files", "*.jar", "jar");
+        FileChooser.ExtensionFilter filtro = new FileChooser.ExtensionFilter("*.jar", "jar");
         chooser.getExtensionFilters().add(filtro);
         //chooser.setFileFilter(filtro);
         //Seleccionamos el filtro
