@@ -3,7 +3,7 @@
  */
 package es.nebsyst.sarlabinit.main;
 
-import es.uhu.sarlab.discovery.vista.PanelClientServerName;
+import es.uhu.sarlab.discovery.vistaTFG.PanelClientServerName;
 import java.awt.AWTException;
 import java.awt.Image;
 import java.awt.MenuItem;
@@ -33,7 +33,7 @@ public class MySystemTray {
     private PanelClientServerName clientName;
     private PopupMenu popup = new PopupMenu();
     private final Image image = new ImageIcon(getClass().getResource("/es/nebsyst/sarlabinit/resource/execjar128.png")).getImage();
-    private final TrayIcon trayIcon = new TrayIcon(image, "Servicio SARLAB", popup);
+    private final TrayIcon trayIcon = new TrayIcon(image, "Servicio SARLAB-TFG", popup);
     //para el Timer
     private Timer timer;
 
