@@ -29,8 +29,9 @@ import javax.swing.JFrame;
  */
 public class MySystemTray {
 
-    private Stage parent;
-    private PanelClientServerName clientName;
+    private Stage restoreStage;
+    private Stage discoveryStage;
+    //private PanelClientServerName clientName
     private PopupMenu popup = new PopupMenu();
     private final Image image = new ImageIcon(getClass().getResource("/es/nebsyst/sarlabinit/resource/execjar128.png")).getImage();
     private final TrayIcon trayIcon = new TrayIcon(image, "Servicio SARLAB-TFG", popup);
@@ -41,9 +42,12 @@ public class MySystemTray {
      * Constructor de clase
      *
      * @param stage
+     * @param stage
      */
-    public MySystemTray(Stage stage) {
-        this.parent = stage;
+    public MySystemTray(Stage restoreStage, Stage discoveryStage) {
+        
+        this.restoreStage = restoreStage;
+        this.discoveryStage = discoveryStage;
         //comprueba si SystemTray es soportado en el sistema
         if (SystemTray.isSupported()) {
             //obtiene instancia SystemTray
@@ -58,7 +62,7 @@ public class MySystemTray {
 
                     //Si se presiona con el boton izquierdo en el icono
                     //y la aplicacion esta minimizada se muestra una frase
-                    if (evt.getButton() == MouseEvent.BUTTON1 && parent.isIconified()) {
+                    if (evt.getButton() == MouseEvent.BUTTON1 && restoreStage.isIconified()) {
                         MensajeTrayIcon("Para acceder al Menú debe pulse el botón derecho del ratón", MessageType.INFO);
                     }
                 }
@@ -88,35 +92,31 @@ public class MySystemTray {
 
             //Restaurar aplicacion
             ActionListener restoreListener = e -> Platform.runLater(() -> {
-                parent.show();
+                this.restoreStage.show();
                 //si esta minimizado restaura JFrame
-                if (parent.isIconified()) {
-                    parent.show();
-                    //parent.setExtendedState(JFrame.NORMAL);
-                    parent.setIconified(false); 
-                    //parent.setMaximized(false);
-                    //parent.repaint();
+                if (this.restoreStage.isIconified()) {
+                    this.restoreStage.show();
+                    //this.restoreStage.setExtendedState(JFrame.NORMAL);
+                    this.restoreStage.setIconified(false); 
+                    //this.restoreStage.setMaximized(false);
+                    //this.restoreStage.repaint();
                     if (timer != null) {
                         timer.cancel();
                     }
                 }
             });
 
-            ActionListener discoveryListener = (ActionEvent e) -> {
+            ActionListener discoveryListener = e -> Platform.runLater(() -> {
 
-                if (clientName == null) {
-                    clientName = new PanelClientServerName();
-                    clientName.setVisible(true);
-                    clientName.init();
+                if (this.discoveryStage == null) {
+                    this.discoveryStage.show();
                 } else {
-                    clientName.setVisible(true);
-                    if (clientName.getExtendedState() == JFrame.ICONIFIED) {
-                        clientName.setVisible(true);
-                        clientName.setExtendedState(JFrame.NORMAL);
-                        clientName.repaint();
+                    this.discoveryStage.show();
+                    if (this.discoveryStage.isIconified()) {
+                        this.discoveryStage.show();
                     }
                 }
-            };
+            });
 
             //Se crean los Items del menu PopUp y se añaden
             MenuItem exitAppItem = new MenuItem("Salir");
@@ -147,10 +147,10 @@ public class MySystemTray {
 
         //Cuando se minimiza JFrame, se oculta para que no aparesca en la barra de tareas
         
-        parent.iconifiedProperty().addListener(e -> new WindowAdapter() {
+        this.restoreStage.iconifiedProperty().addListener(e -> new WindowAdapter() {
             @Override
             public void windowIconified(WindowEvent e) {
-                parent.hide();//Se oculta JFrame
+                restoreStage.hide();//Se oculta JFrame
                 //Se inicia una tarea cuando se minimiza           
                 if (timer != null) {
                     timer.cancel();

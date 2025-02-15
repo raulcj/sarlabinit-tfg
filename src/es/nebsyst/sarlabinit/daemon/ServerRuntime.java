@@ -3,7 +3,7 @@
  */
 package es.nebsyst.sarlabinit.daemon;
 
-import es.nebsyst.sarlabinit.main.PanelEJSAppListMain;
+import es.nebsyst.sarlabinit.main.Main;
 //import es.nebsyst.sarlabinit.main.PanelJarProcessMain;
 import java.io.DataInputStream;
 import java.io.DataOutputStream;
@@ -20,7 +20,7 @@ import org.apache.log4j.Logger;
  */
 public class ServerRuntime {
     
-    private final static Logger log = Logger.getLogger(PanelEJSAppListMain.class);
+    private final static Logger log = Logger.getLogger(Main.class);
     
     public static boolean done;
     

@@ -8,7 +8,7 @@ import es.nebsyst.sarlabinit.daemon.GesJarProcess;
 import es.nebsyst.sarlabinit.daemon.ServerRuntime;
 import es.nebsyst.sarlabinit.daemon.model.DirectoryEjsApp;
 import es.nebsyst.sarlabinit.daemon.model.EjsApp;
-import es.nebsyst.sarlabinit.main.PanelEJSAppListMain;
+import es.nebsyst.sarlabinit.main.Main;
 import es.nebsyst.sarlabinit.main.MySystemTray;
 import es.nebsyst.util.OS;
 import java.awt.SystemTray;
@@ -231,7 +231,7 @@ public class PanelEJSAppListController implements Initializable {
         chooser.setSelectedExtensionFilter(filtro);
         //Si seleccionamos algún archivo retornaremos su directorio
         // COMPROBAR: si el stage principal (PanelEJSAppList) es el que hay que elegir o no
-        FXMLLoader fxmlLoader = new FXMLLoader(PanelEJSAppListMain.class.getResource("../view/PanelEJSAppList.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         File selectedFile = chooser.showOpenDialog(scene.getWindow());
         if (selectedFile != null) {
@@ -260,7 +260,7 @@ public class PanelEJSAppListController implements Initializable {
         chooser.setSelectedExtensionFilter(filtro);
         //Si seleccionamos algún archivo retornaremos su directorio
         // COMPROBAR: si el stage principal (PanelEJSAppList) es el que hay que elegir o no
-        FXMLLoader fxmlLoader = new FXMLLoader(PanelEJSAppListMain.class.getResource("../view/PanelEJSAppList.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         File selectedFile = chooser.showOpenDialog(scene.getWindow());
         if (selectedFile != null) {
@@ -286,20 +286,10 @@ public class PanelEJSAppListController implements Initializable {
             // System.out.println("No seleccion ");
         }
     }
-    
-    /*
-    * Comprueba el nº total de Stages abiertos
-    */
-    private int getOpenStagesCount() {
-        return (int) Window.getWindows().stream().filter(w -> w instanceof Stage).count();
-    }
-    
+   
     @FXML
     void startPanelJarProcess() throws IOException {
-        // nº de PanelJarProcess abiertos <= 1
-        if (getOpenStagesCount() < 2) {
-            PanelEJSAppListMain.startPanelJarProcess();
-        }
+        Main.getPanelJarProcessStage().show();
     }
     
     @FXML

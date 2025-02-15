@@ -62,7 +62,7 @@ import javax.swing.event.ListSelectionListener;
 /*     */   private JLabel jLabelPass;
 /*     */   private JLabel jLabelPortInputGIOTTunnel;
 /*     */   private JLabel jLabelPortInputGIOTWeb;
-/*     */   
+/*     */   /*     */   
 /*     */   public PanelListGateway(PanelClientServerName clientName) {
 /*  48 */     testParameter();
 /*  49 */     this.clientName = clientName;
@@ -154,6 +154,12 @@ import javax.swing.event.ListSelectionListener;
 /* 135 */     this.jLabelPass.setText(bundle.getString("PanelListGateway.jLabelPass.text"));
 /*     */   }
 /*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   /*     */ 
 /*     */ 
 /*     */ 
 /*     */ 
@@ -730,6 +736,14 @@ import javax.swing.event.ListSelectionListener;
 /*     */ 
 /*     */ 
 /*     */ 
+/*     */   /*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
 /*     */   
 /*     */   public static void main(String[] args) throws UnsupportedLookAndFeelException {
 /*     */     try {
@@ -751,7 +765,7 @@ import javax.swing.event.ListSelectionListener;
 /*     */ 
 /*     */     
 /* 734 */     Locale.setDefault(new Locale("en", "GB"));
-/*     */     
+/*     */     /*     */     
 /* 736 */     EventQueue.invokeLater(new Runnable() {
 /*     */           public void run() {
 /* 738 */             (new PanelListGateway(null)).setVisible(true);
