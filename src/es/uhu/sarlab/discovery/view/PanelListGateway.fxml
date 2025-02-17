@@ -8,16 +8,17 @@
 <?import javafx.scene.control.TextField?>
 <?import javafx.scene.control.TitledPane?>
 <?import javafx.scene.control.ToolBar?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 
-
-<AnchorPane prefHeight="400.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelListGatewayController">
+<AnchorPane prefHeight="400.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelListGatewayController">
    <children>
-      <VBox layoutX="-4.0" layoutY="-1.0" prefHeight="400.0" prefWidth="600.0">
+      <VBox layoutX="-4.0" layoutY="-1.0" prefHeight="400.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <SplitPane dividerPositions="0.47994652406417104" prefHeight="343.0" prefWidth="600.0">
               <items>
@@ -25,7 +26,7 @@
                      <children>
                         <TitledPane animated="false" collapsible="false" layoutX="1.0" prefHeight="341.6" prefWidth="284.0" text="Lista de myElement" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <content>
-                              <TitledPane alignment="CENTER" animated="false" collapsible="false" prefHeight="344.0" prefWidth="282.0" text="Id de conexion" textAlignment="RIGHT">
+                              <TitledPane fx:id="jLabelIdConnectT" alignment="CENTER" animated="false" collapsible="false" prefHeight="344.0" prefWidth="282.0" text="Id de conexion" textAlignment="RIGHT">
                                  <content>
                                     <ListView prefHeight="200.0" prefWidth="200.0" />
                                  </content>
@@ -54,14 +55,14 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Id de conexión" />
-                                    <Label text="IP myFrontier" GridPane.rowIndex="1" />
+                                    <Label fx:id="jLabelIdConnect" text="Id de conexión" />
+                                    <Label fx:id="jLabelIpServerSarlab" text="IP myFrontier" GridPane.rowIndex="1" />
                                     <Label text="Puerto myFrontier" GridPane.rowIndex="2" />
-                                    <Label text="Path" GridPane.rowIndex="3" />
+                                    <Label fx:id="jLabelIdGIOT" text="Path" GridPane.rowIndex="3" />
                                     <Label text="Usuario myFrontier" GridPane.rowIndex="4" />
-                                    <Label text="Clave myFrontier" GridPane.rowIndex="5" />
+                                    <Label fx:id="jLabelPass" text="Clave myFrontier" GridPane.rowIndex="5" />
                                     <Label text="Tiempo sesión" GridPane.rowIndex="6" />
-                                    <Label text="Id myConnectionGroups" GridPane.rowIndex="7" />
+                                    <Label fx:id="jLabelIdExp" text="Id myConnectionGroups" GridPane.rowIndex="7" />
                                     <TextField GridPane.columnIndex="1" />
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
@@ -78,13 +79,23 @@
                   </AnchorPane>
               </items>
             </SplitPane>
-            <ToolBar prefHeight="50.0" prefWidth="600.0">
+            <ToolBar prefHeight="50.0" prefWidth="642.0">
               <items>
-                <Button mnemonicParsing="false" text="Salvar" />
-                  <Button mnemonicParsing="false" text="Nuevo" />
-                  <Button mnemonicParsing="false" text="Eliminar" />
-                  <Button mnemonicParsing="false" text="Seleccionar" />
-                  <CheckBox mnemonicParsing="false" text="myGateway" />
+                <Button fx:id="jButtonSave" mnemonicParsing="false" text="Salvar" />
+                  <Button fx:id="jButtonNew" mnemonicParsing="false" text="Nuevo" />
+                  <Button fx:id="jButtonDel" mnemonicParsing="false" text="Eliminar" />
+                  <Button fx:id="jButtonSelect" mnemonicParsing="false" text="Seleccionar" />
+                  <CheckBox fx:id="jCheckBoxGIoT" mnemonicParsing="false" text="myGateway" />
+                  <ImageView fx:id="jLabel1" fitHeight="150.0" fitWidth="200.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/fileInternet.gif" />
+                     </image>
+                  </ImageView>
+                  <ImageView fx:id="icoHD" fitHeight="150.0" fitWidth="50.0" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@resources/HD.gif" />
+                     </image>
+                  </ImageView>
               </items>
             </ToolBar>
          </children>

@@ -21,6 +21,7 @@ import java.util.ArrayList;
 import java.util.ResourceBundle;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -29,7 +30,9 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 //import javax.swing.ListModel;
@@ -39,7 +42,7 @@ import javax.swing.event.ListSelectionEvent;
  * @author alumno
  */
 public class PanelListGatewayController implements Initializable {
-    
+    // INICIALIZACIONES DE CLASE
     String fileNameBaseXML = "gateway.xml";
     DirectoryGatewayRemote directoryGatewayRemote;
     ObservableList<String> listModel;
@@ -51,20 +54,35 @@ public class PanelListGatewayController implements Initializable {
     String initPortVirtualFrontier; 
     String initPathVirtualFrontier; 
     
-    private Label icoHD; 
+    @FXML
+    private ImageView icoHD; 
+    @FXML
+    private ImageView jLabel1;
+    @FXML
     private Button jButtonDel; 
+    @FXML
     public Button jButtonNew; 
+    @FXML
     public Button jButtonSave; 
+    @FXML
     public Button jButtonSelect; 
-    public CheckBox jCheckBoxGIoT; 
-    private Label jLabel1; 
-    private Label jLabelIdConnect; 
+    @FXML
+    public CheckBox jCheckBoxGIoT;
+    @FXML
     private Label jLabelIdConnectT; 
+    @FXML
+    private Label jLabelIdConnect;  
+    @FXML
     private Label jLabelIdExp;
+    @FXML
     private Label jLabelIdGIOT;
+    @FXML
     private Label jLabelIpServerSarlab;
-    private Label jLabelKeyGIOT;
+    // FALTA:
+    //private Label jLabelKeyGIOT;
+    @FXML
     private Label jLabelPass;
+    // 18-02-25: Seguir por aqui...
     private Label jLabelPortInputGIOTTunnel;
     private Label jLabelPortInputGIOTWeb;    
     private Label jLabelPortServerSarlab; 
@@ -89,21 +107,26 @@ public class PanelListGatewayController implements Initializable {
     public TextField jTextlIdConnect;
    
     private void initPanelListGateway() {
+        // Se declara el bundle
+        ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelListGateway");
+        // SETEO DE LOS COMPONENTES CON TEXTO
+        this.jButtonSave.setText(bundle.getString("PanelListGateway.jButtonSave.text"));
+        this.jButtonNew.setText(bundle.getString("PanelListGateway.jButtonNew.text"));
+        this.jButtonDel.setText(bundle.getString("PanelListGateway.jButtonDel.text"));
+        this.jButtonSelect.setText(bundle.getString("PanelListGateway.jButtonSelect.text"));
+        this.jCheckBoxGIoT.setText(bundle.getString("PanelListGateway.jCheckBoxGIoT.text"));
+        this.jLabelIdConnectT.setText(bundle.getString("PanelListGateway.jLabelIdConnectT.text"));
+        this.jLabelIdConnect.setText(bundle.getString("PanelListGateway.jLabelIdConnect.text"));
+        this.jLabelIdConnect.setText(bundle.getString("PanelListGateway.jLabelIdExp.text"));
+        this.jLabelIdGIOT.setText(bundle.getString("PanelListGateway.jLabelIdGIOT.text"));
+        this.jLabelIpServerSarlab.setText(bundle.getString("PanelListGateway.jLabelIpServerSarlab.text"));
+        this.jLabelPass.setText(bundle.getString("PanelListGateway.jLabelPass.text"));
         
-        icoHD = new Label();
-        jButtonDel = new Button();
-        jButtonNew = new Button();
-        jButtonSave = new Button();
-        jButtonSelect = new Button();
-        jCheckBoxGIoT = new CheckBox();
-        jLabel1 = new Label();
-        jLabelIdConnect = new Label();
-        jLabelIdConnectT = new Label();
-        jLabelIdExp = new Label();
-        jLabelIdGIOT = new Label();
-        jLabelIpServerSarlab = new Label();
-        jLabelKeyGIOT = new Label();
-        jLabelPass = new Label();
+        
+        // BORRAR INICIALIZACION DE COMPONENTES
+        
+        //jLabelKeyGIOT = new Label();
+        
         jLabelPortInputGIOTTunnel = new Label();
         jLabelPortInputGIOTWeb = new Label();
         jLabelPortServerSarlab = new Label();
@@ -126,7 +149,9 @@ public class PanelListGatewayController implements Initializable {
         jTextTimeOUT = new TextField();
         jTextUserGIOT = new TextField();
         jTextlIdConnect = new TextField();
-        /////////////////SEPARACION
+ 
+        
+        /////////////////FUNCIONALIDAD
         testParameter();
         initJText();
         this.directoryGatewayRemote = new DirectoryGatewayRemote();
@@ -214,14 +239,6 @@ public class PanelListGatewayController implements Initializable {
         this.jTextIdExp.setText("");
         this.jTextTimeOUT.setText("600");
     }
-    
-    public String giveMeFileNameConfigXML() {
-        if (OS.isWindows()) {
-            return "C:/sarlab/config/" + this.fileNameBaseXML;
-        }
-        return "/sarlab/config/" + this.fileNameBaseXML;
-    }
-    
     
     private void jList1ValueChanged(ListSelectionEvent evt) {
 /* 449 */     this.jCheckBoxGIoT.setDisable(true);
@@ -461,9 +478,16 @@ public class PanelListGatewayController implements Initializable {
 /* 697 *     this.clientName.toUpdate();
 /*     * } ///*/
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-       initPanelListGateway();
-    }
+        public String giveMeFileNameConfigXML() {
+            if (OS.isWindows()) {
+                return "C:/sarlab/config/" + this.fileNameBaseXML;
+        }
+            return "/sarlab/config/" + this.fileNameBaseXML;
+        }
+        
+        @Override
+        public void initialize(URL url, ResourceBundle rb) {
+           initPanelListGateway();
+        }
     
 }
