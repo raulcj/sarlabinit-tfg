@@ -19,6 +19,9 @@ import java.awt.event.ActionEvent;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableListValue;
+import javafx.beans.value.ObservableValue;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -30,15 +33,19 @@ import javafx.scene.control.ListView;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
+import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
+import javafx.scene.text.Text;
+import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
 import javax.swing.event.ListSelectionEvent;
 //import javax.swing.ListModel;
 
 /**
- *
+ * REVISAR Y MODIFICAR: lineas con PanelClientServerName clientName
+ * 
  * @author alumno
  */
 public class PanelListGatewayController implements Initializable {
@@ -53,7 +60,13 @@ public class PanelListGatewayController implements Initializable {
     String initVirtualFrontier; 
     String initPortVirtualFrontier; 
     String initPathVirtualFrontier; 
-    
+   
+    @FXML
+    private TitledPane jTitledPane1;
+    @FXML
+    private TitledPane jTitledPane2;
+    @FXML
+    private TitledPane jTitledPane3; 
     @FXML
     private ImageView icoHD; 
     @FXML
@@ -61,15 +74,15 @@ public class PanelListGatewayController implements Initializable {
     @FXML
     private Button jButtonDel; 
     @FXML
-    public Button jButtonNew; 
+    private Button jButtonNew; 
     @FXML
-    public Button jButtonSave; 
+    private Button jButtonSave; 
     @FXML
-    public Button jButtonSelect; 
+    private Button jButtonSelect; 
     @FXML
-    public CheckBox jCheckBoxGIoT;
-    @FXML
-    private Label jLabelIdConnectT; 
+    private CheckBox jCheckBoxGIoT;
+    // No necesario, es Title de JTitledPane3:
+    //private String jLabelIdConnectT; // cambio
     @FXML
     private Label jLabelIdConnect;  
     @FXML
@@ -78,93 +91,112 @@ public class PanelListGatewayController implements Initializable {
     private Label jLabelIdGIOT;
     @FXML
     private Label jLabelIpServerSarlab;
-    // FALTA:
+    // No se usa:
     //private Label jLabelKeyGIOT;
     @FXML
-    private Label jLabelPass;
-    // 18-02-25: Seguir por aqui...
+    private Label jLabelPass; 
+    @FXML
     private Label jLabelPortInputGIOTTunnel;
+    @FXML
     private Label jLabelPortInputGIOTWeb;    
+    @FXML
     private Label jLabelPortServerSarlab; 
-    private Label jLabelTimeOut; 
+    @FXML
+    private Label jLabelTimeOut;
+    @FXML
     private Label jLabelUser; 
+    @FXML
     private ListView<String> jList1;
-    private Pane jPanel1; 
-    private Pane jPanel2; 
-    private Pane jPanel3; 
-    private Pane jPanel5; 
-    public PasswordField jPasswordPassGIOT; 
-    private ScrollPane jScrollPane1; 
-    public TextField jTextIdExp; 
-    public TextField jTextIdGIOT; 
-    public TextField jTextIpServerSarlab; 
-    public TextField jTextKeyGIOT; 
-    public TextField jTextPortInputGIOTTunnel; 
-    public TextField jTextPortInputGIOTWeb; 
-    public TextField jTextPortServerSarlab1; 
-    public TextField jTextTimeOUT; 
-    public TextField jTextUserGIOT; 
-    public TextField jTextlIdConnect;
+    @FXML
+    private PasswordField jTextKeyGIOT;
+   
+    private PasswordField jPasswordPassGIOT;    
+    @FXML
+    private TextField jTextIdExp; 
+    @FXML
+    private TextField jTextIdGIOT; 
+    @FXML
+    private TextField jTextUserGIOT; 
+    @FXML
+    private TextField jTextIpServerSarlab; 
+    @FXML
+    private TextField jTextPortInputGIOTTunnel; 
+    @FXML
+    private TextField jTextPortInputGIOTWeb; 
+    @FXML
+    private TextField jTextPortServerSarlab1;
+    @FXML
+    private TextField jTextTimeOUT; 
+    @FXML
+    private TextField jTextlIdConnect;
    
     private void initPanelListGateway() {
+        // Se inicializan los componentes no presentes en .fxml
+        jPasswordPassGIOT = new PasswordField();
+        //jList1 = new ListView<>(); // necesario?? o se puede quitar
         // Se declara el bundle
         ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelListGateway");
-        // SETEO DE LOS COMPONENTES CON TEXTO
+        // Seteo de componentes con texto
+        this.jTitledPane1.setText(bundle.getString("PanelListGateway.jPanel1.border.title"));
+        this.jTitledPane2.setText(bundle.getString("PanelListGateway.jPanel2.border.title"));
+        this.jTitledPane3.setText(bundle.getString("PanelListGateway.jLabelIdConnectT.text"));
         this.jButtonSave.setText(bundle.getString("PanelListGateway.jButtonSave.text"));
         this.jButtonNew.setText(bundle.getString("PanelListGateway.jButtonNew.text"));
         this.jButtonDel.setText(bundle.getString("PanelListGateway.jButtonDel.text"));
         this.jButtonSelect.setText(bundle.getString("PanelListGateway.jButtonSelect.text"));
         this.jCheckBoxGIoT.setText(bundle.getString("PanelListGateway.jCheckBoxGIoT.text"));
-        this.jLabelIdConnectT.setText(bundle.getString("PanelListGateway.jLabelIdConnectT.text"));
+        // No necesario, es Title de JTitledPane3:
+        //this.jLabelIdConnectT.setText(bundle.getString("PanelListGateway.jLabelIdConnectT.text"));
         this.jLabelIdConnect.setText(bundle.getString("PanelListGateway.jLabelIdConnect.text"));
-        this.jLabelIdConnect.setText(bundle.getString("PanelListGateway.jLabelIdExp.text"));
+        this.jLabelIdExp.setText(bundle.getString("PanelListGateway.jLabelIdExp.text"));
         this.jLabelIdGIOT.setText(bundle.getString("PanelListGateway.jLabelIdGIOT.text"));
         this.jLabelIpServerSarlab.setText(bundle.getString("PanelListGateway.jLabelIpServerSarlab.text"));
+        this.jLabelUser.setText(bundle.getString("PanelListGateway.jLabelUser.text"));
+        // No se usa:
+        //this.jLabelKeyGIOT.setText(bundle.getString("PanelListGateway.jLabelKeyGIOT.text"));
         this.jLabelPass.setText(bundle.getString("PanelListGateway.jLabelPass.text"));
-        
-        
-        // BORRAR INICIALIZACION DE COMPONENTES
-        
-        //jLabelKeyGIOT = new Label();
-        
-        jLabelPortInputGIOTTunnel = new Label();
-        jLabelPortInputGIOTWeb = new Label();
-        jLabelPortServerSarlab = new Label();
-        jLabelTimeOut = new Label();
-        jLabelUser = new Label();
-        jList1 = new ListView();
-        jPanel1 = new Pane();
-        jPanel2 = new Pane();
-        jPanel3 = new Pane();
-        jPanel5 = new Pane();
-        jPasswordPassGIOT = new PasswordField ();
-        jScrollPane1 = new ScrollPane();
-        jTextIdExp = new TextField();
-        jTextIdGIOT = new TextField();
-        jTextIpServerSarlab = new TextField();
-        jTextKeyGIOT = new TextField();
-        jTextPortInputGIOTTunnel = new TextField();
-        jTextPortInputGIOTWeb = new TextField();
-        jTextPortServerSarlab1 = new TextField();
-        jTextTimeOUT = new TextField();
-        jTextUserGIOT = new TextField();
-        jTextlIdConnect = new TextField();
- 
-        
-        /////////////////FUNCIONALIDAD
+        this.jLabelPortServerSarlab.setText(bundle.getString("PanelListGateway.jLabelPortServerSarlab.text"));
+        this.jLabelTimeOut.setText(bundle.getString("PanelListGateway.jLabelTimeOut.text"));    
+        this.jTextlIdConnect.setText(bundle.getString("PanelListGateway.jTextlIdConnect.text"));
+        this.jTextTimeOUT.setText(bundle.getString("PanelListGateway.jTextTimeOUT.text"));
+        this.jTextIdExp.setText(bundle.getString("PanelListGateway.jTextIdExp.text"));
+        this.jTextUserGIOT.setText(bundle.getString("PanelListGateway.jTextUserGIOT.text"));
+        this.jTextIpServerSarlab.setText(bundle.getString("PanelListGateway.jTextIpServerSarlab.text"));
+        this.jTextPortServerSarlab1.setText(bundle.getString("PanelListGateway.jTextPortServerSarlab1.text"));
+        this.jTextIdGIOT.setText(bundle.getString("PanelListGateway.jTextIdGIOT.text"));
+        this.jPasswordPassGIOT.setText(bundle.getString("PanelListGateway.jPasswordPassGIOT.text")); 
+        // Invisibles
+        this.jLabelPortInputGIOTTunnel.setText(bundle.getString("PanelListGateway.jLabelPortInputGIOTTunnel.text"));
+        this.jLabelPortInputGIOTWeb.setText(bundle.getString("PanelListGateway.jLabelPortInputGIOTWeb.text"));
+        this.jTextPortInputGIOTTunnel.setText(bundle.getString("PanelListGateway.jTextPortInputGIOTTunnel.text"));
+        this.jTextPortInputGIOTWeb.setText(bundle.getString("PanelListGateway.jTextPortInputGIOTWeb.text"));  
+        // FUNCIONALIDAD
         testParameter();
+        //this.clientName = clientName;
         initJText();
         this.directoryGatewayRemote = new DirectoryGatewayRemote();
         this.directoryGatewayRemote = (DirectoryGatewayRemote)this.directoryGatewayRemote.generateTfromFileXML(giveMeFileNameConfigXML(), DirectoryGatewayRemote.class);
         if (this.directoryGatewayRemote == null) {
             this.directoryGatewayRemote = new DirectoryGatewayRemote();
         }
+        
+        ObservableList<String> lista = observableArrayList(new ArrayList<String>());
+        lista.addAll("Item 1", "Item 2", "Item 3", "Item 4", "Item 5");
+    
+        this.jList1.setItems(lista);
+
+        //this.jList1.setItems(new observableArrayList() {
+        //  String[] strings = new String[] { "Item 1", "Item 2", "Item 3", "Item 4", "Item 5" };
+        //  public int getSize() { return this.strings.length; }
+        // public String getElementAt(int i) { return this.strings[i]; }
+        //});
         this.listModel = observableArrayList(new ArrayList<>());
         for (int i =  0; i < this.directoryGatewayRemote.getDefaultListModel().size(); i++) {
             listModel.add((String)this.directoryGatewayRemote.getDefaultListModel().get(i)); 
         }
         //this.listModel = (ObservableList<String>) this.directoryGatewayRemote.getDefaultListModel();
         this.jList1.setItems(this.listModel);
+        
         ButtonGIOT(false);
     }
     
@@ -225,7 +257,6 @@ public class PanelListGatewayController implements Initializable {
         } 
     }
     
-    
     public void initJText() {
         this.jTextlIdConnect.setText("");
         this.jTextIpServerSarlab.setText(this.initVirtualFrontier);
@@ -240,7 +271,8 @@ public class PanelListGatewayController implements Initializable {
         this.jTextTimeOUT.setText("600");
     }
     
-    private void jList1ValueChanged(ListSelectionEvent evt) {
+    @FXML
+    void jList1ValueChanged() {
 /* 449 */     this.jCheckBoxGIoT.setDisable(true);
               int ind = jList1.getSelectionModel().getSelectedIndex();
 /* 452 */     if (ind != -1) {
@@ -277,7 +309,8 @@ public class PanelListGatewayController implements Initializable {
 /*     */     } 
 /*     */   }
     
-     private void jButtonSaveActionPerformed(ActionEvent evt) {
+    @FXML
+    void jButtonSaveActionPerformed() {
 /* 504 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelListGateway");
 /* 505 */     this.jButtonSelect.setDisable(true);
 /* 506 */     this.jButtonDel.setDisable(true);
@@ -365,20 +398,26 @@ public class PanelListGatewayController implements Initializable {
 /* 587 */     this.jButtonDel.setDisable(false);
         }
     
-     
-       private void jButtonNewActionPerformed(ActionEvent evt) {
+    @FXML 
+    void jButtonNewActionPerformed() {
 /* 591 */     this.jButtonSelect.setDisable(true);
 /* 592 */     this.jButtonDel.setDisable(true);
 /* 593 */     this.jCheckBoxGIoT.setSelected(false);
 /* 594 */     ButtonGIOT(false);
-/* 595 */     this.listModel = (ObservableList<String>) this.directoryGatewayRemote.getDefaultListModel();
+/* 595 */     //this.listModel = (ObservableList<String>) this.directoryGatewayRemote.getDefaultListModel();
+              ObservableList<String> auxList = observableArrayList(new ArrayList<>());
+              for (int i = 0; i < this.directoryGatewayRemote.getDefaultListModel().size(); i++) {
+                  auxList.add((String) directoryGatewayRemote.getDefaultListModel().get(i));
+              }
+              this.listModel = auxList; 
 /* 596 */     this.jList1.setItems(this.listModel);
 /* 597 */     initJText();
 /* 598 */     this.jCheckBoxGIoT.setDisable(false);
 /* 599 */     this.jTextIdGIOT.setText(this.initPathVirtualFrontier);
        }
        
-        private void jButtonDelActionPerformed(ActionEvent evt) {
+    @FXML
+    void jButtonDelActionPerformed() {
 /* 603 */     this.jButtonSelect.setDisable(true);
 /* 604 */     this.jButtonDel.setDisable(true);
 /* 605 */     int ind = jList1.getSelectionModel().getSelectedIndex();
@@ -400,8 +439,8 @@ public class PanelListGatewayController implements Initializable {
 /* 621 */     this.jTextPortInputGIOTWeb.setVisible(false);
 /*     */   }
        
-    
-        private void jButtonSelectActionPerformed(ActionEvent evt) {
+    @FXML
+    void jButtonSelectActionPerformed() {
 /* 625 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelListGateway");
 /* 626 */     int ind = jList1.getSelectionModel().getSelectedIndex();
 /* 627 */     String key = (String) this.listModel.get(ind);
@@ -457,8 +496,8 @@ public class PanelListGatewayController implements Initializable {
 /* 677 */     //this.clientName.connectGIOT(this.registerGateway);
 /*     */   }
         
-        
-        private void jCheckBoxGIoTActionPerformed(ActionEvent evt) {
+    @FXML   
+    void jCheckBoxGIoTActionPerformed() {
 /* 681 */     ButtonGIOT(this.jCheckBoxGIoT.isSelected());
 /* 682 */     this.jCheckBoxGIoT.setDisable(true);
 /* 683 */     this.jTextIpServerSarlab.setText(this.initVirtualFrontier);

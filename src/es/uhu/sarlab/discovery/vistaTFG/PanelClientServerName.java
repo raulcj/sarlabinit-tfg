@@ -12,6 +12,7 @@ import es.uhu.sarlab.discovery.UtilIp;
 import es.uhu.sarlab.discovery.model.DirectoryServiceRegisterName;
 /*      */ import es.uhu.sarlab.discovery.model.RegisterGateway;
 /*      */ import es.uhu.sarlab.discovery.model.RegisterName;
+import es.uhu.sarlab.discovery.vista.PanelListGateway;
 /*      */ import es.uhu.sarlab.discovery.webservlet.model.HashMapExperienceWeb;
 /*      */ import es.uhu.sarlab.discovery.webservlet.model.ListForwardingL;
 import es.uhu.sarlab.utils.DirectoryFilesUtility;
@@ -96,7 +97,7 @@ import java.util.logging.Level;
 /*      */   RegisterName selecRegisterName;
 /*   78 */   int portLocalVLC = 0;
 /*   79 */   int portLocalHTTP = 0;
-/*   80 */   PanelListGateway listGateway = new PanelListGateway(this);
+/*   80 */   //PanelListGateway listGateway = new PanelListGateway(this);
 /*   81 */   PanelEditConfigLocal editor = new PanelEditConfigLocal(this);
 /*   82 */   PanelNodoFrowardingL panelNodoFrowardingL = new PanelNodoFrowardingL(this);
 /*   83 */   PanelConectionLocalhost panelConectionLocalhost = new PanelConectionLocalhost(this);
@@ -1619,7 +1620,7 @@ import java.util.logging.Level;
 /* 1600 */     this.jButtonForwarding.setEnabled(true);
 /* 1601 */     this.jButtonForwardingLook.setEnabled(true);
 /* 1602 */     this.jButtonProfile.setEnabled(true);
-/* 1603 */     this.listGateway.setVisible(true);
+/* 1603 */     //this.listGateway.setVisible(true);
 /*      */   }
 /*      */ 
 /*      */   
