@@ -23,6 +23,7 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     private static Stage discoveryStage;
+    private static Stage PanelListGatewayStage;
     private static Stage PanelJarProcessStage;
         
     @Override
@@ -44,14 +45,27 @@ public class Main extends Application {
     public static Stage getDiscoveryStage() throws IOException {
         if (discoveryStage == null) {
             discoveryStage = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelListGateway.fxml"));
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelClientServerName.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            discoveryStage.setTitle("Poner titulo en esta ventana? (PanelListGateway)");
+            discoveryStage.setTitle("Poner titulo en esta ventana? (PanelClientServerName)");
             Image icono = new Image("file:src/es/uhu/sarlab/discovery/vista/resources/Remote-Desktop32x32.png");      
             discoveryStage.getIcons().add(icono);
             discoveryStage.setScene(scene);
         }
         return discoveryStage;
+    }
+    
+    public static Stage getPanelListGatewayStage() throws IOException {
+        if (PanelListGatewayStage == null) {
+            PanelListGatewayStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelListGateway.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            PanelListGatewayStage.setTitle("Poner titulo en esta ventana? (PanelListGateway)");
+            Image icono = new Image("file:src/es/uhu/sarlab/discovery/vista/resources/Remote-Desktop32x32.png");      
+            PanelListGatewayStage.getIcons().add(icono);
+            PanelListGatewayStage.setScene(scene);
+        }
+        return PanelListGatewayStage;
     }
       
     public static Stage getPanelJarProcessStage() throws IOException {
