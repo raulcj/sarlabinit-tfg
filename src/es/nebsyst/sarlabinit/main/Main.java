@@ -5,6 +5,7 @@
 package es.nebsyst.sarlabinit.main;
 
 import java.io.IOException;
+import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -22,9 +23,11 @@ import javafx.stage.Stage;
  */
 public class Main extends Application {
     
-    private static Stage discoveryStage;
+    private static Stage DiscoveryStage;
     private static Stage PanelListGatewayStage;
     private static Stage PanelJarProcessStage;
+    private static Stage ProgressBarStage;
+    private static Stage PanelConectionLocalhost;
         
     @Override
     public void start(Stage panelEJSAppListStage) throws IOException {
@@ -39,20 +42,47 @@ public class Main extends Application {
         // Evita que se muestra la pantalla
         //panelEJSAppListStage.initStyle(StageStyle.UTILITY);
         //panelEJSAppListStage.show();  
-        MySystemTray mySystemTray = new MySystemTray(panelEJSAppListStage, getDiscoveryStage()); 
+        MySystemTray mySystemTray = new MySystemTray(panelEJSAppListStage, getDiscoveryStage(), getProgressBarStage()); 
     }
     
     public static Stage getDiscoveryStage() throws IOException {
-        if (discoveryStage == null) {
-            discoveryStage = new Stage();
+        if (DiscoveryStage == null) {
+            DiscoveryStage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelClientServerName.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            discoveryStage.setTitle("Poner titulo en esta ventana? (PanelClientServerName)");
-            Image icono = new Image("file:src/es/uhu/sarlab/discovery/vista/resources/Remote-Desktop32x32.png");      
-            discoveryStage.getIcons().add(icono);
-            discoveryStage.setScene(scene);
+            ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vistaTFG/Bundle_PanelClientServerName");
+            DiscoveryStage.setTitle(bundle.getString("PanelClientServerName.title"));
+            Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+            DiscoveryStage.getIcons().add(icono);
+            DiscoveryStage.setScene(scene);
         }
-        return discoveryStage;
+        return DiscoveryStage;
+    }
+    
+    public static Stage getProgressBarStage() throws IOException {
+        if (ProgressBarStage == null) {
+            ProgressBarStage = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/ProgressBar.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            ProgressBarStage.setTitle("Poner titulo en esta ventana? (ProgressBar)");
+            Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/SARLAB32.png");      
+            ProgressBarStage.getIcons().add(icono);
+            ProgressBarStage.setScene(scene);
+        }
+        return ProgressBarStage;
+    }
+    
+     public static Stage getPanelConectionLocalhostStage() throws IOException {
+        if (PanelConectionLocalhost == null) {
+            PanelConectionLocalhost = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConectionLocalhost.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            PanelConectionLocalhost.setTitle("Poner titulo en esta ventana? (PanelConectionLocalhost)");
+            Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+            PanelConectionLocalhost.getIcons().add(icono);
+            PanelConectionLocalhost.setScene(scene);
+        }
+        return PanelConectionLocalhost;
     }
     
     public static Stage getPanelListGatewayStage() throws IOException {
@@ -61,7 +91,7 @@ public class Main extends Application {
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelListGateway.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
             PanelListGatewayStage.setTitle("Poner titulo en esta ventana? (PanelListGateway)");
-            Image icono = new Image("file:src/es/uhu/sarlab/discovery/vista/resources/Remote-Desktop32x32.png");      
+            Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
             PanelListGatewayStage.getIcons().add(icono);
             PanelListGatewayStage.setScene(scene);
         }

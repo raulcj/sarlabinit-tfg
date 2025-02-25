@@ -20,6 +20,7 @@ import java.awt.event.WindowEvent;
 import java.util.Timer;
 import java.util.TimerTask;
 import javafx.application.Platform;
+import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.ImageIcon;
 import javax.swing.JFrame;
@@ -31,6 +32,7 @@ public class MySystemTray {
 
     private Stage restoreStage;
     private Stage discoveryStage;
+    private Stage progressBarStage;
     //private PanelClientServerName clientName
     private PopupMenu popup = new PopupMenu();
     private final Image image = new ImageIcon(getClass().getResource("/es/nebsyst/sarlabinit/resource/execjar128.png")).getImage();
@@ -44,10 +46,11 @@ public class MySystemTray {
      * @param stage
      * @param stage
      */
-    public MySystemTray(Stage restoreStage, Stage discoveryStage) {
+    public MySystemTray(Stage restoreStage, Stage discoveryStage, Stage progressBarStage) {
         
         this.restoreStage = restoreStage;
         this.discoveryStage = discoveryStage;
+        this.progressBarStage = progressBarStage;
         //comprueba si SystemTray es soportado en el sistema
         if (SystemTray.isSupported()) {
             //obtiene instancia SystemTray
@@ -107,7 +110,7 @@ public class MySystemTray {
             });
 
             ActionListener discoveryListener = e -> Platform.runLater(() -> {
-
+                       
                 if (this.discoveryStage == null) {
                     this.discoveryStage.show();
                 } else {
@@ -116,6 +119,14 @@ public class MySystemTray {
                         this.discoveryStage.show();
                     }
                 }
+                // ENSEÑA EL STAGE DE LA BARRA DE PROGRESO
+                if (this.progressBarStage != null && progressBarStage.getOwner() == null) {
+                    this.progressBarStage.initOwner(discoveryStage);
+                    this.progressBarStage.initModality(Modality.WINDOW_MODAL);
+                    this.progressBarStage.setAlwaysOnTop(true);
+                    this.progressBarStage.show();
+                }
+                   
             });
 
             //Se crean los Items del menu PopUp y se añaden

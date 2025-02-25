@@ -2,6 +2,7 @@
 
 /*      */ import clientsarlab.EJSClientSarlab2;
 /*      */ import clientsarlab.GIOTClientSarlab3;
+import es.nebsyst.sarlabinit.main.Main;
 
 /*      */ import es.uhu.execapp.system.ExecApp;
 /*      */ import es.uhu.sarlab.digexlab.experience.model.Connection;
@@ -9,10 +10,12 @@
 /*      */ import es.uhu.sarlab.discovery.GetParameters.GetParameters;
 /*      */ import es.uhu.sarlab.discovery.ServerUDPThread;
 import es.uhu.sarlab.discovery.UtilIp;
+import static es.uhu.sarlab.discovery.controller.ProgressBarDiscoveryController.progressBarDiscovery;
 /*      */ import es.uhu.sarlab.discovery.model.DirectoryRegisterName;
 import es.uhu.sarlab.discovery.model.DirectoryServiceRegisterName;
 /*      */ import es.uhu.sarlab.discovery.model.RegisterGateway;
 /*      */ import es.uhu.sarlab.discovery.model.RegisterName;
+import es.uhu.sarlab.discovery.view.model.ProgressBarDiscovery;
 import es.uhu.sarlab.discovery.vista.BarLogo;
 import es.uhu.sarlab.discovery.vista.InterfazBarLogo;
 import javafx.scene.layout.Pane;
@@ -22,11 +25,8 @@ import es.uhu.sarlab.discovery.vista.PanelListGateway;
 import es.uhu.sarlab.utils.DirectoryFilesUtility;
 /*      */ import es.uhu.sarlab.utils.OS;
 /*      */ import es.uhu.sarlab.utils.PropertiesFiles;
-/*      */ import java.awt.Color;
-/*      */ import java.awt.Component;
-/*      */ import java.awt.Dimension;
-/*      */ import java.awt.Font;
-/*      */ import java.awt.Image;
+/*   
+
 import java.awt.Toolkit;
 /*      */ import java.awt.event.ActionEvent;
 /*      */ import java.awt.event.ActionListener;
@@ -49,21 +49,12 @@ import java.net.URL;
 /*      */ import java.util.ArrayList;
 /*      */ import java.util.Date;
 /*      */ import java.util.Locale;
+import java.util.Optional;
 /*      */ import java.util.Properties;
 /*      */ import java.util.ResourceBundle;
 /*      */ import java.util.logging.Level;
 /*      */ import java.util.logging.Logger;
-/*      */ import javax.swing.BorderFactory;
-/*      */ import javax.swing.ButtonGroup;
-/*      */ import javax.swing.DefaultListModel;
-/*      */ import javax.swing.GroupLayout;
-/*      */ import javax.swing.ImageIcon;
-/*      */ import javax.swing.JDialog;
-import javax.swing.JFrame;
-/*      */ import javax.swing.JList;
-/*      */ import javax.swing.JOptionPane;
 
-/*      */ import javax.swing.LayoutStyle;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
@@ -75,13 +66,30 @@ import javax.swing.Timer;
 import org.apache.log4j.PropertyConfigurator;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javafx.beans.value.ChangeListener;
+import javafx.beans.value.ObservableValue;
+import static javafx.collections.FXCollections.observableArrayList;
+import javafx.collections.ObservableList;
+import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
+import javafx.scene.control.Alert;
+import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.Button;
+import javafx.scene.control.Dialog;
 import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
+import javafx.scene.control.ListView;
+import javafx.scene.control.ProgressBar;
+import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.ToggleGroup;
+import javafx.scene.control.Tooltip;
+import javafx.scene.image.ImageView;
+import javafx.scene.image.Image;
+import static javafx.stage.Modality.APPLICATION_MODAL;
+import javafx.stage.StageStyle;
 
 
 /*      */ 
@@ -106,7 +114,7 @@ import javafx.scene.control.RadioButton;
 /*   82 */   //PanelNodoFrowardingL panelNodoFrowardingL = new PanelNodoFrowardingL(this);
 /*   83 */   //PanelConectionLocalhost panelConectionLocalhost = new PanelConectionLocalhost(this);
 /*   84 */   //PanelConectionExperience panelConectionExperience = new PanelConectionExperience(this);
-/*   85 */   //ProgressBar progressBar = new ProgressBar();
+/*   85 */   ProgressBarDiscovery progressBar = new ProgressBarDiscovery();
 /*   86 */   //ProgressBar progressBarSave = new ProgressBar();
 /*      */   ProgressMonitor progressMonitor;
 /*   88 */   //PanelConsole consoleText = new PanelConsole(this);
@@ -118,35 +126,96 @@ import javafx.scene.control.RadioButton;
 /*   96 */   PrintStream ps = null;
 /*   97 */   PrintStream old = System.out;
 /*   99 */   String locale = null; 
-private ButtonGroup buttonGroup1; 
-private Button jButton1; 
-public Button jButtonActualizar; 
-private Button jButtonConfiguracionLocal; 
-private Button jButtonDesktop; 
-public Button jButtonForwarding; 
-public Button jButtonForwardingLook; 
-private Button jButtonLocal; 
-private Button jButtonLogin; 
-private Button jButtonModbus; 
-private Button jButtonNavegador; 
-public Button jButtonProfile; 
-private Button jButtonRemoto; 
-private Button jButtonSFDTP; 
-private Button jButtonSsh; 
-private Button jButtonTelnet; 
-public Button jButtonTools; 
-private Button jButtonVNC; 
-private JDialog jDialog1; 
-private Label jLabel1; 
-private Label jLabel2; 
-private Label jLabel3; 
-private Label jLabel4; 
-private Label jLabel5;
-public Label jLabel6;
-private Label jLabel7;
-private Label jLabel8; 
+            private ToggleGroup buttonGroup1; // misma funcionalidad que ButtonGroup pero diferente funcionamiento
+            @FXML
+            private Button jButton1; 
+            @FXML
+            public Button jButtonActualizar;
+            @FXML
+            private Button jButtonConfiguracionLocal; 
+            @FXML
+            private Button jButtonDesktop; 
+            @FXML
+            public Button jButtonForwarding; 
+            @FXML
+            public Button jButtonForwardingLook; 
+            @FXML
+            private Button jButtonLocal; 
+            private Button jButtonLogin; 
+            @FXML
+            private Button jButtonModbus; 
+            @FXML
+            private Button jButtonNavegador; 
+            @FXML
+            public Button jButtonProfile; 
+            @FXML
+            private Button jButtonRemoto; 
+            @FXML
+            private Button jButtonSFDTP;
+            @FXML
+            private Button jButtonSsh; 
+            @FXML
+            private Button jButtonTelnet; 
+            @FXML
+            public Button jButtonTools; 
+            @FXML
+            private Button jButtonVNC; 
             
-/*      */   private void initPanelClientServerName() {
+            @FXML
+            private Button jButtonTest;
+            
+            private Dialog jDialog1; 
+            private Label jLabel1; 
+            private Label jLabel2; 
+            private Label jLabel3; 
+            private Label jLabel4; 
+            private Label jLabel5;
+            public Label jLabel6;
+            private Label jLabel7;
+            private Label jLabel8; 
+            
+            @FXML
+            private Label jLabelList; 
+            public Label jLabelNetConnect; 
+            private Label jLabelTituloService; 
+            @FXML
+            public ListView<String> jList1; 
+            private Pane jPanel1; 
+            private Pane jPanel2; 
+            private Pane jPanel3; 
+            private Pane jPanel4; 
+            private Pane jPanel5; 
+            private Pane jPanel6; 
+            private Pane jPanel7; 
+            private Pane jPanelBotones; 
+            private Pane jPanelNavegador; 
+            @FXML
+            private RadioButton jRadioAxi; 
+            @FXML
+            private RadioButton jRadioEnlarge; 
+            @FXML
+            private RadioButton jRadioFree; 
+            private ScrollPane jScrollPane1; 
+            @FXML
+            private TextField jTextFieldDesktop;
+            @FXML
+            private TextField jTextFieldModbus; 
+            @FXML
+            public TextField jTextFieldPortNav;
+            @FXML
+            private TextField jTextFieldSsh; 
+            @FXML
+            private TextField jTextFieldTelnet; 
+            @FXML
+            public TextField jTextFieldURL; 
+            @FXML
+            private TextField jTextFieldVNC; 
+            @FXML
+            private TextField jTextFieldsFTP; 
+            private TextField lineapass; 
+            private TextField lineausuario;
+            
+/*      */   private void initPanelClientServerName() throws IOException {
 /*  105 */     String configLog4j = OS.isWindows() ? "C:/sarlab/config/log4jsarlabdiscoveryview.properties" : "/sarlab/config/log4jsarlabdiscoveryview.properties";
 /*  106 */     PropertyConfigurator.configure(configLog4j);
 /*  107 */     this.sarlab = null;
@@ -158,15 +227,14 @@ private Label jLabel8;
 /*      */           default:
 /*  114 */             Locale.setDefault(new Locale("en", "GB"));
 /*      */             break; }
-/*      */       
 /*      */       }
 /*      */     } 
 /*  119 */     this.baos = new ByteArrayOutputStream();
 /*  120 */     this.ps = new PrintStream(this.baos);
 /*  121 */     System.setOut(this.ps);
-/*  122 */     //initComponents();
+/*  122 */     initComponents();
 /*  123 */     //setLocationRelativeTo((Component)null);
-/*  124 */     ButtonEnabled(false);
+/*  124 */     ButtonEnabled(false); // poner en false
 /*  125 */     this.jButtonTools.setDisable(true);
 /*  126 */     this.jButtonForwarding.setDisable(true);
 /*  127 */     this.jButtonForwardingLook.setDisable(true);
@@ -175,34 +243,37 @@ private Label jLabel8;
 /*      */     }
 /*  131 */     this.jButtonProfile.setDisable(true);
 /*  132 */     this.sentinel = new Sentinel();
+               // Se añade para que se muestre el botón Actualizar al abrir el panel
+               this.jButtonActualizar.setVisible(true);
+               // intentando mostrar la ProgressBar...
+               //performLoadingTask(progressBarDiscovery.getProgressBar());
 /*      */   }
-private Label jLabelList; 
-public Label jLabelNetConnect; 
-private Label jLabelTituloService; 
-public JList<String> jList1; 
-private Pane jPanel1; 
-private Pane jPanel2; 
-private Pane jPanel3; 
-private Pane jPanel4; 
-private Pane jPanel5; 
-private Pane jPanel6; 
-private Pane jPanel7; 
-private Pane jPanelBotones; 
-private Pane jPanelNavegador; 
-private RadioButton jRadioAxi; 
-private RadioButton jRadioEnlarge; 
-private RadioButton jRadioFree; 
-private ScrollPane jScrollPane1; 
-private TextField jTextFieldDesktop; 
-private TextField jTextFieldModbus; 
-public TextField jTextFieldPortNav; 
-private TextField jTextFieldSsh; 
-private TextField jTextFieldTelnet; 
-public TextField jTextFieldURL; 
-private TextField jTextFieldVNC; 
-private TextField jTextFieldsFTP; 
-private TextField lineapass; 
-private TextField lineausuario;
+    // ¿ ES ÚTIL EL SIGUIENTE MÉTODO PARA EL FUNCIONAMIENTO DE ProgressBar?
+    // Simulate a loading task using a background thread
+       private void performLoadingTask(ProgressBar progressBar) {
+           javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<>() {
+               @Override
+               protected Void call() throws Exception {
+                   for (int i = 0; i <= 100; i++) {
+                       Thread.sleep(30);
+                       updateProgress(i, 100);
+                   }
+                   return null;
+               }
+           };
+
+           progressBar.progressProperty().bind(task.progressProperty());
+
+           task.setOnSucceeded(e -> progressBar.setVisible(false));
+
+           Thread thread = new Thread(task);
+           thread.setDaemon(true);
+           thread.start();
+       }
+       @FXML
+       void jButtonTestActionPerformed() throws IOException {
+           Main.getProgressBarStage().show();
+       }
 
 /*      */   public void ButtonEnabled(boolean enable) {
 /*  136 */     this.jButtonDesktop.setVisible(enable);
@@ -222,14 +293,7 @@ private TextField lineausuario;
 /*  150 */     this.jTextFieldVNC.setVisible(enable);
 /*  151 */     this.jTextFieldsFTP.setVisible(enable);
 /*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public Image getIconImage() {
-/*  157 */     Image retValue = Toolkit.getDefaultToolkit().getImage(ClassLoader.getSystemResource("es/uhu/sarlab/discovery/vista/resources/Remote-Desktop32x32.png"));
-/*  158 */     return retValue;
-/*      */   }
-/*      */   
+
 /*      */   public void init() {
 /*  162 */     this.barLogo = new BarLogo((InterfazBarLogo) this);
 /*  163 */     this.barLogo.init();
@@ -242,8 +306,8 @@ private TextField lineausuario;
 /*  170 */     return this.directoryRegisterNameSarlab.iPInit();
 /*      */   }
 /*      */   
-/*      */   public void setListModel(DefaultListModel<String> defaultListModel) {
-/*  174 */     this.jList1.setModel(defaultListModel);
+/*      */   public void setListModel(ObservableList<String> observableListModel) {
+/*  174 */     this.jList1.setItems(observableListModel);
 /*      */   }
 /*      */   
 /*      */   public void findSarlabComplet() {
@@ -254,7 +318,7 @@ private TextField lineausuario;
 /*  182 */     delay(5000);
 /*  183 */     serverUDPThread.end();
 /*  184 */     DirectoryRegisterName directoryRegisterName = serverUDPThread.getDirectoryRegisterName();
-/*  185 */     setListModel(serverUDPThread.getListModel());
+/*  185 */     setListModel((ObservableList<String>) serverUDPThread.getListModel());
 /*      */   }
 /*      */   
 /*      */   public static void delay(int t) {
@@ -285,25 +349,9 @@ private TextField lineausuario;
 /*      */     }
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
 /*      */   private void initComponents() {
-/*  225 */     this.buttonGroup1 = new ButtonGroup();
-/*  226 */     this.jDialog1 = new JDialog();
+/*  225 */     this.buttonGroup1 = new ToggleGroup();
+/*  226 */     this.jDialog1 = new Dialog();
 /*  227 */     this.jPanel4 = new Pane();
 /*  228 */     this.jLabel2 = new Label();
 /*  229 */     this.jPanel5 = new Pane();
@@ -314,484 +362,316 @@ private TextField lineausuario;
 /*  234 */     this.jPanel7 = new Pane();
 /*  235 */     this.jButtonLogin = new Button();
 /*  236 */     this.jPanelBotones = new Pane();
-/*  237 */     this.jButtonActualizar = new Button();
-/*  238 */     this.jButtonRemoto = new Button();
-/*  239 */     this.jButtonLocal = new Button();
-/*  240 */     this.jButtonConfiguracionLocal = new Button();
-/*  241 */     this.jButton1 = new Button();
+/*  237 */   
 /*  242 */     this.jPanel2 = new Pane();
-/*  243 */     this.jLabelList = new Label();
+/*  243 */     
 /*  244 */     this.jPanel1 = new Pane();
 /*  245 */     this.jScrollPane1 = new ScrollPane();
-/*  246 */     this.jList1 = new JList<>();
+/*  246 */ 
 /*  247 */     this.jPanel3 = new Pane();
 /*  248 */     this.jLabel4 = new Label();
 /*  249 */     this.jLabel5 = new Label();
 /*  250 */     this.jLabel6 = new Label();
 /*  251 */     this.jLabelNetConnect = new Label();
 /*  252 */     this.jPanel6 = new Pane();
-/*  253 */     this.jButtonDesktop = new Button();
-/*  254 */     this.jTextFieldDesktop = new TextField();
-/*  255 */     this.jButtonVNC = new Button();
-/*  256 */     this.jTextFieldVNC = new TextField();
-/*  257 */     this.jButtonTelnet = new Button();
-/*  258 */     this.jTextFieldTelnet = new TextField();
-/*  259 */     this.jButtonSsh = new Button();
-/*  260 */     this.jTextFieldSsh = new TextField();
-/*  261 */     this.jButtonSFDTP = new Button();
-/*  262 */     this.jTextFieldsFTP = new TextField();
-/*  263 */     this.jButtonModbus = new Button();
-/*  264 */     this.jTextFieldModbus = new TextField();
 /*  265 */     this.jLabelTituloService = new Label();
-/*  266 */     this.jButtonTools = new Button();
-/*  267 */     this.jButtonForwarding = new Button();
-/*  268 */     this.jButtonForwardingLook = new Button();
-/*  269 */     this.jButtonProfile = new Button();
 /*  270 */     this.jPanelNavegador = new Pane();
-/*  271 */     this.jButtonNavegador = new Button();
 /*  272 */     this.jLabel1 = new Label();
-/*  273 */     this.jTextFieldPortNav = new TextField();
 /*  274 */     this.jLabel3 = new Label();
-/*  275 */     this.jTextFieldURL = new TextField();
-/*  276 */     this.jRadioAxi = new RadioButton();
-/*  277 */     this.jRadioEnlarge = new RadioButton();
-/*  278 */     this.jRadioFree = new RadioButton();
 /*      */     
-/*  280 */     this.jDialog1.setIconImage(getIconImage());
-/*  281 */     this.jDialog1.setMinimumSize(new Dimension(400, 219));
-/*  282 */     this.jDialog1.setModal(true);
+/*  280 */     //this.jDialog1.setIconImage(getIconImage());
+               this.jDialog1.setWidth(400);
+               this.jDialog1.setHeight(219);
+               // COMPROBAR SI LA MODALIDAD APLICADA ES OK
+/*  282 */     this.jDialog1.initModality(APPLICATION_MODAL);
 /*  283 */     this.jDialog1.setResizable(false);
-/*  284 */     this.jDialog1.setSize(new Dimension(400, 219));
-/*      */     
-/*  286 */     
-/*      */     
-/*  288 */     
-/*  289 */    
+
 /*  290 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vistaTFG/Bundle_PanelClientServerName");
 /*  291 */     this.jLabel2.setText(bundle.getString("PanelClientServerName.jLabel2.text_1"));
 /*      */     
-/*  293 */    
-/*  294 */    
-/*  295 */    
-/*      */     
-/*  302 */ 
-/*      */     
-/*  310 */     this.lineausuario.addKeyListener(new KeyAdapter() {
-/*      */           public void keyPressed(KeyEvent evt) {
-/*  312 */             PanelClientServerNameController.this.lineausuarioKeyPressed(evt);
-/*      */           }
-/*      */         });
+/*      */     /*   APLICAR EN EVENTO AL SELECCIONAR LA LINEA DE USUARIO  */ 
+/*  310 */   //  this.lineausuario.addKeyListener(new KeyAdapter() {
+/*      */   //        public void keyPressed(KeyEvent evt) {
+/*  312 */   //          PanelClientServerNameController.this.lineausuarioKeyPressed(evt);
+/*      */   //        }
+/*      */   //     });
 /*      */     
 /*  316 */   
-/*  317 */     this.jLabel7.setText(bundle.getString("PanelClientServerName.jLabel7.text_1"));
-/*      */     
+/*  317 */     this.jLabel7.setText(bundle.getString("PanelClientServerName.jLabel7.text_1"));  
 /*  319 */    
 /*  320 */     this.jLabel8.setText(bundle.getString("PanelClientServerName.jLabel8.text_1"));
-/*      */     /*      */     
-/*  322 */     this.lineapass.addKeyListener(new KeyAdapter() {
-/*      */           public void keyPressed(KeyEvent evt) {
-/*  324 */             PanelClientServerNameController.this.lineapassKeyPressed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  328 */   
-/*      */     
-/*  343 */   
-/*      */ 
-/*      */     
-/*  357 */     
-/*      */     
+/*      */     /* APLICAR EN EVENTO AL SELECCIONAR LA LINEA DE PASSWORD  */     
+/*  322 *///     this.lineapass.addKeyListener(new KeyAdapter() {
+/*      *///           public void keyPressed(KeyEvent evt) {
+/*  324 *///             PanelClientServerNameController.this.lineapassKeyPressed(evt);
+/*      *///           }
+/*      *///         });
+  
 /*  359 */     this.jButtonLogin.setText(bundle.getString("PanelClientServerName.jButtonLogin.text_1"));
-/*  360 */     this.jButtonLogin.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  362 */             PanelClientServerNameController.this.jButtonLoginActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*  365 */     this.jButtonLogin.addKeyListener(new KeyAdapter() {
-/*      */           public void keyPressed(KeyEvent evt) {
-/*  367 */             PanelClientServerNameController.this.jButtonLoginKeyPressed(evt);
-/*      */           }
-/*      */         });
+/*  360 *///     this.jButtonLogin.addActionListener(new ActionListener() {
+/*      *///           public void actionPerformed(ActionEvent evt) {
+/*  362 *///             PanelClientServerNameController.this.jButtonLoginActionPerformed(evt);
+/*      *///           }
+/*      *///         });
+/*  365 *///     this.jButtonLogin.addKeyListener(new KeyAdapter() {
+/*      *///           public void keyPressed(KeyEvent evt) {
+/*  367 *///             PanelClientServerNameController.this.jButtonLoginKeyPressed(evt);
+/*      *///           }
+/*      *///         });
+/*      */    
+/*  418 */     //this.jPanelBotones.setBorder(BorderFactory.createTitledBorder(""));
 /*      */     
-/*  371 */  
-/*      */     
-/*  380 */    
-/*      */ 
-/*      */     
-/*  388 */     
-/*      */     
-/*  400 */    
-/*      */ 
-/*      */     
-/*  412 */     //setTitle(bundle.getString("PanelClientServerName.title"));
-/*  413 */    
-/*  415 */     //setIconImage(getIconImage());
-/*      */     
-/*  417 */    
-/*  418 */     this.jPanelBotones.setBorder(BorderFactory.createTitledBorder(""));
-/*      */     
-/*  420 */     this.jButtonActualizar.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/actualiza.png")));
+               Image iconJButtonActualizar = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/actualiza.png").toExternalForm());
+               ImageView iconViewJButtonActualizar = new ImageView(iconJButtonActualizar);
+               this.jButtonActualizar.setGraphic(iconViewJButtonActualizar);    
 /*  421 */     this.jButtonActualizar.setText(bundle.getString("PanelClientServerName.jButtonActualizar.text"));
-/*  422 */     this.jButtonActualizar.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  424 */             PanelClientServerName.this.jButtonActualizarActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  428 */     this.jButtonRemoto.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/remota.png")));
+
+               Image iconJButtonRemoto = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/remota.png").toExternalForm());
+               ImageView iconViewJButtonRemoto = new ImageView(iconJButtonRemoto);
+               this.jButtonRemoto.setGraphic(iconViewJButtonRemoto);
 /*  429 */     this.jButtonRemoto.setText(bundle.getString("PanelClientServerName.jButtonRemoto.text"));
-/*  430 */     this.jButtonRemoto.setToolTipText(bundle.getString("PanelClientServerName.jButtonRemoto.toolTipText"));
-/*  431 */     this.jButtonRemoto.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  433 */             PanelClientServerName.this.jButtonRemotoActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  437 */     this.jButtonLocal.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/config.png")));
-/*  438 */     this.jButtonLocal.setText(bundle.getString("PanelClientServerName.jButtonLocal.text"));
-/*  439 */     this.jButtonLocal.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  441 */             PanelClientServerName.this.jButtonLocalActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  445 */     this.jButtonConfiguracionLocal.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/lan24x24.png")));
-/*  446 */     this.jButtonConfiguracionLocal.setText(bundle.getString("PanelClientServerName.jButtonConfiguracionLocal.text"));
-/*  447 */     this.jButtonConfiguracionLocal.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  449 */             PanelClientServerName.this.jButtonConfiguracionLocalActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  453 */     this.jButton1.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/demo.png")));
+               Tooltip jButtonRemotoTooltip = new Tooltip("PanelClientServerName.jButtonRemoto.toolTipText");
+               this.jButtonRemoto.setTooltip(jButtonRemotoTooltip);
+/*  431 */       
+               Image iconJButtonLocal = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/lan24x24.png").toExternalForm());
+               ImageView iconViewJButtonLocal = new ImageView(iconJButtonLocal);
+/*  437 */     this.jButtonLocal.setGraphic(iconViewJButtonLocal);
+/*  438 */     this.jButtonLocal.setText(bundle.getString("PanelClientServerName.jButtonConfiguracionLocal.text")); // permutado con jButtonConfiguracionLocal
+              
+               Image iconJButtonConfiguracionLocal = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/config.png").toExternalForm());
+               ImageView iconViewJButtonConfiguracionLocal = new ImageView(iconJButtonConfiguracionLocal);
+/*  437 */     this.jButtonConfiguracionLocal.setGraphic(iconViewJButtonConfiguracionLocal);   
+/*  446 */     this.jButtonConfiguracionLocal.setText(bundle.getString("PanelClientServerName.jButtonLocal.text")); // permutado con jButtonLocal
+/*  447 */    
+               Image iconJButton1 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/demo.png").toExternalForm());
+               ImageView iconViewJButton1 = new ImageView(iconJButton1);
+/*  437 */     this.jButton1.setGraphic(iconViewJButton1);  
 /*  454 */     this.jButton1.setText(bundle.getString("PanelClientServerName.jButton1.text_1"));
-/*  455 */     this.jButton1.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  457 */             PanelClientServerName.this.jButton1ActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  461 */  
-/*      */ 
-/*      */     
-/*  494 */     this.jPanel2.setBackground(new Color(102, 153, 255));
-/*  495 */     this.jPanel2.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanel2.border.title")));
-/*      */     
-/*  497 */     this.jLabelList.setFont(new Font("Tahoma", 1, 16));
-/*  498 */     
+ 
+/*  495 */     //this.jPanel2.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanel2.border.title")));
+
 /*  499 */     this.jLabelList.setText(bundle.getString("PanelClientServerName.jLabelList.text"));
 /*      */     
-/*  501 */     this.jPanel1.setBorder(BorderFactory.createTitledBorder(""));
+/*  501 */     //this.jPanel1.setBorder(BorderFactory.createTitledBorder(""));
 /*      */     
-/*  503 */     this.jList1.setFont(new Font("Courier New", 0, 16));
-/*  504 */     this.jList1.setToolTipText(bundle.getString("PanelClientServerName.jList1.toolTipText"));
-/*  505 */     this.jList1.addMouseListener(new MouseAdapter() {
-/*      */           public void mouseClicked(MouseEvent evt) {
-/*  507 */             PanelClientServerName.this.jList1MouseClicked(evt);
-/*      */           }
-/*      */         });
-/*  510 */     this.jScrollPane1.setViewportView(this.jList1);
+               Tooltip jList1Tooltip = new Tooltip("PanelClientServerName.jList1.toolTipText");
+               this.jList1.setTooltip(jList1Tooltip);
+/*  505 */    
+/*  550 */     //this.jPanel3.setBorder(BorderFactory.createTitledBorder(""));
 /*      */     
-/*  512 */   
-/*      */ 
-/*      */     
-/*  529 */   
-/*      */    
-/*      */ 
-/*      */     
-/*  549 */     this.jPanel3.setBackground(new Color(153, 204, 255));
-/*  550 */     this.jPanel3.setBorder(BorderFactory.createTitledBorder(""));
-/*      */     
-/*  552 */     this.jLabel4.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/Remote-Desktop64x64.png")));
-/*      */     
-/*  554 */     this.jLabel5.setFont(new Font("Arial Black", 1, 24));
-/*  555 */     this.jLabel5.setHorizontalAlignment(0);
+
+               Image iconJLabel4 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/Remote-Desktop64x64.png").toExternalForm());
+               ImageView iconViewJLabel4 = new ImageView(iconJLabel4);
+/*  437 */     this.jLabel4.setGraphic(iconViewJLabel4);  
+
 /*  556 */     this.jLabel5.setText(bundle.getString("PanelClientServerName.jLabel5.text"));
 /*      */     
-/*  558 */     this.jLabel6.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/LAN64x64.png")));
-/*      */     
-/*  560 */     this.jLabelNetConnect.setFont(new Font("Tahoma", 1, 11));
+               Image iconJLabel6 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/LAN64x64.png").toExternalForm());
+               ImageView iconViewJLabel6 = new ImageView(iconJLabel6);
+/*  437 */     this.jLabel4.setGraphic(iconViewJLabel6);  
+/*  558 */    
 /*  561 */     this.jLabelNetConnect.setText(bundle.getString("PanelClientServerName.jLabelNetConnect.text"));
 /*      */     
-/*  563 */     
-/*      */ 
+/*  597 */     //this.jPanel6.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanel6.border.title")));
 /*      */     
-/*  596 */     this.jPanel6.setBackground(new Color(102, 153, 255));
-/*  597 */     this.jPanel6.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanel6.border.title")));
-/*      */     
-/*  599 */     this.jButtonDesktop.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/Display 48_24x24-32.gif")));
+               Image iconJButtonDesktop = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/Display 48_24x24-32.gif").toExternalForm());
+               ImageView iconViewJButtonDesktop = new ImageView(iconJButtonDesktop);
+/*  437 */     this.jButtonDesktop.setGraphic(iconViewJButtonDesktop); 
 /*  600 */     this.jButtonDesktop.setText(bundle.getString("PanelClientServerName.jButtonDesktop.text"));
-/*  601 */     this.jButtonDesktop.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  603 */             PanelClientServerName.this.jButtonDesktopActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
+/*  601 */       
 /*  607 */     this.jTextFieldDesktop.setText(bundle.getString("PanelClientServerName.jTextFieldDesktop.text"));
-/*  608 */     this.jTextFieldDesktop.addFocusListener(new FocusAdapter() {
-/*      */           public void focusGained(FocusEvent evt) {
-/*  610 */             PanelClientServerName.this.jTextFieldDesktopFocusGained(evt);
-/*      */           }
-/*      */           public void focusLost(FocusEvent evt) {
-/*  613 */             PanelClientServerName.this.jTextFieldDesktopFocusLost(evt);
-/*      */           }
-/*      */         });
-/*  616 */     this.jTextFieldDesktop.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  618 */             PanelClientServerName.this.jTextFieldDesktopActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  622 */     this.jButtonVNC.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/vnc.png")));
+               this.jTextFieldDesktop.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+                        // TextField gana el foco del teclado
+                        if (newValue) {
+                            jTextFieldDesktopFocusGained();
+                        // TextField pierde el foco del teclado
+                        } else {
+                            jTextFieldDesktopFocusLost();
+                        }
+                    } 
+               });
+/*  608 */    
+               Image iconJButtonVNC = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/vnc.png").toExternalForm());
+               ImageView iconViewJButtonVNC = new ImageView(iconJButtonVNC);
+/*  437 */     this.jButtonVNC.setGraphic(iconViewJButtonVNC);  
 /*  623 */     this.jButtonVNC.setText(bundle.getString("PanelClientServerName.jButtonVNC.text"));
-/*  624 */     this.jButtonVNC.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  626 */             PanelClientServerName.this.jButtonVNCActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
 /*  630 */     this.jTextFieldVNC.setText(bundle.getString("PanelClientServerName.jTextFieldVNC.text"));
-/*  631 */     this.jTextFieldVNC.addFocusListener(new FocusAdapter() {
-/*      */           public void focusGained(FocusEvent evt) {
-/*  633 */             PanelClientServerName.this.jTextFieldVNCFocusGained(evt);
-/*      */           }
-/*      */           public void focusLost(FocusEvent evt) {
-/*  636 */             PanelClientServerName.this.jTextFieldVNCFocusLost(evt);
-/*      */           }
-/*      */         });
-/*  639 */     this.jTextFieldVNC.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  641 */             PanelClientServerName.this.jTextFieldVNCActionPerformed(evt);
-/*      */           }
-/*      */         });
+               this.jTextFieldVNC.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+                        // TextField gana el foco del teclado
+                        if (newValue) {
+                            jTextFieldVNCFocusGained();
+                        // TextField pierde el foco del teclado
+                        } else {
+                            jTextFieldVNCFocusLost();
+                        }
+                    } 
+               });
 /*      */     
-/*  645 */     this.jButtonTelnet.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/telnet.png")));
+               Image iconJButtonTelnet = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/telnet.png").toExternalForm());
+               ImageView iconViewJButtonTelnet = new ImageView(iconJButtonTelnet);
+/*  437 */     this.jButtonTelnet.setGraphic(iconViewJButtonTelnet);  
 /*  646 */     this.jButtonTelnet.setText(bundle.getString("PanelClientServerName.jButtonTelnet.text"));
-/*  647 */     this.jButtonTelnet.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  649 */             PanelClientServerName.this.jButtonTelnetActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
 /*  653 */     this.jTextFieldTelnet.setText(bundle.getString("PanelClientServerName.jTextFieldTelnet.text"));
-/*  654 */     this.jTextFieldTelnet.addFocusListener(new FocusAdapter() {
-/*      */           public void focusGained(FocusEvent evt) {
-/*  656 */             PanelClientServerName.this.jTextFieldTelnetFocusGained(evt);
-/*      */           }
-/*      */           public void focusLost(FocusEvent evt) {
-/*  659 */             PanelClientServerName.this.jTextFieldTelnetFocusLost(evt);
-/*      */           }
-/*      */         });
-/*  662 */     this.jTextFieldTelnet.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  664 */             PanelClientServerName.this.jTextFieldTelnetActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  668 */     this.jButtonSsh.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/ssh.png")));
+               this.jTextFieldTelnet.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+                        // TextField gana el foco del teclado
+                        if (newValue) {
+                            jTextFieldTelnetFocusGained();
+                        // TextField pierde el foco del teclado
+                        } else {
+                            jTextFieldTelnetFocusLost();
+                        }
+                    } 
+               });
+
+               Image iconJButtonSsh = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/ssh.png").toExternalForm());
+               ImageView iconViewJButtonSsh = new ImageView(iconJButtonSsh);
+/*  437 */     this.jButtonSsh.setGraphic(iconViewJButtonSsh);   
 /*  669 */     this.jButtonSsh.setText(bundle.getString("PanelClientServerName.jButtonSsh.text"));
-/*  670 */     this.jButtonSsh.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  672 */             PanelClientServerName.this.jButtonSshActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
 /*  676 */     this.jTextFieldSsh.setText(bundle.getString("PanelClientServerName.jTextFieldSsh.text"));
-/*  677 */     this.jTextFieldSsh.addFocusListener(new FocusAdapter() {
-/*      */           public void focusGained(FocusEvent evt) {
-/*  679 */             PanelClientServerName.this.jTextFieldSshFocusGained(evt);
-/*      */           }
-/*      */           public void focusLost(FocusEvent evt) {
-/*  682 */             PanelClientServerName.this.jTextFieldSshFocusLost(evt);
-/*      */           }
-/*      */         });
-/*  685 */     this.jTextFieldSsh.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  687 */             PanelClientServerName.this.jTextFieldSshActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  691 */     this.jButtonSFDTP.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/Folder 102_24x24-32.gif")));
+               this.jTextFieldSsh.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+                        // TextField gana el foco del teclado
+                        if (newValue) {
+                            jTextFieldSshFocusGained();
+                        // TextField pierde el foco del teclado
+                        } else {
+                            jTextFieldSshFocusLost();
+                        }
+                    } 
+               });
+/*  677 */     
+               Image iconJButtonSFDTP = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/Folder 102_24x24-32.gif").toExternalForm());
+               ImageView iconViewJButtonSFDTP = new ImageView(iconJButtonSFDTP);
+/*  437 */     this.jButtonSFDTP.setGraphic(iconViewJButtonSFDTP);    
 /*  692 */     this.jButtonSFDTP.setText(bundle.getString("PanelClientServerName.jButtonSFDTP.text"));
-/*  693 */     this.jButtonSFDTP.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  695 */             PanelClientServerName.this.jButtonSFDTPActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
 /*  699 */     this.jTextFieldsFTP.setText(bundle.getString("PanelClientServerName.jTextFieldsFTP.text"));
-/*  700 */     this.jTextFieldsFTP.setToolTipText(bundle.getString("PanelClientServerName.jTextFieldsFTP.toolTipText"));
-/*  701 */     this.jTextFieldsFTP.addFocusListener(new FocusAdapter() {
-/*      */           public void focusGained(FocusEvent evt) {
-/*  703 */             PanelClientServerName.this.jTextFieldsFTPFocusGained(evt);
-/*      */           }
-/*      */           public void focusLost(FocusEvent evt) {
-/*  706 */             PanelClientServerName.this.jTextFieldsFTPFocusLost(evt);
-/*      */           }
-/*      */         });
-/*  709 */     this.jTextFieldsFTP.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  711 */             PanelClientServerName.this.jTextFieldsFTPActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  715 */     this.jButtonModbus.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/modbus.png")));
+               Tooltip jTextFieldsFTPTooltip = new Tooltip("PanelClientServerName.jTextFieldsFTP.toolTipText");
+               this.jTextFieldsFTP.setTooltip(jTextFieldsFTPTooltip);
+               this.jTextFieldsFTP.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+                        // TextField gana el foco del teclado
+                        if (newValue) {
+                            jTextFieldsFTPFocusGained();
+                        // TextField pierde el foco del teclado
+                        } else {
+                            jTextFieldsFTPFocusLost();
+                        }
+                    } 
+               });
+/*  701 */     
+               Image iconJButtonModbus = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/modbus.png").toExternalForm());
+               ImageView iconViewJButtonModbus = new ImageView(iconJButtonModbus);
+/*  437 */     this.jButtonModbus.setGraphic(iconViewJButtonModbus);
 /*  716 */     this.jButtonModbus.setText(bundle.getString("PanelClientServerName.jButtonModbus.text"));
-/*  717 */     this.jButtonModbus.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  719 */             PanelClientServerName.this.jButtonModbusActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
 /*  723 */     this.jTextFieldModbus.setText(bundle.getString("PanelClientServerName.jTextFieldModbus.text"));
-/*  724 */     this.jTextFieldModbus.setToolTipText(bundle.getString("PanelClientServerName.jTextFieldModbus.toolTipText"));
-/*  725 */     this.jTextFieldModbus.addFocusListener(new FocusAdapter() {
-/*      */           public void focusGained(FocusEvent evt) {
-/*  727 */             PanelClientServerName.this.jTextFieldModbusFocusGained(evt);
-/*      */           }
-/*      */           public void focusLost(FocusEvent evt) {
-/*  730 */             PanelClientServerName.this.jTextFieldModbusFocusLost(evt);
-/*      */           }
-/*      */         });
-/*  733 */     this.jTextFieldModbus.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  735 */             PanelClientServerName.this.jTextFieldModbusActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  739 */     this.jLabelTituloService.setFont(new Font("Tahoma", 1, 12));
+               Tooltip jTextFieldModbusTooltip = new Tooltip("PanelClientServerName.jTextFieldModbus.toolTipText");
+               this.jTextFieldModbus.setTooltip(jTextFieldModbusTooltip);
+/*  725 */     this.jTextFieldModbus.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+                        // TextField gana el foco del teclado
+                        if (newValue) {
+                            jTextFieldModbusFocusGained();
+                        // TextField pierde el foco del teclado
+                        } else {
+                            jTextFieldModbusFocusLost();
+                        }
+                    } 
+               });
+/*  733 */    
 /*  740 */     this.jLabelTituloService.setText(bundle.getString("PanelClientServerName.jLabelTituloService.text"));
 /*      */     
-/*  742 */     this.jButtonTools.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/tools.png")));
+               Image iconJButtonTools = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/tools.png").toExternalForm());
+               ImageView iconViewJButtonTools = new ImageView(iconJButtonTools);
+/*  437 */     this.jButtonTools.setGraphic(iconViewJButtonTools);
 /*  743 */     this.jButtonTools.setText(bundle.getString("PanelClientServerName.jButtonTools.text"));
-/*  744 */     this.jButtonTools.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  746 */             PanelClientServerName.this.jButtonToolsActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  750 */     this.jButtonForwarding.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/tunel.png")));
+
+               Image iconJButtonForwarding = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/tunel.png").toExternalForm());
+               ImageView iconViewJButtonForwarding = new ImageView(iconJButtonForwarding);
+/*  437 */     this.jButtonForwarding.setGraphic(iconViewJButtonForwarding);
 /*  751 */     this.jButtonForwarding.setText(bundle.getString("PanelClientServerName.jButtonForwarding.text"));
-/*  752 */     this.jButtonForwarding.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  754 */             PanelClientServerName.this.jButtonForwardingActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  758 */     this.jButtonForwardingLook.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/busco.png")));
-/*  759 */     this.jButtonForwardingLook.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  761 */             PanelClientServerName.this.jButtonForwardingLookActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  765 */     this.jButtonProfile.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/ver.png")));
-/*  766 */     this.jButtonProfile.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  768 */             PanelClientServerName.this.jButtonProfileActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  772 */     
-/*      */     
-/*  857 */     this.jPanelNavegador.setBackground(new Color(51, 153, 255));
-/*  858 */     this.jPanelNavegador.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanelNavegador.border.title")));
-/*      */     
-/*  860 */     this.jButtonNavegador.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/navegador.png")));
+
+               Image iconJButtonForwardingLook = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/busco.png").toExternalForm());
+               ImageView iconViewJButtonForwardingLook = new ImageView(iconJButtonForwardingLook);
+/*  437 */     this.jButtonForwardingLook.setGraphic(iconViewJButtonForwardingLook);
+/*  759 */    
+               Image iconJButtonProfile = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/ver.png").toExternalForm());
+               ImageView iconViewJButtonProfile = new ImageView(iconJButtonProfile);
+/*  437 */     this.jButtonProfile.setGraphic(iconViewJButtonProfile);
+
+/*  858 */     //this.jPanelNavegador.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanelNavegador.border.title")));
+/*      */     Image iconJButtonNavegador = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/navegador.png").toExternalForm());
+               ImageView iconViewJButtonNavegador = new ImageView(iconJButtonNavegador);
+/*  437 */     this.jButtonNavegador.setGraphic(iconViewJButtonNavegador);
 /*  861 */     this.jButtonNavegador.setText(bundle.getString("PanelClientServerName.jButtonNavegador.text"));
-/*  862 */     this.jButtonNavegador.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  864 */             PanelClientServerName.this.jButtonNavegadorActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  868 */     this.jLabel1.setFont(new Font("Tahoma", 1, 16));
+/*  862 */     
 /*  869 */     this.jLabel1.setText(bundle.getString("PanelClientServerName.jLabel1.text"));
 /*      */     
 /*  871 */     this.jTextFieldPortNav.setText(bundle.getString("PanelClientServerName.jTextFieldPortNav.text"));
-/*  872 */     this.jTextFieldPortNav.addFocusListener(new FocusAdapter() {
-/*      */           public void focusGained(FocusEvent evt) {
-/*  874 */             PanelClientServerName.this.jTextFieldPortNavFocusGained(evt);
-/*      */           }
-/*      */           public void focusLost(FocusEvent evt) {
-/*  877 */             PanelClientServerName.this.jTextFieldPortNavFocusLost(evt);
-/*      */           }
-/*      */         });
-/*  880 */     this.jTextFieldPortNav.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  882 */             PanelClientServerName.this.jTextFieldPortNavActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  886 */     this.jLabel3.setFont(new Font("Tahoma", 1, 16));
+/*  872 */     this.jTextFieldPortNav.focusedProperty().addListener(new ChangeListener<Boolean>() {
+                    @Override
+                    public void changed(ObservableValue<? extends Boolean> arg0, Boolean oldValue, Boolean newValue) {
+                        // TextField gana el foco del teclado
+                        if (newValue) {
+                            jTextFieldPortNavFocusGained();
+                        // TextField pierde el foco del teclado
+                        } else {
+                            jTextFieldPortNavFocusLost();
+                        }
+                    } 
+               });
+/*  880 */     
 /*  887 */     this.jLabel3.setText(bundle.getString("PanelClientServerName.jLabel3.text"));
 /*      */     
-/*  889 */     this.jTextFieldURL.setToolTipText(bundle.getString("PanelClientServerName.jTextFieldURL.toolTipText"));
-/*  890 */     this.jTextFieldURL.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  892 */             PanelClientServerName.this.jTextFieldURLActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  896 */     this.buttonGroup1.add(this.jRadioAxi);
-/*  897 */     this.jRadioAxi.setFont(new Font("Tahoma", 1, 12));
+               Tooltip jTextFieldURLTooltip = new Tooltip("PanelClientServerName.jTextFieldURL.toolTipText");
+               this.jTextFieldURL.setTooltip(jTextFieldURLTooltip);
+
+/*  896 */     //this.buttonGroup1.add(this.jRadioAxi);
 /*  898 */     this.jRadioAxi.setText(bundle.getString("PanelClientServerName.jRadioAxi.text"));
-/*  899 */     this.jRadioAxi.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  901 */             PanelClientServerName.this.jRadioAxiActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  905 */     this.buttonGroup1.add(this.jRadioEnlarge);
-/*  906 */     this.jRadioEnlarge.setFont(new Font("Tahoma", 1, 12));
+ 
+/*  905 */     //this.buttonGroup1.add(this.jRadioEnlarge);
 /*  907 */     this.jRadioEnlarge.setText(bundle.getString("PanelClientServerName.jRadioEnlarge.text"));
-/*  908 */     this.jRadioEnlarge.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  910 */             PanelClientServerName.this.jRadioEnlargeActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  914 */     this.buttonGroup1.add(this.jRadioFree);
-/*  915 */     this.jRadioFree.setFont(new Font("Tahoma", 1, 12));
+ 
+/*  914 */     //this.buttonGroup1.add(this.jRadioFree);
 /*  916 */     this.jRadioFree.setText(bundle.getString("PanelClientServerName.jRadioFree.text"));
-/*  917 */     this.jRadioFree.addActionListener(new ActionListener() {
-/*      */           public void actionPerformed(ActionEvent evt) {
-/*  919 */             PanelClientServerName.this.jRadioFreeActionPerformed(evt);
-/*      */           }
-/*      */         });
-/*      */     
-/*  923 */    
+
 /*      */   }
 /*      */   
 /*      */   public void toUpdate() {
-/*  989 */     DefaultListModel<String> defaultListModel = new DefaultListModel();
-/*  990 */     this.jList1.setModel(defaultListModel);
+/*  989 */     ObservableList<String> observableListModel = observableArrayList(new ArrayList<String>());
+/*  990 */     this.jList1.setItems(observableListModel);
 /*  991 */     if (this.sarlab == null) {
 /*  992 */       this.barLogo.init();
-/*  993 */       ButtonEnabled(false);
-/*  994 */       this.jButtonActualizar.setDisable(true);
+/*  993 */       ButtonEnabled(false); // poner en false
+/*  994 */       this.jButtonActualizar.setDisable(true); // poner en true
 /*      */     } else {
 /*  996 */       GetParameters getParameters = new GetParameters();
 /*  997 */       this.directoryRegisterNameSarlab = getParameters.getDirectoryRegisterNameSarlab(this.registerGatewayOld);
 /*  998 */       if (this.directoryRegisterNameSarlab != null) {
 /*      */         
-/* 1000 */         defaultListModel = this.directoryRegisterNameSarlab.getListModel();
-/* 1001 */         this.jList1.setModel(defaultListModel);
+/* 1000 */         observableListModel = (ObservableList<String>) this.directoryRegisterNameSarlab.getListModel();
+/* 1001 */         this.jList1.setItems(observableListModel);
 /*      */       } 
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jButtonActualizarActionPerformed(ActionEvent evt) {
+             @FXML
+/*      */   void jButtonActualizarActionPerformed() {
 /* 1007 */     removeService();
 /* 1008 */     toUpdate();
 /* 1009 */     if (this.directoryRegisterNameSarlab != null);
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   private void jTextFieldDesktopActionPerformed(ActionEvent evt) {
-/* 1016 */     this.jTextFieldDesktop.setBackground(Color.WHITE);
+/*      */   @FXML
+/*      */   void jTextFieldDesktopActionPerformed() {  
 /* 1017 */     String port = this.jTextFieldDesktop.getText();
 /* 1018 */     if ("".equals(port)) {
 /* 1019 */       this.jTextFieldDesktop.setText("3389");
@@ -799,10 +679,12 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jList1MouseClicked(MouseEvent evt) {
+             @FXML
+/*      */   void jList1MouseClicked() {
 /*      */     RegisterName registerName;
 /* 1026 */     ButtonEnabled(true);
-/* 1027 */     int ind = this.jList1.getSelectedIndex();
+/* 1027 */     
+               int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /*      */ 
 /*      */     
 /* 1030 */     if (this.sarlab == null) {
@@ -826,9 +708,6 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */   
 /*      */   public void selectService(RegisterName registerName) {
 /* 1055 */     this.jTextFieldDesktop.setVisible(registerName.isRdesktop());
 /* 1056 */     this.jTextFieldDesktop.setText(Integer.toString(registerName.getRdesktopPort()));
@@ -865,12 +744,9 @@ private TextField lineausuario;
 /*      */       }
 /* 1088 */       this.jTextFieldPortNav.setText(Integer.toString(portLocal));
 /*      */     } 
-/*      */     
 /* 1091 */     initURL();
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */   
 /*      */   public void removeService() {
 /* 1097 */     this.jTextFieldDesktop.setDisable(true);
 /* 1098 */     this.jTextFieldDesktop.setText("");
@@ -898,12 +774,14 @@ private TextField lineausuario;
 /* 1120 */     this.jTextFieldURL.setText("");
 /* 1121 */     this.jTextFieldPortNav.setText("");
 /*      */   }
-/*      */   private void jButtonDesktopActionPerformed(ActionEvent evt) {
+/*      */  
+            @FXML
+            void jButtonDesktopActionPerformed() {
 /*      */     int port;
 /* 1125 */     RegisterName registerName = null;
 /*      */ 
 /*      */     
-/* 1128 */     int ind = this.jList1.getSelectedIndex();
+/* 1128 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1129 */     if (this.sarlab == null) {
 /*      */       
 /* 1131 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
@@ -943,9 +821,8 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jTextFieldsFTPActionPerformed(ActionEvent evt) {
-/* 1170 */    
+/*      */   @FXML
+/*      */   void jTextFieldsFTPActionPerformed() {   
 /* 1171 */     String port = this.jTextFieldsFTP.getText();
 /* 1172 */     if ("".equals(port)) {
 /* 1173 */       this.jTextFieldsFTP.setText("22");
@@ -953,8 +830,8 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldModbusActionPerformed(ActionEvent evt) {
-/* 1179 */    
+             @FXML
+/*      */   void jTextFieldModbusActionPerformed() {   
 /* 1180 */     String port = this.jTextFieldModbus.getText();
 /* 1181 */     if ("".equals(port)) {
 /* 1182 */       this.jTextFieldModbus.setText("502");
@@ -962,19 +839,19 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jTextFieldPortNavActionPerformed(ActionEvent evt) {
-/* 1189 */    
+/*      */   @FXML
+/*      */   void jTextFieldPortNavActionPerformed() {
+/* 1189 */     // CAMBIAR COLOR??
 /* 1190 */     updateURL();
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldPortNavFocusLost(FocusEvent evt) {
-/* 1194 */    
+/*      */   private void jTextFieldPortNavFocusLost() {
+/* 1194 */     // CAMBIAR COLOR??
 /* 1195 */     updateURL();
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldPortNavFocusGained(FocusEvent evt) {
-/* 1199 */    
+/*      */   private void jTextFieldPortNavFocusGained() {
+/* 1199 */     // CAMBIAR COLOR??
 /*      */   }
 /*      */ 
 /*      */   
@@ -1000,10 +877,11 @@ private TextField lineausuario;
 /* 1222 */     return Integer.toString(freePort());
 /*      */   }
 /*      */   
-/*      */   private void jButtonVNCActionPerformed(ActionEvent evt) {
+             @FXML
+/*      */   void jButtonVNCActionPerformed() {
 /*      */     RegisterName registerName;
 /* 1227 */     int port = 0;
-/* 1228 */     int ind = this.jList1.getSelectedIndex();
+/* 1228 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /*      */ 
 /*      */     
 /* 1231 */     if (this.sarlab == null) {
@@ -1046,35 +924,32 @@ private TextField lineausuario;
 /*      */       } 
 /*      */     } 
 /*      */   }
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   private void jTextFieldDesktopFocusGained(FocusEvent evt) {
-/* 1275 */    
+/*      */    
+/*      */   private void jTextFieldDesktopFocusGained() {
+/* 1275 */     // CAMBIAR COLOR? mirar la clase original
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldVNCFocusGained(FocusEvent evt) {
-/* 1279 */    
+/*      */   private void jTextFieldVNCFocusGained() {
+/* 1279 */    // CAMBIAR COLOR? mirar clase original
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldTelnetFocusGained(FocusEvent evt) {
-/* 1283 */    
+/*      */   private void jTextFieldTelnetFocusGained() {
+/* 1283 */    // CAMBIAR COLOR??
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldSshFocusGained(FocusEvent evt) {
-/* 1287 */    
+/*      */   private void jTextFieldSshFocusGained() {
+/* 1287 */     // CAMBIAR COLOR?? mirar clase oirignal
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldsFTPFocusGained(FocusEvent evt) {
-/* 1291 */    
+/*      */   private void jTextFieldsFTPFocusGained() {
+/* 1291 */    // CAMBIAR COLOR? mirar clase original
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldModbusFocusGained(FocusEvent evt) {
-/* 1295 */     
+/*      */   private void jTextFieldModbusFocusGained() {
+/* 1295 */     // cambiar color? ...
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldDesktopFocusLost(FocusEvent evt) {
-/* 1299 */    
+/*      */   private void jTextFieldDesktopFocusLost() {
 /* 1300 */     String port = this.jTextFieldDesktop.getText();
 /* 1301 */     if ("".equals(port)) {
 /* 1302 */       this.jTextFieldDesktop.setText("3389");
@@ -1082,8 +957,7 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldVNCFocusLost(FocusEvent evt) {
-/* 1308 */     
+/*      */   private void jTextFieldVNCFocusLost() {
 /* 1309 */     String port = this.jTextFieldVNC.getText();
 /* 1310 */     if ("".equals(port)) {
 /* 1311 */       this.jTextFieldVNC.setText("5900");
@@ -1091,8 +965,7 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldTelnetFocusLost(FocusEvent evt) {
-/* 1317 */     
+/*      */   private void jTextFieldTelnetFocusLost() {
 /* 1318 */     String port = this.jTextFieldTelnet.getText();
 /* 1319 */     if ("".equals(port)) {
 /* 1320 */       this.jTextFieldTelnet.setText("23");
@@ -1100,8 +973,7 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldSshFocusLost(FocusEvent evt) {
-/* 1326 */     
+/*      */   private void jTextFieldSshFocusLost() {
 /* 1327 */     String port = this.jTextFieldSsh.getText();
 /* 1328 */     if ("".equals(port)) {
 /* 1329 */       this.jTextFieldSsh.setText("22");
@@ -1109,8 +981,7 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldsFTPFocusLost(FocusEvent evt) {
-/* 1335 */    
+/*      */   private void jTextFieldsFTPFocusLost() {
 /* 1336 */     String port = this.jTextFieldsFTP.getText();
 /* 1337 */     if ("".equals(port)) {
 /* 1338 */       this.jTextFieldsFTP.setText("22");
@@ -1118,8 +989,7 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldModbusFocusLost(FocusEvent evt) {
-/* 1344 */     
+/*      */   private void jTextFieldModbusFocusLost() {
 /* 1345 */     String port = this.jTextFieldModbus.getText();
 /* 1346 */     if ("".equals(port)) {
 /* 1347 */       this.jTextFieldModbus.setText("502");
@@ -1127,8 +997,8 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldVNCActionPerformed(ActionEvent evt) {
-/* 1353 */    
+             @FXML
+/*      */   void jTextFieldVNCActionPerformed() {
 /* 1354 */     String port = this.jTextFieldVNC.getText();
 /* 1355 */     if ("".equals(port)) {
 /* 1356 */       this.jTextFieldVNC.setText("5900");
@@ -1136,8 +1006,8 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldTelnetActionPerformed(ActionEvent evt) {
-/* 1362 */     
+             @FXML
+/*      */   void jTextFieldTelnetActionPerformed() {  
 /* 1363 */     String port = this.jTextFieldTelnet.getText();
 /* 1364 */     if ("".equals(port)) {
 /* 1365 */       this.jTextFieldTelnet.setText("23");
@@ -1145,8 +1015,8 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */   
-/*      */   private void jTextFieldSshActionPerformed(ActionEvent evt) {
-/* 1371 */     
+             @FXML
+/*      */   void jTextFieldSshActionPerformed() {   
 /* 1372 */     String port = this.jTextFieldSsh.getText();
 /* 1373 */     if ("".equals(port)) {
 /* 1374 */       this.jTextFieldSsh.setText("22");
@@ -1154,13 +1024,12 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jButtonSshActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonSshActionPerformed() {
 /*      */     RegisterName registerName;
-/* 1382 */     int port, ind = this.jList1.getSelectedIndex();
-/*      */ 
-/*      */ 
-/*      */     
+/* 1382 */     int port; 
+               int ind = this.jList1.getSelectionModel().getSelectedIndex();
+  
 /* 1386 */     if (this.sarlab == null) {
 /*      */       
 /* 1388 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
@@ -1183,7 +1052,9 @@ private TextField lineausuario;
 /* 1405 */         if (OS.isWindows()) {
 /* 1406 */           exec.ssh(registerName.getIp(), port);
 /*      */         } else {
-/* 1408 */           String seleccion = JOptionPane.showInputDialog("User");
+/* 1408 */           TextInputDialog dialog = new TextInputDialog();
+                     dialog.setContentText("user");
+                     Optional<String> seleccion = dialog.showAndWait();
 /* 1409 */           if (seleccion == null) {
 /*      */             return;
 /*      */           }
@@ -1200,7 +1071,9 @@ private TextField lineausuario;
 /* 1422 */         if (OS.isWindows()) {
 /* 1423 */           exec.ssh((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
 /*      */         } else {
-/* 1425 */           String seleccion = JOptionPane.showInputDialog("User");
+                     TextInputDialog dialog = new TextInputDialog();
+                     dialog.setContentText("user");
+                     Optional<String> seleccion = dialog.showAndWait();
 /* 1426 */           if (seleccion == null) {
 /*      */             return;
 /*      */           }
@@ -1211,10 +1084,11 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jButtonTelnetActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonTelnetActionPerformed() {
 /*      */     RegisterName registerName;
-/* 1439 */     int port, ind = this.jList1.getSelectedIndex();
+/* 1439 */     int port;
+               int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /*      */ 
 /*      */     
 /* 1442 */     if (this.sarlab == null) {
@@ -1258,12 +1132,11 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jButtonSFDTPActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonSFDTPActionPerformed() {
 /*      */     RegisterName registerName;
-/* 1486 */     int port, ind = this.jList1.getSelectedIndex();
-/*      */ 
-/*      */     
+/* 1486 */     int port, ind = this.jList1.getSelectionModel().getSelectedIndex();
+
 /* 1489 */     if (this.sarlab == null) {
 /*      */       
 /* 1491 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
@@ -1286,8 +1159,9 @@ private TextField lineausuario;
 /* 1508 */         if (OS.isWindows()) {
 /* 1509 */           exec.sftp(registerName.getIp(), port);
 /*      */         } else {
-/* 1511 */           this.jDialog1.setLocationRelativeTo((Component)null);
-/* 1512 */           this.jDialog1.setVisible(true);
+/* 1511 */          
+/* 1512 */           // this.jDialog1.setVisible(true); ¿cumple esta funciona la linea de debajo?
+                     this.jDialog1.initStyle(StageStyle.DECORATED);
 /* 1513 */           exec.exec("/usr/bin/filezilla sftp://" + this.userLog + ":" + this.passwdLog + "@" + registerName.getIp() + ":" + sPort);
 /*      */         } 
 /*      */       } else {
@@ -1300,18 +1174,19 @@ private TextField lineausuario;
 /* 1522 */         if (OS.isWindows()) {
 /* 1523 */           exec.sftp((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
 /*      */         } else {
-/* 1525 */           this.jDialog1.setLocationRelativeTo((Component)null);
-/* 1526 */           this.jDialog1.setVisible(true);
+/* 1526 */           // this.jDialog1.setVisible(true); ¿cumple esta funciona la linea de debajo?
+                     this.jDialog1.initStyle(StageStyle.DECORATED);
 /* 1527 */           exec.exec("/usr/bin/filezilla sftp://" + this.userLog + ":" + this.passwdLog + "@127.0.0.1:" + portLocal);
 /*      */         } 
 /*      */       } 
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jButtonModbusActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonModbusActionPerformed() {
 /*      */     RegisterName registerName;
-/* 1536 */     int port, ind = this.jList1.getSelectedIndex();
+/* 1536 */     int port;
+               int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /*      */ 
 /*      */     
 /* 1539 */     if (this.sarlab == null) {
@@ -1343,8 +1218,8 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jButtonNavegadorActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonNavegadorActionPerformed() {
 /* 1570 */     String urlNav = generaURL();
 /* 1571 */     ExecApp exec = new ExecApp();
 /* 1572 */     if (OS.isWindows()) {
@@ -1354,8 +1229,8 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jTextFieldURLActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jTextFieldURLActionPerformed() {
 /* 1581 */     String urlNav = generaURL();
 /* 1582 */     ExecApp exec = new ExecApp();
 /* 1583 */     if (OS.isWindows()) {
@@ -1365,38 +1240,49 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */   
-/*      */   private void jButtonRemotoActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonRemotoActionPerformed() throws IOException{
 /* 1593 */     removeService();
-/* 1594 */     //this.jLabel6.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/wan64x64.png")));
-/* 1595 */     DefaultListModel<String> defaultListModel = new DefaultListModel();
-/* 1596 */     this.jList1.setModel(defaultListModel);
+               Image iconJLabel6 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/wan64x64.png").toExternalForm());
+               ImageView iconViewJLabel6 = new ImageView(iconJLabel6);
+/*  437 */     this.jLabel6.setGraphic(iconViewJLabel6);
+               ObservableList<String> observableListModel = observableArrayList(new ArrayList<String>());
+/*  990 */     this.jList1.setItems(observableListModel);
 /* 1597 */     if (OS.isWindows()) {
 /* 1598 */       this.jButtonTools.setDisable(false);
 /*      */     }
 /* 1600 */     this.jButtonForwarding.setDisable(false);
 /* 1601 */     this.jButtonForwardingLook.setDisable(false);
 /* 1602 */     this.jButtonProfile.setDisable(false);
-/* 1603 */     //this.listGateway.setVisible(true);
+               
+/* 1603 */     //this.listGateway.setVisible(true); MUESTRA PanelListGateway
+               startPanelListGatewayStage();
 /*      */   }
+
+             void startPanelListGatewayStage() throws IOException {
+                Main.getPanelListGatewayStage().show();
+             }
 /*      */ 
-/*      */   
-/*      */   private void jButtonLocalActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonConfiguracionLocalActionPerformed() throws IOException {
+               // Stage que abre el boton Configuracion Local
 /* 1608 */     //this.editor.setVisible(true);
+               Main.getPanelConectionLocalhostStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jButtonConfiguracionLocalActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonLocalActionPerformed() {
 /* 1613 */     removeService();
 /* 1614 */     this.jLabelNetConnect.setText("LAN");
 /* 1615 */     this.jButtonTools.setDisable(true);
 /* 1616 */     this.jButtonForwarding.setDisable(true);
 /* 1617 */     this.jButtonForwardingLook.setDisable(true);
 /* 1618 */     this.jButtonProfile.setDisable(true);
-/* 1619 */     //this.jLabel6.setIcon(new ImageIcon(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/LAN64x64.png")));
-/* 1620 */     DefaultListModel<String> defaultListModel = new DefaultListModel();
-/* 1621 */     this.jList1.setModel(defaultListModel);
+               Image iconJLabel6 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/LAN64x64.png").toExternalForm());
+               ImageView iconViewJLabel6 = new ImageView(iconJLabel6);
+/*  437 */     this.jLabel6.setGraphic(iconViewJLabel6);
+/* 1620 */     ObservableList<String> observableListModel = observableArrayList(new ArrayList<String>());
+/*  990 */     this.jList1.setItems(observableListModel);
 /* 1622 */     if (this.sarlab != null) {
 /* 1623 */       this.sarlab.disconnect();
 /* 1624 */       this.sarlab.delay(500);
@@ -1407,12 +1293,12 @@ private TextField lineausuario;
 /* 1629 */     this.jButtonActualizar.setDisable(true);
 /*      */   }
 /*      */   
-/*      */   private void jRadioAxiActionPerformed(ActionEvent evt) {
+             @FXML
+/*      */   void jRadioAxiActionPerformed() {
 /*      */     RegisterName registerName;
 /* 1634 */     this.jTextFieldURL.setDisable(true);
 /*      */ 
-/*      */     
-/* 1637 */     int ind = this.jList1.getSelectedIndex();
+/* 1637 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1638 */     if (this.sarlab == null) {
 /* 1639 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
@@ -1427,16 +1313,13 @@ private TextField lineausuario;
 /* 1649 */     this.jTextFieldURL.setText(this.url + "/axis-cgi/mjpg/video.cgi");
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   private void jRadioEnlargeActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jRadioEnlargeActionPerformed() {
 /*      */     RegisterName registerName;
 /* 1658 */     this.jTextFieldURL.setDisable(true);
 /*      */ 
 /*      */     
-/* 1661 */     int ind = this.jList1.getSelectedIndex();
+/* 1661 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1662 */     if (this.sarlab == null) {
 /* 1663 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
@@ -1450,16 +1333,11 @@ private TextField lineausuario;
 /*      */     } 
 /* 1673 */     this.jTextFieldURL.setText(this.url + "/stream/video.mjpeg");
 /*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   private void jRadioFreeActionPerformed(ActionEvent evt) {
+
+/*      */   @FXML
+/*      */   void jRadioFreeActionPerformed() {
 /*      */     RegisterName registerName;
-/* 1684 */     int ind = this.jList1.getSelectedIndex();
+/* 1684 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1685 */     if (this.sarlab == null) {
 /* 1686 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
@@ -1475,25 +1353,26 @@ private TextField lineausuario;
 /* 1697 */     this.jTextFieldURL.setDisable(false);
 /*      */   }
 /*      */ 
-/*      */   
-/*      */   private void jButtonToolsActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonToolsActionPerformed() {
 /* 1702 */     if (this.sarlab != null) {
 /* 1703 */       ExecApp exec = new ExecApp();
 /* 1704 */       if (OS.isWindows()) {
 /* 1705 */         exec.utility((EJSClientSarlab2)this.sarlab);
 /*      */       } else {
-/* 1707 */         JOptionPane.showMessageDialog(null, "Option not supported on linux");
+                   Alert alert = new Alert(AlertType.INFORMATION);
+                   alert.setContentText("Option not supported on linux");
+                   alert.showAndWait();
 /*      */       } 
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */   
-/*      */   private void jButtonForwardingLookActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonForwardingLookActionPerformed() {
 /* 1715 */     //this.panelConectionLocalhost.setVisible(true);
-/* 1716 */     DefaultListModel modelo = new DefaultListModel();
+/* 1716 */     ObservableList<String> modelo = observableArrayList(new ArrayList<String>());
 /* 1717 */     if (this.sarlab != null) {
-/* 1718 */       modelo = this.sarlab.getDefaultListModel();
+/* 1718 */       modelo = (ObservableList<String>) this.sarlab.getDefaultListModel();
 /*      */     }
 /*      */     
 /* 1721 */     //this.panelConectionLocalhost.init(modelo);
@@ -1501,8 +1380,8 @@ private TextField lineausuario;
 /*      */   }
 /*      */ 
 /*      */ 
-/*      */   
-/*      */   private void jButtonForwardingActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonForwardingActionPerformed() {
 /* 1728 */     //this.panelNodoFrowardingL.setVisible(true);
 /* 1729 */     //this.panelNodoFrowardingL.setIpInit();
 /*      */   }
@@ -1511,8 +1390,8 @@ private TextField lineausuario;
 /*      */ 
 /*      */ 
 /*      */ 
-/*      */   
-/*      */   private void jButtonProfileActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButtonProfileActionPerformed() {
 /* 1738 */     String url = "";
 /* 1739 */     if (this.sarlab != null) {
 /* 1740 */       HashMapExperienceWeb hashMapExperienceWeb = new HashMapExperienceWeb();
@@ -1558,7 +1437,7 @@ private TextField lineausuario;
 /* 1780 */     this.lineausuario.setText("");
 /* 1781 */     this.lineapass.setText("");
 /* 1782 */     this.enteruserpas = true;
-/* 1783 */     this.jDialog1.dispose();
+/* 1783 */     this.jDialog1.close();
 /*      */   }
 /*      */ 
 /*      */   
@@ -1570,7 +1449,7 @@ private TextField lineausuario;
 /* 1792 */       this.lineausuario.setText("");
 /* 1793 */       this.lineapass.setText("");
 /* 1794 */       this.enteruserpas = true;
-/* 1795 */       this.jDialog1.dispose();
+/* 1795 */       this.jDialog1.close();
 /*      */     } 
 /*      */   }
 /*      */ 
@@ -1578,8 +1457,8 @@ private TextField lineausuario;
 /*      */   
 /*      */   private void lineausuarioActionPerformed(ActionEvent evt) {}
 /*      */ 
-/*      */   
-/*      */   private void jButton1ActionPerformed(ActionEvent evt) {
+/*      */   @FXML
+/*      */   void jButton1ActionPerformed() {
 /* 1805 */     //this.consoleText.setVisible(true);
 /* 1806 */     //this.consoleText.startTimer();
 /*      */   }
@@ -1589,7 +1468,7 @@ private TextField lineausuario;
 /* 1811 */     String sPort, urlLocal = "";
 /*      */ 
 /*      */     
-/* 1814 */     int ind = this.jList1.getSelectedIndex();
+/* 1814 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1815 */     if (this.sarlab == null) {
 /* 1816 */       RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /* 1817 */       sPort = Integer.toString(registerName.getHttpPort());
@@ -1625,7 +1504,7 @@ private TextField lineausuario;
 /* 1847 */     String sPort, urlLocal = "";
 /*      */ 
 /*      */     
-/* 1850 */     int ind = this.jList1.getSelectedIndex();
+/* 1850 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1851 */     if (this.sarlab == null) {
 /* 1852 */       RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /* 1853 */       sPort = this.jTextFieldPortNav.getText();
@@ -1661,7 +1540,7 @@ private TextField lineausuario;
 /* 1883 */     String urlLocal = "";
 /*      */ 
 /*      */     
-/* 1886 */     int ind = this.jList1.getSelectedIndex();
+/* 1886 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1887 */     if (this.sarlab == null) {
 /* 1888 */       RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /* 1889 */       String sPort = this.jTextFieldPortNav.getText();
@@ -1744,12 +1623,16 @@ private TextField lineausuario;
 /* 1966 */       String hostname = addr.getHostName();
 /* 1967 */       Properties p = new Properties();
 /* 1968 */       if (!DirectoryFilesUtility.existsFile(giveMeFileNameConfig())) {
-/* 1969 */         String name = JOptionPane.showInputDialog(null, "Indique el nombre ", "Identificación del equipo", 2);
-/*      */         
-/* 1971 */         if (name.equals("")) {
-/* 1972 */           name = hostname;
-/*      */         }
-/* 1974 */         p.setProperty("nameSarlab", name);
+                     TextInputDialog dialog = new TextInputDialog();
+                     dialog.setTitle("Identificación del equipo");
+                     dialog.setContentText("Indique el nombre");
+                     Optional<String> name = dialog.showAndWait();
+  
+/* 1971 */         if (name.isPresent() && name.get().equals("")) {
+                     p.setProperty("nameSarlab", hostname);
+/*      */         } else if(name.isPresent()) {
+                     p.setProperty("nameSarlab", name.get());
+                   }
 /* 1975 */         p.store(new FileWriter(giveMeFileNameConfig()), "Creado por el servicio GIOT Name");
 /*      */       } 
 /*      */       
@@ -1764,42 +1647,33 @@ private TextField lineausuario;
 /*      */   public void endBarLogo() {
 /* 1987 */     this.serverUDPThread.end();
 /* 1988 */     DirectoryRegisterName directoryRegisterName = this.serverUDPThread.getDirectoryRegisterName();
-/* 1989 */     setListModel(this.serverUDPThread.getListModel());
+/* 1989 */     setListModel((ObservableList<String>) this.serverUDPThread.getListModel());
 /* 1990 */     this.jButtonActualizar.setDisable(false);
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */   /*      */ 
-/*      */ 
-/*      */ 
-/*      */   
 /*      */   public void connectGIOT(final RegisterGateway registerGateway) {
-/* 1997 */     initProgressBar(50);
-/*      */ 
-/*      */     /*      */ 
-/*      */     
+/* 1997 */     initProgressBar(5);
+
 /* 2000 */     SwingUtilities.invokeLater(new Runnable()
 /*      */         {
 /*      */           public void run() {
-/* 2003 */             if (PanelClientServerName.this.sarlab != null) {
-/* 2004 */               PanelClientServerName.this.sarlab.disconnect();
+/* 2003 */             if (PanelClientServerNameController.this.sarlab != null) {
+/* 2004 */               PanelClientServerNameController.this.sarlab.disconnect();
 /*      */             }
 /*      */             /*      */             
-/* 2007 */             PanelClientServerName.this.sarlab = new GIOTClientSarlab3();
+/* 2007 */             PanelClientServerNameController.this.sarlab = new GIOTClientSarlab3();
 /*      */             
 /* 2009 */             System.out.println("IpServerTunnel " + registerGateway.getIpServerSarlab());
 /* 2010 */             if (!registerGateway.getPortInputGIOTTunnel().equals("")) {
 /* 2011 */               String uri = registerGateway.getIdGIOT().replace("GIoT_", "").toLowerCase();
-/* 2012 */               PanelClientServerName.this.sarlab.connectMyGateway(registerGateway.getIpServerSarlab(), registerGateway.getPortServerSarlab(), registerGateway.getIdGIOT(), registerGateway.getKeyGIOT(), registerGateway.getIpPublicherMyGateway(), registerGateway.getPortInputGIOTTunnel(), registerGateway.getPortInputGIOTWeb(), registerGateway.getUserGIOT(), registerGateway.getPassGIOT(), registerGateway.getIdExp(), registerGateway.getTimeOUT());
+/* 2012 */               PanelClientServerNameController.this.sarlab.connectMyGateway(registerGateway.getIpServerSarlab(), registerGateway.getPortServerSarlab(), registerGateway.getIdGIOT(), registerGateway.getKeyGIOT(), registerGateway.getIpPublicherMyGateway(), registerGateway.getPortInputGIOTTunnel(), registerGateway.getPortInputGIOTWeb(), registerGateway.getUserGIOT(), registerGateway.getPassGIOT(), registerGateway.getIdExp(), registerGateway.getTimeOUT());
 /*      */             }
 /*      */             else {
-/*      */               
-/* 2016 */               PanelClientServerName.this.sarlab.connect(registerGateway.getIpServerSarlab(), registerGateway.getPortServerSarlab(), registerGateway.getUserGIOT(), registerGateway.getPassGIOT(), registerGateway.getIdExp(), registerGateway.getTimeOUT());
+/* 2016 */               PanelClientServerNameController.this.sarlab.connect(registerGateway.getIpServerSarlab(), registerGateway.getPortServerSarlab(), registerGateway.getUserGIOT(), registerGateway.getPassGIOT(), registerGateway.getIdExp(), registerGateway.getTimeOUT());
 /*      */             } 
-/* 2018 */             System.out.println(PanelClientServerName.this.url);
+/* 2018 */             System.out.println(PanelClientServerNameController.this.url);
 /* 2019 */             GetParameters getParameters = new GetParameters();
-/* 2020 */             PanelClientServerName.this.directoryRegisterNameSarlab = getParameters.getDirectoryRegisterNameSarlab(registerGateway);
+/* 2020 */             PanelClientServerNameController.this.directoryRegisterNameSarlab = getParameters.getDirectoryRegisterNameSarlab(registerGateway);
 /* 2021 */             if (!registerGateway.getPortInputGIOTTunnel().equals("")) {
 /* 2022 */               RegisterName regMyGateway = new RegisterName("10.254.254.254", "myGateway_10", "myGateway10");
 /* 2023 */               regMyGateway.setVnc(true);
@@ -1808,15 +1682,15 @@ private TextField lineausuario;
 /* 2026 */               regMyGateway.setSshPort(22);
 /* 2027 */               regMyGateway.setSftp(true);
 /* 2028 */               regMyGateway.setSftpPort(22);
-/* 2029 */               PanelClientServerName.this.directoryRegisterNameSarlab.add(regMyGateway);
+/* 2029 */               PanelClientServerNameController.this.directoryRegisterNameSarlab.add(regMyGateway);
 /*      */             } 
-/* 2031 */             PanelClientServerName.this.registerGatewayOld = registerGateway;
+/* 2031 */             PanelClientServerNameController.this.registerGatewayOld = registerGateway;
 /*      */ 
 /*      */             /*      */ 
 /*      */             
-/* 2034 */             if (PanelClientServerName.this.directoryRegisterNameSarlab != null) {
-/* 2035 */               DefaultListModel<String> defaultListModel = PanelClientServerName.this.directoryRegisterNameSarlab.getListModel();
-/* 2036 */               PanelClientServerName.this.jList1.setModel(defaultListModel);
+/* 2034 */             if (PanelClientServerNameController.this.directoryRegisterNameSarlab != null) {
+/* 2035 */               ObservableList<String> observableListModel = (ObservableList<String>) PanelClientServerNameController.this.directoryRegisterNameSarlab.getListModel();
+/* 2036 */               PanelClientServerNameController.this.jList1.setItems(observableListModel);
 /*      */             } 
 /*      */           }
 /*      */         });
@@ -1826,155 +1700,25 @@ private TextField lineausuario;
 /* 2043 */     return IdGIOT.substring(5).toLowerCase();
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
-/*      */   public static void main(String[] args) {
-/*      */     try {
-/* 2058 */       for (UIManager.LookAndFeelInfo info : UIManager.getInstalledLookAndFeels()) {
-/* 2059 */         if ("Nimbus".equals(info.getName())) {
-/* 2060 */           UIManager.setLookAndFeel(info.getClassName());
-/*      */           break;
-/*      */         } 
-/*      */       } 
-/* 2064 */     } catch (ClassNotFoundException ex) {
-/* 2065 */       Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, (String)null, ex);
-/* 2066 */     } catch (InstantiationException ex) {
-/* 2067 */       Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, (String)null, ex);
-/* 2068 */     } catch (IllegalAccessException ex) {
-/* 2069 */       Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, (String)null, ex);
-/* 2070 */     } catch (UnsupportedLookAndFeelException ex) {
-/* 2071 */       Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, (String)null, ex);
-/*      */     } 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
-/* 2086 */     SwingUtilities.invokeLater(new Runnable() {
-/*      */           public void run() {
-/* 2088 */             //PanelClientServerName clientName = new PanelClientServerName();
-/* 2089 */             //clientName.setVisible(true);
-/* 2090 */             //clientName.init();
-/*      */           }
-/*      */         });
-/*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
 /*      */   public void propertyChange(PropertyChangeEvent evt) {
 /* 2157 */     if ("progress" == evt.getPropertyName()) {
 /* 2158 */       //this.progressBar.setIndeterminate(false);
+                 // EQUIVALE A NO SER INDETERMINADO (SUSTITUYE A LA DE ARRIBA):
+                 this.progressBar.setVar(0.1);
 /* 2159 */       int progress = ((Integer)evt.getNewValue()).intValue();
-/* 2160 */       //this.progressBar.setVar(progress);
+/* 2160 */       this.progressBar.setVar(progress);
 /* 2161 */       if (progress == 100) {
-/* 2162 */         //this.progressBar.setVisible(false);
+/* 2162 */         this.progressBar.setVisible(false);
 /*      */       }
 /*      */       
 /* 2165 */       if (this.sarlab != null) {
 /* 2166 */         if (this.sarlab.getStatusSarlab().contains("Error")) {
 /* 2167 */           this.sentinel.stop();
-/* 2168 */           //this.progressBar.setVisible(false);
+/* 2168 */           this.progressBar.setVisible(false);
 /*      */         } 
 /* 2170 */         if (this.sarlab.getStatusSarlab().contains("failure")) {
 /* 2171 */           this.sentinel.stop();
-/* 2172 */           //this.progressBar.setVisible(false);
+/* 2172 */           this.progressBar.setVisible(false);
 /*      */         } 
 /* 2174 */         if (this.sarlab.openConnectionSarlab()) {
 /* 2175 */           this.task.endProgress();
@@ -1985,11 +1729,10 @@ private TextField lineausuario;
 /*      */     } 
 /*      */   }
 /*      */ 
-/*      */   
 /*      */   public void initProgressBar(int t) {
-/* 2185 */     //this.progressBar.setVisible(true);
-/* 2186 */     //this.progressBar.setIndeterminate(true);
-/* 2187 */     //this.progressBar.setVar(5);
+/* 2185 */     this.progressBar.setVisible(true);
+/* 2186 */     this.progressBar.setIndeterminate();
+/* 2187 */     this.progressBar.setVar(0.5);
 /* 2188 */     this.task = new Task();
 /* 2189 */     this.task.setT(t);
 /* 2190 */     this.task.addPropertyChangeListener(this);
@@ -2001,10 +1744,16 @@ private TextField lineausuario;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
+  
+    try {
+        initPanelClientServerName();
+    } catch (IOException ex) {
+        Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
     }
- class Task
-/*      */     extends SwingWorker<Void, Void> {
+    
+    }
+    
+ class Task extends SwingWorker<Void, Void> {
 /*      */     boolean end = false;
 /*      */     public boolean slow = false;
 /* 2199 */     int t = 10;
@@ -2059,35 +1808,18 @@ private TextField lineausuario;
 /* 2248 */       this.slow = true;
 /*      */     }
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     
 /*      */     protected Void doInBackground() throws Exception {
 /* 2264 */       retardation(this.t);
 /* 2265 */       return null;
 /*      */     }
 /*      */
 
-        private void addPropertyChangeListener(PanelClientServerName aThis) {
+        private void addPropertyChangeListener(PanelClientServerNameController aThis) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
    }
-/*      */ 
-/*      */ 
-/*      */   /*      */ 
-/*      */ 
 /*      */   
-/*      */   class Sentinel
-/*      */     implements ActionListener
+/*      */   class Sentinel implements ActionListener
 /*      */   {
 /* 2274 */     Timer timer = new Timer(100, this);
 /*      */ 
@@ -2099,20 +1831,14 @@ private TextField lineausuario;
 /*      */     public void start() {
 /* 2282 */       this.timer.start();
 /*      */     }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */     /*      */ 
-/*      */ 
-/*      */ 
-/*      */     
+ 
 /*      */     public void actionPerformed(ActionEvent e) {
-/* 2289 */       if (PanelClientServerName.this.sarlab != null) {
-/* 2290 */         if (PanelClientServerName.this.sarlab.clientSarlab != null) {
-/* 2291 */           PanelClientServerName.this.sarlab.clientSarlab.sendCommandServer("ping");
+/* 2289 */       if (PanelClientServerNameController.this.sarlab != null) {
+/* 2290 */         if (PanelClientServerNameController.this.sarlab.clientSarlab != null) {
+/* 2291 */           PanelClientServerNameController.this.sarlab.clientSarlab.sendCommandServer("ping");
 /*      */         }
-/* 2293 */         if (PanelClientServerName.this.sarlab.clienteGIOT != null)
-/* 2294 */           PanelClientServerName.this.sarlab.clienteGIOT.sendCommandServer("ping"); 
+/* 2293 */         if (PanelClientServerNameController.this.sarlab.clienteGIOT != null)
+/* 2294 */           PanelClientServerNameController.this.sarlab.clienteGIOT.sendCommandServer("ping"); 
 /*      */       } 
 /*      */     }
 /*      */   }

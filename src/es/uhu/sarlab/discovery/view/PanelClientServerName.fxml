@@ -18,10 +18,9 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-
-<AnchorPane prefHeight="600.0" prefWidth="775.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
+<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
    <children>
-      <VBox layoutX="148.0" layoutY="38.0" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="148.0" layoutY="38.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <HBox alignment="CENTER" prefHeight="93.0" prefWidth="750.0">
                <children>
@@ -50,10 +49,10 @@
                            <children>
                               <VBox prefHeight="337.6" prefWidth="541.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                  <children>
-                                    <Label text="           Ip                                        Nombre Nebsyst" />
+                                    <Label fx:id="jLabelList" text="           Ip                                        Nombre Nebsyst" />
                                     <AnchorPane prefHeight="302.0" prefWidth="522.0">
                                        <children>
-                                          <ListView prefHeight="300.8" prefWidth="522.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                          <ListView fx:id="jList1" onMouseClicked="#jList1MouseClicked" prefHeight="300.8" prefWidth="522.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
                                        </children>
                                     </AnchorPane>
                                  </children>
@@ -85,22 +84,22 @@
                                  <children>
                                     <Label text="Servicio" />
                                     <Label text="Puerto" GridPane.columnIndex="1" />
-                                    <Button mnemonicParsing="false" text="Desktop" GridPane.rowIndex="1" />
-                                    <Button mnemonicParsing="false" text="VNC" GridPane.rowIndex="2" />
-                                    <Button mnemonicParsing="false" text="Telnet" GridPane.rowIndex="3" />
-                                    <Button mnemonicParsing="false" text="SSH" GridPane.rowIndex="4" />
-                                    <Button mnemonicParsing="false" text="sFTP" GridPane.rowIndex="5" />
-                                    <Button mnemonicParsing="false" text="Modbus" GridPane.rowIndex="6" />
-                                    <Button mnemonicParsing="false" text="Herramientas" GridPane.rowIndex="7" />
-                                    <Button mnemonicParsing="false" text="Redirección" GridPane.rowIndex="8" />
-                                    <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                    <Button mnemonicParsing="false" text="Button" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                    <TextField prefHeight="26.0" prefWidth="72.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="2" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="3" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="4" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="5" />
-                                    <TextField GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <Button fx:id="jButtonDesktop" mnemonicParsing="false" onAction="#jButtonDesktopActionPerformed" text="Desktop" GridPane.rowIndex="1" />
+                                    <Button fx:id="jButtonVNC" mnemonicParsing="false" onAction="#jButtonVNCActionPerformed" text="VNC" GridPane.rowIndex="2" />
+                                    <Button fx:id="jButtonTelnet" mnemonicParsing="false" onAction="#jButtonTelnetActionPerformed" text="Telnet" GridPane.rowIndex="3" />
+                                    <Button fx:id="jButtonSsh" mnemonicParsing="false" onAction="#jButtonSshActionPerformed" text="SSH" GridPane.rowIndex="4" />
+                                    <Button fx:id="jButtonSFDTP" mnemonicParsing="false" onAction="#jButtonSFDTPActionPerformed" text="sFTP" GridPane.rowIndex="5" />
+                                    <Button fx:id="jButtonModbus" mnemonicParsing="false" onAction="#jButtonModbusActionPerformed" text="Modbus" GridPane.rowIndex="6" />
+                                    <Button fx:id="jButtonTools" mnemonicParsing="false" onAction="#jButtonToolsActionPerformed" text="Herramientas" GridPane.rowIndex="7" />
+                                    <Button fx:id="jButtonForwarding" mnemonicParsing="false" onAction="#jButtonForwardingActionPerformed" text="Redirección" GridPane.rowIndex="8" />
+                                    <Button fx:id="jButtonProfile" mnemonicParsing="false" onAction="#jButtonProfileActionPerformed" text="Perfil" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Button fx:id="jButtonForwardingLook" mnemonicParsing="false" onAction="#jButtonForwardingLookActionPerformed" text="RedirecciónBuscar" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <TextField fx:id="jTextFieldDesktop" onAction="#jTextFieldDesktopActionPerformed" prefHeight="26.0" prefWidth="72.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="jTextFieldVNC" onAction="#jTextFieldVNCActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="jTextFieldTelnet" onAction="#jTextFieldTelnetActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="jTextFieldSsh" onAction="#jTextFieldSshActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="jTextFieldsFTP" onAction="#jTextFieldsFTPActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="jTextFieldModbus" onAction="#jTextFieldModbusActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                  </children>
                               </GridPane>
                            </children>
@@ -111,35 +110,36 @@
             </HBox>
             <VBox prefHeight="145.0" prefWidth="750.0">
                <children>
-                  <TitledPane animated="false" collapsible="false" prefHeight="105.0" prefWidth="775.0" text="Web">
+                  <TitledPane animated="false" collapsible="false" prefHeight="118.0" text="Web">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="24.0" prefWidth="774.0">
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="45.0" prefWidth="729.0">
                            <children>
                               <ToolBar prefHeight="49.6" prefWidth="748.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
-                                  <Button mnemonicParsing="false" text="Navegador" />
+                                  <Button fx:id="jButtonNavegador" mnemonicParsing="false" onAction="#jButtonNavegadorActionPerformed" text="Navegador" />
                                     <Label text="Puerto" />
-                                    <TextField />
+                                    <TextField fx:id="jTextFieldPortNav" onAction="#jTextFieldPortNavActionPerformed" />
                                     <Label text="URL" />
-                                    <TextField />
-                                    <RadioButton mnemonicParsing="false" text="URI Libre" />
-                                    <RadioButton mnemonicParsing="false" text="Cámara UHU mjpg" />
-                                    <RadioButton mnemonicParsing="false" text="Cámara Axis" />
+                                    <TextField fx:id="jTextFieldURL" onAction="#jTextFieldURLActionPerformed" />
+                                    <RadioButton fx:id="jRadioFree" mnemonicParsing="false" onAction="#jRadioFreeActionPerformed" text="URI Libre" />
+                                    <RadioButton fx:id="jRadioEnlarge" mnemonicParsing="false" onAction="#jRadioEnlargeActionPerformed" text="Cámara UHU mjpg" />
+                                    <RadioButton fx:id="jRadioAxi" mnemonicParsing="false" onAction="#jRadioAxiActionPerformed" text="Cámara Axis" />
                                 </items>
                               </ToolBar>
                            </children>
                         </AnchorPane>
                     </content>
                   </TitledPane>
-                  <Pane prefHeight="100.0" prefWidth="775.0">
+                  <Pane prefHeight="113.0" prefWidth="800.0">
                      <children>
-                        <ToolBar prefHeight="69.0" prefWidth="775.0">
+                        <ToolBar prefHeight="69.0" prefWidth="782.0">
                           <items>
-                            <Button mnemonicParsing="false" text="Actualizar" />
-                              <Button mnemonicParsing="false" text="Acceso remoto" />
-                              <Button mnemonicParsing="false" text="Acceso local" />
-                              <Button mnemonicParsing="false" text="Configuración local" />
-                              <Button mnemonicParsing="false" text="Consola" />
+                            <Button fx:id="jButtonActualizar" mnemonicParsing="false" onAction="#jButtonActualizarActionPerformed" text="Actualizar" />
+                              <Button fx:id="jButtonRemoto" mnemonicParsing="false" onAction="#jButtonRemotoActionPerformed" text="Acceso remoto" />
+                              <Button fx:id="jButtonLocal" mnemonicParsing="false" onAction="#jButtonLocalActionPerformed" text="Acceso local" />
+                              <Button fx:id="jButtonConfiguracionLocal" mnemonicParsing="false" onAction="#jButtonConfiguracionLocalActionPerformed" text="Configuración local" />
+                              <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Consola" />
+                              <Button fx:id="jButtonTest" mnemonicParsing="false" onAction="#jButtonTestActionPerformed" text="Test" />
                           </items>
                         </ToolBar>
                      </children>
