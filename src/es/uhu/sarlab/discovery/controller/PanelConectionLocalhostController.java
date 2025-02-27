@@ -40,10 +40,10 @@ import javafx.scene.layout.Pane;
             private Button jButton2;
 /*     */   private Label jLabel2;
             @FXML
-/*     */   public ListView jListHardware;
+/*     */   private ListView jListHardware;
 /*     */   private Pane jPanel1;
 /*     */   
-/*     */   public void initPanelConectionLocalhost() {
+/*     */   private void initPanelConectionLocalhost() {
 /*  52 */     //this.clientName = clientName;
 /*  53 */     initComponents();
 /*     */   }

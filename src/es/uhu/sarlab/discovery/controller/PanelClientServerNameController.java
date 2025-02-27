@@ -71,7 +71,10 @@ import javafx.beans.value.ObservableValue;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
+import javafx.scene.Parent;
+import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.Label;
@@ -89,6 +92,7 @@ import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import static javafx.stage.Modality.APPLICATION_MODAL;
+import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 
 
@@ -126,6 +130,7 @@ import javafx.stage.StageStyle;
 /*   96 */   PrintStream ps = null;
 /*   97 */   PrintStream old = System.out;
 /*   99 */   String locale = null; 
+
             private ToggleGroup buttonGroup1; // misma funcionalidad que ButtonGroup pero diferente funcionamiento
             @FXML
             private Button jButton1; 
@@ -215,6 +220,12 @@ import javafx.stage.StageStyle;
             private TextField lineapass; 
             private TextField lineausuario;
             
+            private String res = "";
+            
+             public ByteArrayOutputStream getBaos() { 
+                 return this.baos; 
+             }
+             
 /*      */   private void initPanelClientServerName() throws IOException {
 /*  105 */     String configLog4j = OS.isWindows() ? "C:/sarlab/config/log4jsarlabdiscoveryview.properties" : "/sarlab/config/log4jsarlabdiscoveryview.properties";
 /*  106 */     PropertyConfigurator.configure(configLog4j);
@@ -1457,10 +1468,49 @@ import javafx.stage.StageStyle;
 /*      */   
 /*      */   private void lineausuarioActionPerformed(ActionEvent evt) {}
 /*      */ 
+             // METODO DE PRUEBA 
+             public void openPanelConsole() {
+                 
+             }
 /*      */   @FXML
-/*      */   void jButton1ActionPerformed() {
-/* 1805 */     //this.consoleText.setVisible(true);
-/* 1806 */     //this.consoleText.startTimer();
+/*      */   void jButton1ActionPerformed() throws IOException {
+               
+                // Se cargan el fichero FXML y la raiz
+                //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/PanelConsole.fxml"));
+                //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConsole.fxml"));
+                // ES NECESARIO cargar el loader para que el controlador no sea nulo
+                //Parent root = fxmlLoader.load();
+                // Se carga el controlador
+                FXMLLoader fxmlLoader = Main.getPanelConsoleLoader();
+                Parent root = fxmlLoader.load();
+              
+                PanelConsoleController panelConsoleController = fxmlLoader.getController();
+                // Se inicializa el stage y se le situa la scene
+                Stage panelConsoleStage = Main.getPanelConsoleStage();
+                //panelConsoleStage.setScene(new Scene(root));
+                // Se añade titulo e icono a la stage
+                //panelConsoleStage.setTitle("Poner titulo en esta ventana? (PanelConsole)");
+                //Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png"); 
+                //panelConsoleStage.getIcons().add(icono);
+                
+               
+                
+                // Pasa el controlador actual a PanelConsoleController
+                panelConsoleController.setControllerPanelClientServerName(this);
+                
+                
+                // Se actualiza la referencia al stage para los metodos que lo necesiten en PanelConsole
+                panelConsoleController.setStage(panelConsoleStage);
+                
+                
+                panelConsoleStage.show();
+               
+                //Main.getPanelConsoleStage().show();
+/* 1805 */      //this.consoleText.setVisible(true);
+/* 1806 */      //this.consoleText.startTimer();
+
+                // Inicializa el timer
+                panelConsoleController.startTimer();
 /*      */   }
 /*      */ 
 /*      */   
