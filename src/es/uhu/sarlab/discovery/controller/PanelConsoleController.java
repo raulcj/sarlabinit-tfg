@@ -62,7 +62,7 @@ import javax.swing.UnsupportedLookAndFeelException;
               //panelConsoleScene = new Scene(fxmlLoader.load());
               //panelConsoleStage.setScene(panelConsoleScene);
               FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
-              Parent root = fxmlLoader.load();     
+              fxmlLoader.load();     
               this.panelClientServerNameController = fxmlLoader.getController();
               
               // FIN PRUEBA
@@ -95,18 +95,18 @@ import javax.swing.UnsupportedLookAndFeelException;
             }
 
 /*     */   public void stopTimer() {
-              Platform.runLater(() -> {
+              //Platform.runLater(() -> {
     /*  58 */     if (this.jTextConsole != null) {     
 
     /*  59 */       this.jTextConsole.setText(panelClientServerNameController.baos.toString());
     /*     */     }
     /*  61 */     this.timerTask.cancel();
-              });
+              //});
 /*     */   }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
+        //Platform.runLater(() -> {
              try {
                 initPanelConsole();   
 
@@ -126,7 +126,7 @@ import javax.swing.UnsupportedLookAndFeelException;
             } catch (IOException ex) {
                 Logger.getLogger(PanelConsoleController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });        
+        //});        
     }
     
  public class MyTimerTask

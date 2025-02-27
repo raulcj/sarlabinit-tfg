@@ -1482,7 +1482,7 @@ import javafx.stage.StageStyle;
                 //Parent root = fxmlLoader.load();
                 // Se carga el controlador
                 FXMLLoader fxmlLoader = Main.getPanelConsoleLoader();
-                Parent root = fxmlLoader.load();
+                fxmlLoader.load();
               
                 PanelConsoleController panelConsoleController = fxmlLoader.getController();
                 // Se inicializa el stage y se le situa la scene
