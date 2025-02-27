@@ -1463,57 +1463,18 @@ import javafx.stage.StageStyle;
 /* 1795 */       this.jDialog1.close();
 /*      */     } 
 /*      */   }
-/*      */ 
-/*      */ 
-/*      */   
+
 /*      */   private void lineausuarioActionPerformed(ActionEvent evt) {}
-/*      */ 
-             // METODO DE PRUEBA 
-             public void openPanelConsole() {
-                 
-             }
+/*      */          
 /*      */   @FXML
 /*      */   void jButton1ActionPerformed() throws IOException {
-               
-                // Se cargan el fichero FXML y la raiz
-                //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/PanelConsole.fxml"));
-                //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConsole.fxml"));
-                // ES NECESARIO cargar el loader para que el controlador no sea nulo
-                //Parent root = fxmlLoader.load();
-                // Se carga el controlador
                 FXMLLoader fxmlLoader = Main.getPanelConsoleLoader();
                 fxmlLoader.load();
-              
-                PanelConsoleController panelConsoleController = fxmlLoader.getController();
-                // Se inicializa el stage y se le situa la scene
-                Stage panelConsoleStage = Main.getPanelConsoleStage();
-                //panelConsoleStage.setScene(new Scene(root));
-                // Se añade titulo e icono a la stage
-                //panelConsoleStage.setTitle("Poner titulo en esta ventana? (PanelConsole)");
-                //Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png"); 
-                //panelConsoleStage.getIcons().add(icono);
-                
-               
-                
-                // Pasa el controlador actual a PanelConsoleController
-                panelConsoleController.setControllerPanelClientServerName(this);
-                
-                
-                // Se actualiza la referencia al stage para los metodos que lo necesiten en PanelConsole
-                panelConsoleController.setStage(panelConsoleStage);
-                
-                
-                panelConsoleStage.show();
-               
-                //Main.getPanelConsoleStage().show();
-/* 1805 */      //this.consoleText.setVisible(true);
-/* 1806 */      //this.consoleText.startTimer();
-
-                // Inicializa el timer
+                PanelConsoleController panelConsoleController = fxmlLoader.getController();       
+                Main.getPanelConsoleStage().show();
                 panelConsoleController.startTimer();
 /*      */   }
-/*      */ 
-/*      */   
+/*      */  
 /*      */   public void initURL() {
 /* 1811 */     String sPort, urlLocal = "";
 /*      */ 
@@ -1648,8 +1609,7 @@ import javafx.stage.StageStyle;
 /* 1941 */     return "";
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */   
+
 /*      */   public String giveMeFileNameConfig() {
 /* 1947 */     if (OS.isWindows()) {
 /* 1948 */       return "C:/sarlab/config/" + this.fileNameBase;
@@ -1657,10 +1617,7 @@ import javafx.stage.StageStyle;
 /* 1950 */     return "/sarlab/config/" + this.fileNameBase;
 /*      */   }
 /*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */   
+
 /*      */   public void initBarLogo() {
 /*      */     try {
 /* 1959 */       this.serverUDPThread = new ServerUDPThread(4448, 1024);
@@ -1794,13 +1751,11 @@ import javafx.stage.StageStyle;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-  
-    try {
-        initPanelClientServerName();
-    } catch (IOException ex) {
-        Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
-    }
-    
+        try {
+            initPanelClientServerName();
+        } catch (IOException ex) {
+            Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
+        }
     }
     
  class Task extends SwingWorker<Void, Void> {

@@ -15,9 +15,6 @@ import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Node;
-import javafx.scene.Parent;
-import javafx.scene.Scene;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
 import javafx.scene.control.ScrollPane;
@@ -25,9 +22,6 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-
-/*     */ import javax.swing.UIManager;
-import javax.swing.UnsupportedLookAndFeelException;
 /*     */ 
 /*     */ public class PanelConsoleController implements Initializable {
 /*  21 */   Timer timer = null; 
@@ -45,27 +39,16 @@ import javax.swing.UnsupportedLookAndFeelException;
 /*     */   private ScrollPane jScrollPane1;
             @FXML
 /*     */   private TextArea jTextConsole;
-            
-            //private static Stage panelConsoleStage;
-            
+                       
             private PanelClientServerNameController panelClientServerNameController;
             private Stage panelConsoleStage;
-            //private Scene panelConsoleScene;
-            
-            private int i = 0;
-        
-            private void initPanelConsole() throws IOException {
-              //this.panelConsoleStage = Main.getPanelConsoleStage(); 
               
-              // PRUEBA
-              //FXMLLoader fxmlLoader = new FXMLLoader(getClass().getResource("../view/PanelConsole.fxml"));
-              //panelConsoleScene = new Scene(fxmlLoader.load());
-              //panelConsoleStage.setScene(panelConsoleScene);
+            private void initPanelConsole() throws IOException {
               FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
               fxmlLoader.load();     
               this.panelClientServerNameController = fxmlLoader.getController();
+              this.panelConsoleStage = Main.getPanelConsoleStage();
               
-              // FIN PRUEBA
 /*  29 */     this.timer = new Timer(true);
 /*  30 */     this.timerTask = new MyTimerTask();
               startTimer();
@@ -84,10 +67,12 @@ import javax.swing.UnsupportedLookAndFeelException;
 /*     */   public void setVisible(boolean b) {
 /*  45 */     this.jCheckBox1.setSelected(true);
 /*  46 */     this.jCheckBox1.setText("Stop");
+              // Esta linea sobra: no pueden coexistir dos Stages idénticas 
 /*  47 */     //this.panelConsoleStage.show();
 /*     */   }
 /*     */  
 /*     */   public void startTimer() {
+              // Necesario el retraso pues se llama al método desde PanelClientServerNameController
               Platform.runLater(() -> {
     /*  51 */     this.timerTask = new MyTimerTask();   
     /*  53 */     this.timer.scheduleAtFixedRate(this.timerTask, 0L, 1000L);     
@@ -95,38 +80,37 @@ import javax.swing.UnsupportedLookAndFeelException;
             }
 
 /*     */   public void stopTimer() {
-              //Platform.runLater(() -> {
+              
     /*  58 */     if (this.jTextConsole != null) {     
-
     /*  59 */       this.jTextConsole.setText(panelClientServerNameController.baos.toString());
     /*     */     }
     /*  61 */     this.timerTask.cancel();
-              //});
+              
 /*     */   }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        //Platform.runLater(() -> {
+        
              try {
                 initPanelConsole();   
 
                 EventQueue.invokeLater(() -> {
                     setVisible(true);
                 });
-                if (panelConsoleStage != null) {
+                
                     this.panelConsoleStage.setOnCloseRequest( e -> {
-                    System.out.println("*******Close console *********");
-                    if (this.timer != null)
-                        stopTimer(); 
-                    }
-                );
-                }
+                        System.out.println("*******Close console *********");
+                        if (this.timer != null)
+                            stopTimer(); 
+                        }
+                    );
+                
                      
                 
             } catch (IOException ex) {
                 Logger.getLogger(PanelConsoleController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        //});        
+                
     }
     
  public class MyTimerTask
@@ -134,19 +118,13 @@ import javax.swing.UnsupportedLookAndFeelException;
 /*     */   {
 /*     */       @Override
                 public void run() {
-                //Platform.runLater(() -> {
+                
                    if (PanelConsoleController.this.jTextConsole != null) {  
-                        if (panelClientServerNameController != null) {
-                            getJTextConsole().setPromptText(panelClientServerNameController.baos.toString());
-                        } else {
-                            i++;
-                        }        
-                       
+                       getJTextConsole().setPromptText(panelClientServerNameController.baos.toString()); 
     /*     */       } else {
     /*  74 */         stopTimer();
     /*     */       }
- 
-                //});  
+               
 /*     */     }
 /*     */   }
 /*     */ 
@@ -184,28 +162,9 @@ import javax.swing.UnsupportedLookAndFeelException;
 /*     */ 
 /*     */   @FXML
 /*     */   void jButton1ActionPerformed() throws IOException {  
-             
-             
-              this.jTextConsole.setText(panelClientServerNameController.baos.toString());
-/* 184 */     //this.jTextConsole.setText(PanelClientServerNameController.getBaos().toString());
+              this.jTextConsole.setText(panelClientServerNameController.baos.toString());    
 /*     */   }
-            
-            // Devuelve el documento FXML de la clase PanelClientServerNameController
-            private FXMLLoader getParent() {
-              FXMLLoader fxmlLoader = new FXMLLoader(PanelConsoleController.class.getResource("../view/PanelClientServerName.fxml"));
-             
-              //Parent PanelClientServerNameParent = loader.load();
-              //Scene PanelClientServerNameScene = new Scene(PanelClientServerNameParent);
-              // Access the controller
-              //PanelClientServerNameController controller = loader.getController();     
-              return fxmlLoader;
-            }
-            
-            public void setControllerPanelClientServerName(PanelClientServerNameController panelClientServerNameController) {
-                this.panelClientServerNameController = panelClientServerNameController;
-            }
-            
-            
+       
 /*     */   private void formWindowClosed(WindowEvent evt) {}
 
 /*     */   private void formWindowClosing(WindowEvent evt) {
