@@ -1,0 +1,108 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.CheckBox?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.ColumnConstraints?>
+<?import javafx.scene.layout.GridPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.RowConstraints?>
+<?import javafx.scene.layout.VBox?>
+
+
+<AnchorPane prefHeight="467.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelEditConfigLocalController">
+   <children>
+      <VBox prefHeight="467.0" prefWidth="534.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <children>
+            <AnchorPane prefHeight="119.0" prefWidth="534.0">
+               <children>
+                  <TitledPane fx:id="jPanel1" animated="false" collapsible="false" prefHeight="207.2" prefWidth="534.4" text="Nombre del sistema" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <HBox alignment="CENTER" prefHeight="83.2" prefWidth="523.2" spacing="15.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <ImageView fx:id="jLabel4" fitHeight="66.0" fitWidth="178.0" pickOnBounds="true" preserveRatio="true">
+                                       <image>
+                                          <Image url="@resources/logoSN64x64.png" />
+                                       </image>
+                                    </ImageView>
+                                    <Label fx:id="jLabel5" text="Nombre Nebsyst" />
+                                    <TextField fx:id="jTextFieldName" onAction="#jTextFieldNameActionPerformed" />
+                                 </children>
+                              </HBox>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="348.0" prefWidth="534.0">
+               <children>
+                  <TitledPane fx:id="jPanel3" animated="false" collapsible="false" prefHeight="301.6" prefWidth="534.4" text="Editor de servicios" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <GridPane prefHeight="312.0" prefWidth="523.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <columnConstraints>
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
+                                </columnConstraints>
+                                <rowConstraints>
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                </rowConstraints>
+                                 <children>
+                                    <Label fx:id="jLabel2" text="Label" />
+                                    <Label fx:id="jLabelDesktop" text="Label" GridPane.rowIndex="1" />
+                                    <Label fx:id="jLabelVNC" text="Label" GridPane.rowIndex="2" />
+                                    <Label fx:id="jLabelTelnet" text="Label" GridPane.rowIndex="3" />
+                                    <Label fx:id="jLabelSsh" text="Label" GridPane.rowIndex="4" />
+                                    <Label fx:id="jLabelSftp" text="Label" GridPane.rowIndex="5" />
+                                    <Label fx:id="jLabelModbus" text="Label" GridPane.rowIndex="6" />
+                                    <Label fx:id="jLabelHttp" text="Label" GridPane.rowIndex="7" />
+                                    <Label fx:id="jLabel11" text="Label" GridPane.rowIndex="8" />
+                                    <Label fx:id="jLabel1" text="Label" GridPane.columnIndex="1" />
+                                    <Label fx:id="jLabel3" text="Label" GridPane.columnIndex="2" />
+                                    <TextField fx:id="jTextFieldDesktop" onAction="#jTextFieldDesktopActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <TextField fx:id="jTextFieldVNC" onAction="#jTextFieldVNCActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="2" />
+                                    <TextField fx:id="jTextFieldTelnet" onAction="#jTextFieldTelnetActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="3" />
+                                    <TextField fx:id="jTextFieldSsh" onAction="#jTextFieldSshActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="4" />
+                                    <TextField fx:id="jTextFieldsFTP" onAction="#jTextFieldsFTPActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="5" />
+                                    <TextField fx:id="jTextFieldModbus" onAction="#jTextFieldModbusActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="6" />
+                                    <TextField fx:id="jTextFieldHttp" onAction="#jTextFieldHttpActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <TextField fx:id="jTextFieldURI" onAction="#jTextFieldURIActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <CheckBox fx:id="jCheckBoxDesktop" mnemonicParsing="false" onAction="#jCheckBoxDesktopActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="1" />
+                                    <CheckBox fx:id="jCheckBoxVNC" mnemonicParsing="false" onAction="#jCheckBoxVNCActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="2" />
+                                    <CheckBox fx:id="jCheckBoxTelnet" mnemonicParsing="false" onAction="#jCheckBoxTelnetActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="3" />
+                                    <CheckBox fx:id="jCheckBoxSsh" mnemonicParsing="false" onAction="#jCheckBoxSshActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="4" />
+                                    <CheckBox fx:id="jCheckBoxsFTP" mnemonicParsing="false" onAction="#jCheckBoxsFTPActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="5" />
+                                    <CheckBox fx:id="jCheckBoxModbus" mnemonicParsing="false" onAction="#jCheckBoxModbusActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="6" />
+                                    <CheckBox fx:id="jCheckBoxHttp" mnemonicParsing="false" onAction="#jCheckBoxHttpActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="7" />
+                                    <Button fx:id="jButtonSave" mnemonicParsing="false" onAction="#jButtonSaveActionPerformed" text="Salvar" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                 </children>
+                              </GridPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>

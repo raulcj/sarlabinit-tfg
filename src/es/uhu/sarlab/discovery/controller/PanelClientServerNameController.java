@@ -1276,7 +1276,8 @@ import javafx.stage.StageStyle;
 /*      */   void jButtonConfiguracionLocalActionPerformed() throws IOException {
                // Stage que abre el boton Configuracion Local
 /* 1608 */     //this.editor.setVisible(true);
-               Main.getPanelConectionLocalhostStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
+               //Main.getPanelConectionLocalhostStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
+               Main.getPanelEditConfigLocalStage().show();
 /*      */   }
 /*      */ 
 /*      */   @FXML

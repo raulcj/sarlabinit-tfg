@@ -29,6 +29,7 @@ public class Main extends Application {
     private static Stage ProgressBarStage;
     private static Stage PanelConectionLocalhost;
     private static Stage PanelConsole;
+    private static Stage PanelEditConfigLocal;
         
     @Override
     public void start(Stage panelEJSAppListStage) throws IOException {
@@ -131,7 +132,20 @@ public class Main extends Application {
         }
         return PanelConsole;
     }
-         
+    
+    public static Stage getPanelEditConfigLocalStage() throws IOException {
+        if (PanelEditConfigLocal == null) {
+            PanelEditConfigLocal = new Stage();
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelEditConfigLocal.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            PanelEditConfigLocal.setTitle("Poner titulo en esta ventana? (PanelEditConfigLocal)");
+            Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+            PanelEditConfigLocal.getIcons().add(icono);
+            PanelEditConfigLocal.setScene(scene);
+        }
+        return PanelEditConfigLocal;
+    }
+    
     public static void main(String[] args) {
         launch();
     }
