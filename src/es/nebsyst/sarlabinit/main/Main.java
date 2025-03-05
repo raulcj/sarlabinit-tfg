@@ -32,13 +32,14 @@ public class Main extends Application {
         
     @Override
     public void start(Stage panelEJSAppListStage) throws IOException {
-        // main stage
+        // Main stage
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
         Scene scene = new Scene(fxmlLoader.load());       
         panelEJSAppListStage.setTitle("Poner titulo en esta ventana? (PanelEJSAppList)");
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
         panelEJSAppListStage.getIcons().add(icono);
         panelEJSAppListStage.setScene(scene);
+        // Permite abrir las opciones del SystemTray mas de una vez
         Platform.setImplicitExit(false);
         // Evita que se muestra la pantalla
         //panelEJSAppListStage.initStyle(StageStyle.UTILITY);
@@ -78,8 +79,7 @@ public class Main extends Application {
      
     public static Stage getDiscoveryStage() throws IOException {
         if (DiscoveryStage == null) {
-            DiscoveryStage = new Stage();
-            //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelClientServerName.fxml"));
+            DiscoveryStage = new Stage();         
             Scene scene = new Scene(getDiscoveryLoader().load());
             ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vistaTFG/Bundle_PanelClientServerName");
             DiscoveryStage.setTitle(bundle.getString("PanelClientServerName.title"));
@@ -115,13 +115,14 @@ public class Main extends Application {
         }
         return PanelConectionLocalhost;
     }
+    
     public static FXMLLoader getPanelConsoleLoader() {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConsole.fxml"));
     }
+    
     public static Stage getPanelConsoleStage() throws IOException {
         if (PanelConsole == null) {
-            PanelConsole = new Stage();
-            //FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConsole.fxml"));
+            PanelConsole = new Stage();         
             Scene scene = new Scene(getPanelConsoleLoader().load());
             PanelConsole.setTitle("Poner titulo en esta ventana? (PanelConsole)");
             Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      

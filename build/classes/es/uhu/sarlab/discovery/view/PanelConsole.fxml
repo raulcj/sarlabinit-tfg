@@ -20,10 +20,15 @@
                      <content>
                         <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
                            <children>
-                              <TextArea fx:id="jTextConsole" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                 <cursor>
-                                    <Cursor fx:constant="NONE" />
-                                 </cursor></TextArea>
+                              <VBox prefHeight="332.0" prefWidth="588.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <children>
+                                    <TextArea fx:id="jTextConsole" editable="false" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0" VBox.vgrow="ALWAYS">
+                                       <cursor>
+                                          <Cursor fx:constant="NONE" />
+                                       </cursor>
+                                    </TextArea>
+                                 </children>
+                              </VBox>
                            </children>
                         </AnchorPane>
                      </content>
@@ -34,7 +39,7 @@
                <children>
                   <HBox alignment="CENTER" prefHeight="56.8" prefWidth="600.0" spacing="20.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <CheckBox fx:id="jCheckBox1" mnemonicParsing="false" onAction="#jCheckBox1ActionPerformed" text="Stop" />
+                        <CheckBox fx:id="jCheckBox1" mnemonicParsing="false" onAction="#jCheckBox1ActionPerformed" text="Accion (Stop/Start)" />
                         <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Actualizar" />
                         <Button fx:id="jButton2" mnemonicParsing="false" onAction="#jButton2ActionPerformed" text="Copiar" />
                         <Button fx:id="jButton3" mnemonicParsing="false" onAction="#jButton3ActionPerformed" text="Limpiar" />

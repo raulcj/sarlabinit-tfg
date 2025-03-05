@@ -220,11 +220,9 @@ import javafx.stage.StageStyle;
             private TextField lineapass; 
             private TextField lineausuario;
             
-            private String res = "";
-            
-             public ByteArrayOutputStream getBaos() { 
-                 return this.baos; 
-             }
+            public ByteArrayOutputStream getBaos() { 
+                return this.baos; 
+            }
              
 /*      */   private void initPanelClientServerName() throws IOException {
 /*  105 */     String configLog4j = OS.isWindows() ? "C:/sarlab/config/log4jsarlabdiscoveryview.properties" : "/sarlab/config/log4jsarlabdiscoveryview.properties";
@@ -1468,11 +1466,13 @@ import javafx.stage.StageStyle;
 /*      */          
 /*      */   @FXML
 /*      */   void jButton1ActionPerformed() throws IOException {
-                FXMLLoader fxmlLoader = Main.getPanelConsoleLoader();
-                fxmlLoader.load();
-                PanelConsoleController panelConsoleController = fxmlLoader.getController();       
+                // Habilitar todas las lineas => no refresca correctamente la UI
+                //FXMLLoader fxmlLoader = Main.getPanelConsoleLoader();
+                //fxmlLoader.load();
+                //PanelConsoleController panelConsoleController = fxmlLoader.getController();       
                 Main.getPanelConsoleStage().show();
-                panelConsoleController.startTimer();
+                // Puede dar NullPointerEx
+                //panelConsoleController.startTimer();
 /*      */   }
 /*      */  
 /*      */   public void initURL() {

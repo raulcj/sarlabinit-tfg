@@ -1,16 +1,14 @@
 package es.uhu.sarlab.discovery.controller;
 
 import es.nebsyst.sarlabinit.main.Main;
-/*     */ import es.uhu.sarlab.utils.BoardListener;
-import java.awt.EventQueue;
-/*     */ import java.awt.event.WindowEvent;
+import es.uhu.sarlab.utils.BoardListener;
 import java.io.IOException;
 import java.net.URL;
-/*     */ import java.util.ResourceBundle;
-/*     */ import java.util.Timer;
+import java.util.ResourceBundle;
+import java.util.Timer;
 import java.util.TimerTask;
-/*     */ import java.util.logging.Level;
-/*     */ import java.util.logging.Logger;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -22,7 +20,13 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
-/*     */ 
+/*     */  /**
+ * 
+ *  TO-DO: El metodo startTimer() debería ejecutarse cada vez que se abre la ventana
+ *  como consecuencia: deberia aparecer el mensaje "TimerTask start" en pantalla
+ * 
+ * @author alumno
+ */
 /*     */ public class PanelConsoleController implements Initializable {
 /*  21 */   Timer timer = null; 
 /*  22 */   TimerTask timerTask = null;
@@ -42,75 +46,59 @@ import javafx.stage.Stage;
                        
             private PanelClientServerNameController panelClientServerNameController;
             private Stage panelConsoleStage;
-              
+
             private void initPanelConsole() throws IOException {
               FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
               fxmlLoader.load();     
               this.panelClientServerNameController = fxmlLoader.getController();
               this.panelConsoleStage = Main.getPanelConsoleStage();
-              
-/*  29 */     this.timer = new Timer(true);
+              this.timer = new Timer(true);  
 /*  30 */     this.timerTask = new MyTimerTask();
               startTimer();
 /*  32 */     initComponents();
+              // Evento en cierre
+              this.panelConsoleStage.setOnCloseRequest( e -> {
+                  System.out.println("*******Close console *********");
+                  if (this.timer != null)
+                      stopTimer(); 
+              });          
 /*     */   }
 /*     */   
             public TextArea getJTextConsole() {
                 return jTextConsole;
             }
-            
-            public void setStage(Stage stage) {
-                if (panelConsoleStage == null)
-                    this.panelConsoleStage = stage;
-            }
-            
-/*     */   public void setVisible(boolean b) {
-/*  45 */     this.jCheckBox1.setSelected(true);
-/*  46 */     this.jCheckBox1.setText("Stop");
-              // Esta linea sobra: no pueden coexistir dos Stages idénticas 
-/*  47 */     //this.panelConsoleStage.show();
+                
+/*     */   public void setVisible(boolean b) {   
+                this.jCheckBox1.setSelected(true);
+/*  46 */       this.jCheckBox1.setText("Stop");
 /*     */   }
 /*     */  
 /*     */   public void startTimer() {
-              // Necesario el retraso pues se llama al método desde PanelClientServerNameController
-              Platform.runLater(() -> {
-    /*  51 */     this.timerTask = new MyTimerTask();   
-    /*  53 */     this.timer.scheduleAtFixedRate(this.timerTask, 0L, 1000L);     
-/*     */     });
+    /*  51 */ this.timerTask = new MyTimerTask(); 
+              //if (timer == null) {
+                this.timer = new Timer(true);
+              //}
+    /*  53 */ this.timer.scheduleAtFixedRate(this.timerTask, 0L, 1000L);
+              System.out.println("TimerTask start");   
             }
 
 /*     */   public void stopTimer() {
-              
-    /*  58 */     if (this.jTextConsole != null) {     
-    /*  59 */       this.jTextConsole.setText(panelClientServerNameController.baos.toString());
-    /*     */     }
-    /*  61 */     this.timerTask.cancel();
-              
+                if (this.jTextConsole != null) {     
+                    this.jTextConsole.setText(panelClientServerNameController.baos.toString());
+                }
+                this.timerTask.cancel();
 /*     */   }
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        
+        Platform.runLater(() -> {
              try {
                 initPanelConsole();   
-
-                EventQueue.invokeLater(() -> {
-                    setVisible(true);
-                });
-                
-                    this.panelConsoleStage.setOnCloseRequest( e -> {
-                        System.out.println("*******Close console *********");
-                        if (this.timer != null)
-                            stopTimer(); 
-                        }
-                    );
-                
-                     
-                
+                setVisible(true);
             } catch (IOException ex) {
                 Logger.getLogger(PanelConsoleController.class.getName()).log(Level.SEVERE, null, ex);
             }
-                
+        });                 
     }
     
  public class MyTimerTask
@@ -118,25 +106,18 @@ import javafx.stage.Stage;
 /*     */   {
 /*     */       @Override
                 public void run() {
-                
-                   if (PanelConsoleController.this.jTextConsole != null) {  
-                       getJTextConsole().setPromptText(panelClientServerNameController.baos.toString()); 
-    /*     */       } else {
-    /*  74 */         stopTimer();
-    /*     */       }
-               
+                Platform.runLater(() -> {
+                    if (PanelConsoleController.this.jTextConsole != null) {                    
+                        getJTextConsole().setText(panelClientServerNameController.baos.toString());
+        /*     */   } else { 
+                        stopTimer();
+        /*     */   }
+                });        
 /*     */     }
 /*     */   }
 /*     */ 
 /*     */   private void initComponents() {
-/*  88 */     this.jScrollPane1 = new ScrollPane();
-/*  89 */     this.jTextConsole = new TextArea();
-/*  90 */     this.jButton1 = new Button();
-/*  91 */     this.jCheckBox1 = new CheckBox();
-/*  92 */     this.jButton2 = new Button();
-/*  93 */     this.jButton3 = new Button();
-/* 105 */     //this.jTextConsole.setColumns(20);
-/* 106 */     //this.jTextConsole.setRows(5);
+        
 /* 107 */     this.jScrollPane1.setContent(this.jTextConsole);
               
               Image iconJButton1 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/actualiza.png").toExternalForm());
@@ -147,8 +128,8 @@ import javafx.stage.Stage;
 /* 111 */     this.jButton1.setText(bundle.getString("PanelConsole.jButton1.text"));
 /*     */     
 /* 118 */     this.jCheckBox1.setText(bundle.getString("PanelConsole.jCheckBox1.text"));
-/* 119 */      
-              Image iconJButton2 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/edit_copy.png").toExternalForm());
+/* 119 */     // Path del recurso imagen icono modificado a path local del proyecto (y no de la libreria) porque se añadio icono nuevo "edit_copy2.png"
+              Image iconJButton2 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/view/resources/edit_copy2.png").toExternalForm());
               ImageView iconViewJButton2 = new ImageView(iconJButton2);
               this.jButton2.setGraphic(iconViewJButton2); 
 /* 126 */     this.jButton2.setText(bundle.getString("PanelConsole.jButton2.text"));
@@ -156,31 +137,22 @@ import javafx.stage.Stage;
 /*     */     Image iconJButton3 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/borrar.png").toExternalForm());
               ImageView iconViewJButton3 = new ImageView(iconJButton3);
               this.jButton3.setGraphic(iconViewJButton3); 
-/* 137 */     this.jButton3.setText(bundle.getString("PanelConsole.jButton3.text"));
-
+/* 137 */     this.jButton3.setText(bundle.getString("PanelConsole.jButton3.text"));   
 /*     */   }
 /*     */ 
 /*     */   @FXML
 /*     */   void jButton1ActionPerformed() throws IOException {  
               this.jTextConsole.setText(panelClientServerNameController.baos.toString());    
 /*     */   }
-       
-/*     */   private void formWindowClosed(WindowEvent evt) {}
 
-/*     */   private void formWindowClosing(WindowEvent evt) {
-/* 195 */     System.out.println("*******Close console *********");
-/* 196 */     if (this.timer != null)
-/* 197 */       stopTimer(); 
-/*     */   }
-/*     */   
             @FXML
 /*     */   void jCheckBox1ActionPerformed() {
 /* 201 */     if (this.jCheckBox1.isSelected()) {
 /* 202 */       this.jCheckBox1.setText("Stop");
 /* 203 */       startTimer();
 /*     */     } else {
-/* 205 */       this.jCheckBox1.setText("Start");
-/* 206 */       System.out.println("TimerTask stop");   
+/* 205 */       this.jCheckBox1.setText("Start"); 
+                System.out.println("TimerTask stop");
 /* 207 */       this.jTextConsole.setText(panelClientServerNameController.baos.toString());
 /* 208 */       stopTimer();
 /*     */     } 
@@ -198,8 +170,6 @@ import javafx.stage.Stage;
 /*     */   }
 
 }
-
-
 
 
 /* Location:              C:\Users\alumno\Documents\NetBeansProjects\Java2JavaFX\lib\libdiscoverysarlab1.0.1.jar!\e\\uhu\sarlab\discovery\vista\PanelConsole.class
