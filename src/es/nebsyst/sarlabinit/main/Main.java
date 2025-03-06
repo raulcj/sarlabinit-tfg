@@ -31,6 +31,7 @@ public class Main extends Application {
     private static Stage PanelConsoleStage;
     private static Stage PanelEditConfigLocalStage;
     private static Stage PanelConectionExperienceStage;
+    private static Stage PanelNodoFrowardingLStage;
         
     @Override
     public void start(Stage panelEJSAppListStage) throws IOException {
@@ -164,6 +165,20 @@ public class Main extends Application {
             PanelConectionExperienceStage.setScene(scene);
         }
         return PanelConectionExperienceStage;
+    }
+    
+    public static Stage getPanelNodoFrowardingLStage() throws IOException {
+        if (PanelNodoFrowardingLStage == null) {
+            PanelNodoFrowardingLStage = new Stage();  
+            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelNodoFrowardingL.fxml"));
+            Scene scene = new Scene(fxmlLoader.load());
+            ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelNodoFrowardingL");
+            PanelNodoFrowardingLStage.setTitle(bundle.getString("PanelNodoFrowardingL.title"));
+            Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+            PanelNodoFrowardingLStage.getIcons().add(icono);
+            PanelNodoFrowardingLStage.setScene(scene);
+        }
+        return PanelNodoFrowardingLStage;
     }
     
     public static void main(String[] args) {

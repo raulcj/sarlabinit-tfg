@@ -1274,7 +1274,8 @@ import javafx.stage.StageStyle;
 /* 1608 */     //this.editor.setVisible(true);
                //Main.getPanelConectionLocalhostStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
                //Main.getPanelEditConfigLocalStage().show(); // ESTE VA AQUI
-               Main.getPanelConectionExperienceStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
+               //Main.getPanelConectionExperienceStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
+               Main.getPanelNodoFrowardingLStage().show();
 /*      */   }
 /*      */ 
 /*      */   @FXML
