@@ -279,6 +279,8 @@ import javafx.stage.StageStyle;
            thread.setDaemon(true);
            thread.start();
        }
+       
+       // METODO PARA REALIZAR PRUEBAS
        @FXML
        void jButtonTestActionPerformed() throws IOException {
            Main.getProgressBarStage().show();
@@ -1264,18 +1266,12 @@ import javafx.stage.StageStyle;
 /* 1601 */     this.jButtonForwardingLook.setDisable(false);
 /* 1602 */     this.jButtonProfile.setDisable(false);
                
-/* 1603 */     //this.listGateway.setVisible(true); MUESTRA PanelListGateway
                Main.getPanelListGatewayStage().show();
 /*      */   }
  
 /*      */   @FXML
 /*      */   void jButtonConfiguracionLocalActionPerformed() throws IOException {
-               // Stage que abre el boton Configuracion Local
-/* 1608 */     //this.editor.setVisible(true);
-               //Main.getPanelConectionLocalhostStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
-               //Main.getPanelEditConfigLocalStage().show(); // ESTE VA AQUI
-               //Main.getPanelConectionExperienceStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
-               Main.getPanelNodoFrowardingLStage().show();
+               Main.getPanelEditConfigLocalStage().show();
 /*      */   }
 /*      */ 
 /*      */   @FXML
@@ -1399,13 +1395,16 @@ import javafx.stage.StageStyle;
 /*      */ 
 /*      */ 
 /*      */   @FXML
-/*      */   void jButtonForwardingActionPerformed() {
-/* 1728 */     //this.panelNodoFrowardingL.setVisible(true);
-/* 1729 */     //this.panelNodoFrowardingL.setIpInit();
+/*      */   void jButtonForwardingActionPerformed() throws IOException {
+               Main.getPanelNodoFrowardingLStage().show();
+               FXMLLoader fxmlLoader = Main.getPanelNodoFrowardingLLoader();
+               fxmlLoader.load();
+               PanelNodoFrowardingLController panelNodoFrowardingLController = fxmlLoader.getController();
+               panelNodoFrowardingLController.setIpInit();
 /*      */   }
 /*      */ 
 /*      */   @FXML
-/*      */   void jButtonProfileActionPerformed() {
+/*      */   void jButtonProfileActionPerformed() throws IOException {
 /* 1738 */     String url = "";
 /* 1739 */     if (this.sarlab != null) {
 /* 1740 */       HashMapExperienceWeb hashMapExperienceWeb = new HashMapExperienceWeb();
@@ -1420,6 +1419,14 @@ import javafx.stage.StageStyle;
 /* 1749 */       //this.panelConectionExperience.setMyirtualFrontierOld(this.myirtualFrontierOld);
 /* 1750 */       //this.panelConectionExperience.setMyURIMyGatewayOld(this.myURIMyGatewayOld);
 /* 1751 */       //this.panelConectionExperience.setVisible(true);
+                 FXMLLoader fxmlLoader = Main.getPanelConectionExperienceLoader();
+                 fxmlLoader.load();
+                 PanelConectionExperienceController panelConectionExperienceController = fxmlLoader.getController();
+                 panelConectionExperienceController.setModel(hashMapExperienceWeb);
+                 panelConectionExperienceController.setRegisterGateway(this.registerGatewayOld);
+                 panelConectionExperienceController.setMyirtualFrontierOld(this.myirtualFrontierOld);
+                 panelConectionExperienceController.setMyURIMyGatewayOld(this.myURIMyGatewayOld);
+                 Main.getPanelConectionExperienceStage().show();
 /*      */     } 
 /*      */   }
 /*      */ 

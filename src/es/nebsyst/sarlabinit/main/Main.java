@@ -167,11 +167,14 @@ public class Main extends Application {
         return PanelConectionExperienceStage;
     }
     
+    public static FXMLLoader getPanelNodoFrowardingLLoader() {
+        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelNodoFrowardingL.fxml"));
+    }
+    
     public static Stage getPanelNodoFrowardingLStage() throws IOException {
         if (PanelNodoFrowardingLStage == null) {
             PanelNodoFrowardingLStage = new Stage();  
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelNodoFrowardingL.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
+            Scene scene = new Scene(getPanelNodoFrowardingLLoader().load());
             ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelNodoFrowardingL");
             PanelNodoFrowardingLStage.setTitle(bundle.getString("PanelNodoFrowardingL.title"));
             Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
