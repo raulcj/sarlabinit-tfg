@@ -27,9 +27,10 @@ public class Main extends Application {
     private static Stage PanelListGatewayStage;
     private static Stage PanelJarProcessStage;
     private static Stage ProgressBarStage;
-    private static Stage PanelConectionLocalhost;
-    private static Stage PanelConsole;
-    private static Stage PanelEditConfigLocal;
+    private static Stage PanelConectionLocalhostStage;
+    private static Stage PanelConsoleStage;
+    private static Stage PanelEditConfigLocalStage;
+    private static Stage PanelConectionExperienceStage;
         
     @Override
     public void start(Stage panelEJSAppListStage) throws IOException {
@@ -103,18 +104,21 @@ public class Main extends Application {
         }
         return PanelListGatewayStage;
     }
-      
+    
+    public static FXMLLoader getPanelConectionLocalhostLoader() {
+        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConectionLocalhost.fxml"));
+    }
+    
     public static Stage getPanelConectionLocalhostStage() throws IOException {
-        if (PanelConectionLocalhost == null) {
-            PanelConectionLocalhost = new Stage();
-            FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConectionLocalhost.fxml"));
-            Scene scene = new Scene(fxmlLoader.load());
-            PanelConectionLocalhost.setTitle("Poner titulo en esta ventana? (PanelConectionLocalhost)");
+        if (PanelConectionLocalhostStage == null) {
+            PanelConectionLocalhostStage = new Stage();        
+            Scene scene = new Scene(getPanelConectionLocalhostLoader().load());
+            PanelConectionLocalhostStage.setTitle("Poner titulo en esta ventana? (PanelConectionLocalhost)");
             Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
-            PanelConectionLocalhost.getIcons().add(icono);
-            PanelConectionLocalhost.setScene(scene);
+            PanelConectionLocalhostStage.getIcons().add(icono);
+            PanelConectionLocalhostStage.setScene(scene);
         }
-        return PanelConectionLocalhost;
+        return PanelConectionLocalhostStage;
     }
     
     public static FXMLLoader getPanelConsoleLoader() {
@@ -122,28 +126,44 @@ public class Main extends Application {
     }
     
     public static Stage getPanelConsoleStage() throws IOException {
-        if (PanelConsole == null) {
-            PanelConsole = new Stage();         
+        if (PanelConsoleStage == null) {
+            PanelConsoleStage = new Stage();         
             Scene scene = new Scene(getPanelConsoleLoader().load());
-            PanelConsole.setTitle("Poner titulo en esta ventana? (PanelConsole)");
+            PanelConsoleStage.setTitle("Poner titulo en esta ventana? (PanelConsole)");
             Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
-            PanelConsole.getIcons().add(icono);
-            PanelConsole.setScene(scene);
+            PanelConsoleStage.getIcons().add(icono);
+            PanelConsoleStage.setScene(scene);
         }
-        return PanelConsole;
+        return PanelConsoleStage;
     }
     
     public static Stage getPanelEditConfigLocalStage() throws IOException {
-        if (PanelEditConfigLocal == null) {
-            PanelEditConfigLocal = new Stage();
+        if (PanelEditConfigLocalStage == null) {
+            PanelEditConfigLocalStage = new Stage();
             FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelEditConfigLocal.fxml"));
             Scene scene = new Scene(fxmlLoader.load());
-            PanelEditConfigLocal.setTitle("Poner titulo en esta ventana? (PanelEditConfigLocal)");
+            PanelEditConfigLocalStage.setTitle("Poner titulo en esta ventana? (PanelEditConfigLocal)");
             Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
-            PanelEditConfigLocal.getIcons().add(icono);
-            PanelEditConfigLocal.setScene(scene);
+            PanelEditConfigLocalStage.getIcons().add(icono);
+            PanelEditConfigLocalStage.setScene(scene);
         }
-        return PanelEditConfigLocal;
+        return PanelEditConfigLocalStage;
+    }
+    
+    public static FXMLLoader getPanelConectionExperienceLoader() {
+        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConectionExperience.fxml"));
+    }
+         
+    public static Stage getPanelConectionExperienceStage() throws IOException {
+        if (PanelConectionExperienceStage == null) {
+            PanelConectionExperienceStage = new Stage();      
+            Scene scene = new Scene(getPanelConectionExperienceLoader().load());
+            PanelConectionExperienceStage.setTitle("Poner titulo en esta ventana? (PanelConectionExperience)");
+            Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+            PanelConectionExperienceStage.getIcons().add(icono);
+            PanelConectionExperienceStage.setScene(scene);
+        }
+        return PanelConectionExperienceStage;
     }
     
     public static void main(String[] args) {

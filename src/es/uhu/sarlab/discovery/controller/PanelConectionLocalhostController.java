@@ -2,7 +2,6 @@
 package es.uhu.sarlab.discovery.controller;
 
 import es.nebsyst.sarlabinit.main.Main;
-import java.awt.EventQueue;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -10,9 +9,11 @@ import java.util.Locale;
 import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+import javafx.application.Platform;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.Label;
@@ -21,7 +22,6 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
-import javafx.scene.layout.Pane;
 /*     */ 
 /*     */ public class PanelConectionLocalhostController implements Initializable
 /*     */ {
@@ -38,37 +38,31 @@ import javafx.scene.layout.Pane;
             private Label LabelSARLAB; 
             @FXML
             private Button jButton2;
-/*     */   private Label jLabel2;
             @FXML
 /*     */   private ListView jListHardware;
-/*     */   private Pane jPanel1;
+            @FXML
+            private TitledPane jScrollPane2; 
+            
+            @Override
+            public void initialize(URL url, ResourceBundle rb) {
+                initPanelConectionLocalhost();
+            }
 /*     */   
 /*     */   private void initPanelConectionLocalhost() {
 /*  52 */     //this.clientName = clientName;
 /*  53 */     initComponents();
 /*     */   }
-/*     */   private Pane jPanel2;
-/*     */   private Pane jPanel3;
 /*     */   
 /*     */   public void init(ObservableList<String> modelHardware) {
 /*  59 */     this.modelHardware = modelHardware;
 /*     */   }
-/*     */   private Pane jPanel7; 
-            @FXML
-            private TitledPane jScrollPane2; 
-            @FXML
-            private ImageView logo;
+           
 /*     */   
 /*     */   public void set() {
 /*  64 */     this.jListHardware.setItems(this.modelHardware);
 /*     */   }
 /*     */ 
 /*     */   private void initComponents() {
-/*  79 */     this.jPanel1 = new Pane();
-/*  82 */     this.jPanel2 = new Pane();
-/*  83 */     this.jPanel7 = new Pane();
-/*  86 */     this.jLabel2 = new Label();
-/*  87 */     this.jPanel3 = new Pane();
 /*     */     
 /*  94 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelConectionLocalhost");
 /*  95 */     this.LabelSARLAB.setText(bundle.getString("PanelConectionLocalhost.LabelSARLAB.text"));      
@@ -95,26 +89,29 @@ import javafx.scene.layout.Pane;
 
 /*     */   public static void main(String[] args) {
 /* 252 */     Locale.setDefault(new Locale("en", "EN"));
-/* 253 */     EventQueue.invokeLater(new Runnable() {
-/*     */           public void run() {
-                        try {
-                            Main.getPanelConectionLocalhostStage().show();
-                        } catch (IOException ex) {
-                            Logger.getLogger(PanelConectionLocalhostController.class.getName()).log(Level.SEVERE, null, ex);
-                        }
-                      ObservableList<String> modelo = observableArrayList(new ArrayList<String>());
-/* 258 */             modelo.add("Marco");
-/* 259 */             //panelConectionLocalhost.init(modelo);
-/* 260 */             //panelConectionLocalhost.set();
-/*     */           }
-/*     */         });
-/*     */   }
+              Platform.runLater(() -> {
+                  try {
+                      Main.getPanelConectionLocalhostStage().show();
+                  } catch (IOException ex) {
+                      Logger.getLogger(PanelConectionLocalhostController.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+                  ObservableList<String> modelo = observableArrayList(new ArrayList<String>());
+                  modelo.add("Marco");
+                  //probar con controlador
+                  FXMLLoader fxmlLoader = Main.getPanelConectionLocalhostLoader();
+                  try {
+                      fxmlLoader.load();
+                  } catch (IOException ex) {
+                      Logger.getLogger(PanelConectionLocalhostController.class.getName()).log(Level.SEVERE, null, ex);
+                  }
+                  PanelConectionLocalhostController panelConectionLocalhostController = fxmlLoader.getController();  
+                  panelConectionLocalhostController.init(modelo);
+                  panelConectionLocalhostController.set();
+              });
+              
+            }
 
-    @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        initPanelConectionLocalhost();
-    }
- }
+           }
 
 
 /* Location:              C:\Users\alumno\Documents\NetBeansProjects\Java2JavaFX\lib\libdiscoverysarlab1.0.1.jar!\e\\uhu\sarlab\discovery\vista\PanelConectionLocalhost.class

@@ -187,10 +187,12 @@ public class PanelEJSAppListController implements Initializable {
         } catch (FileNotFoundException ex) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR);
             mensaje.setContentText("No encuentro el fichero de propiedades " + pathConfig);
+            mensaje.showAndWait();
             
         } catch (IOException ex) {
             Alert mensaje = new Alert(Alert.AlertType.ERROR);
             mensaje.setContentText("No puedo acceder al fichero de propiedades " + pathConfig);
+            mensaje.showAndWait();
         }
     }
     

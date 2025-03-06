@@ -47,7 +47,7 @@ import javax.swing.UnsupportedLookAndFeelException;
 /*     */ import javax.swing.event.ListSelectionEvent;
 import javax.swing.event.ListSelectionListener;
 /*     */ 
-/*     */ public class PanelListGateway1 extends JFrame {
+/*     */ public class PanelListGateway extends JFrame {
 /*  32 */   String fileNameBaseXML = "gateway.xml";
 /*     */   DirectoryGatewayRemote directoryGatewayRemote;
 /*     */   ListModel listModel;
@@ -62,8 +62,8 @@ import javax.swing.event.ListSelectionListener;
 /*     */   private JLabel jLabelPass;
 /*     */   private JLabel jLabelPortInputGIOTTunnel;
 /*     */   private JLabel jLabelPortInputGIOTWeb;
-/*     */   /*     */   
-/*     */   public PanelListGateway1(PanelClientServerName clientName) {
+/*     */   /*     */   /*     */   /*     */   
+/*     */   public PanelListGateway(PanelClientServerName clientName) {
 /*  48 */     testParameter();
 /*  49 */     this.clientName = clientName;
 /*  50 */     initComponents();
@@ -165,6 +165,18 @@ import javax.swing.event.ListSelectionListener;
 /*     */ 
 /*     */ 
 /*     */ 
+/*     */   /*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   /*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
 /*     */   
 /*     */   private void initComponents() {
 /* 145 */     this.jPanel3 = new JPanel();
@@ -208,7 +220,7 @@ import javax.swing.event.ListSelectionListener;
 /* 183 */     setIconImage(getIconImage());
 /* 184 */     addWindowListener(new WindowAdapter() {
 /*     */           public void windowClosing(WindowEvent evt) {
-/* 186 */             PanelListGateway1.this.formWindowClosing(evt);
+/* 186 */             PanelListGateway.this.formWindowClosing(evt);
 /*     */           }
 /*     */         });
 /*     */     
@@ -225,7 +237,7 @@ import javax.swing.event.ListSelectionListener;
 /* 200 */     this.jButtonSave.setText(bundle.getString("PanelListGateway.jButtonSave.text"));
 /* 201 */     this.jButtonSave.addActionListener(new ActionListener() {
 /*     */           public void actionPerformed(ActionEvent evt) {
-/* 203 */             PanelListGateway1.this.jButtonSaveActionPerformed(evt);
+/* 203 */             PanelListGateway.this.jButtonSaveActionPerformed(evt);
 /*     */           }
 /*     */         });
 /*     */     
@@ -233,7 +245,7 @@ import javax.swing.event.ListSelectionListener;
 /* 208 */     this.jButtonNew.setText(bundle.getString("PanelListGateway.jButtonNew.text"));
 /* 209 */     this.jButtonNew.addActionListener(new ActionListener() {
 /*     */           public void actionPerformed(ActionEvent evt) {
-/* 211 */             PanelListGateway1.this.jButtonNewActionPerformed(evt);
+/* 211 */             PanelListGateway.this.jButtonNewActionPerformed(evt);
 /*     */           }
 /*     */         });
 /*     */     
@@ -241,7 +253,7 @@ import javax.swing.event.ListSelectionListener;
 /* 216 */     this.jButtonDel.setText(bundle.getString("PanelListGateway.jButtonDel.text"));
 /* 217 */     this.jButtonDel.addActionListener(new ActionListener() {
 /*     */           public void actionPerformed(ActionEvent evt) {
-/* 219 */             PanelListGateway1.this.jButtonDelActionPerformed(evt);
+/* 219 */             PanelListGateway.this.jButtonDelActionPerformed(evt);
 /*     */           }
 /*     */         });
 /*     */     
@@ -249,14 +261,14 @@ import javax.swing.event.ListSelectionListener;
 /* 224 */     this.jButtonSelect.setText(bundle.getString("PanelListGateway.jButtonSelect.text"));
 /* 225 */     this.jButtonSelect.addActionListener(new ActionListener() {
 /*     */           public void actionPerformed(ActionEvent evt) {
-/* 227 */             PanelListGateway1.this.jButtonSelectActionPerformed(evt);
+/* 227 */             PanelListGateway.this.jButtonSelectActionPerformed(evt);
 /*     */           }
 /*     */         });
 /*     */     
 /* 231 */     this.jCheckBoxGIoT.setText(bundle.getString("PanelListGateway.jCheckBoxGIoT.text"));
 /* 232 */     this.jCheckBoxGIoT.addActionListener(new ActionListener() {
 /*     */           public void actionPerformed(ActionEvent evt) {
-/* 234 */             PanelListGateway1.this.jCheckBoxGIoTActionPerformed(evt);
+/* 234 */             PanelListGateway.this.jCheckBoxGIoTActionPerformed(evt);
 /*     */           }
 /*     */         });
 /*     */     
@@ -398,7 +410,7 @@ import javax.swing.event.ListSelectionListener;
 /*     */         });
 /* 374 */     this.jList1.addListSelectionListener(new ListSelectionListener() {
 /*     */           public void valueChanged(ListSelectionEvent evt) {
-/* 376 */             PanelListGateway1.this.jList1ValueChanged(evt);
+/* 376 */             PanelListGateway.this.jList1ValueChanged(evt);
 /*     */           }
 /*     */         });
 /* 379 */     this.jScrollPane1.setViewportView(this.jList1);
@@ -744,6 +756,22 @@ import javax.swing.event.ListSelectionListener;
 /*     */ 
 /*     */ 
 /*     */ 
+/*     */   /*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */   /*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
+/*     */ 
 /*     */   
 /*     */   public static void main(String[] args) throws UnsupportedLookAndFeelException {
 /*     */     try {
@@ -754,21 +782,21 @@ import javax.swing.event.ListSelectionListener;
 /*     */         } 
 /*     */       } 
 /* 723 */     } catch (ClassNotFoundException ex) {
-/* 724 */       Logger.getLogger(PanelListGateway1.class.getName()).log(Level.SEVERE, (String)null, ex);
+/* 724 */       Logger.getLogger(PanelListGateway.class.getName()).log(Level.SEVERE, (String)null, ex);
 /* 725 */     } catch (InstantiationException ex) {
-/* 726 */       Logger.getLogger(PanelListGateway1.class.getName()).log(Level.SEVERE, (String)null, ex);
+/* 726 */       Logger.getLogger(PanelListGateway.class.getName()).log(Level.SEVERE, (String)null, ex);
 /* 727 */     } catch (IllegalAccessException ex) {
-/* 728 */       Logger.getLogger(PanelListGateway1.class.getName()).log(Level.SEVERE, (String)null, ex);
+/* 728 */       Logger.getLogger(PanelListGateway.class.getName()).log(Level.SEVERE, (String)null, ex);
 /* 729 */     } catch (UnsupportedLookAndFeelException ex) {
-/* 730 */       Logger.getLogger(PanelListGateway1.class.getName()).log(Level.SEVERE, (String)null, ex);
+/* 730 */       Logger.getLogger(PanelListGateway.class.getName()).log(Level.SEVERE, (String)null, ex);
 /*     */     } 
 /*     */ 
 /*     */     
 /* 734 */     Locale.setDefault(new Locale("en", "GB"));
-/*     */     /*     */     
+/*     */     /*     */     /*     */     /*     */     
 /* 736 */     EventQueue.invokeLater(new Runnable() {
 /*     */           public void run() {
-/* 738 */             (new PanelListGateway1(null)).setVisible(true);
+/* 738 */             (new PanelListGateway(null)).setVisible(true);
 /*     */           }
 /*     */         });
 /*     */   }

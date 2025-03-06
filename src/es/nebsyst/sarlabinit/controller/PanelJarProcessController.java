@@ -64,6 +64,7 @@ public class PanelJarProcessController implements Initializable {
                 //default title and icon
                 Alert mensaje = new Alert(AlertType.INFORMATION);
                 mensaje.setContentText("Se elimina el proceso PID " + pid);
+                mensaje.showAndWait();
                 //delay(500);
                 listModel = (ObservableList<String>) GesJarProcess.listProcessJarRunning();
                 jList1.setItems(listModel);

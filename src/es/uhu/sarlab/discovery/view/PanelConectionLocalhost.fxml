@@ -9,7 +9,6 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 
 <AnchorPane prefHeight="350.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelConectionLocalhostController">
@@ -48,11 +47,11 @@
             </TitledPane>
             <AnchorPane prefHeight="189.0" prefWidth="600.0">
                <children>
-                  <Pane prefHeight="108.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                  <HBox alignment="CENTER" prefHeight="100.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                      <children>
-                        <Button fx:id="jButton2" alignment="CENTER" layoutX="269.0" layoutY="11.0" mnemonicParsing="false" onAction="#jButton2ActionPerformed" text="Cancelar" />
+                        <Button fx:id="jButton2" mnemonicParsing="false" onAction="#jButton2ActionPerformed" text="Cancelar" />
                      </children>
-                  </Pane>
+                  </HBox>
                </children>
             </AnchorPane>
          </children>

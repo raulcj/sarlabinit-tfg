@@ -437,6 +437,7 @@ import javafx.scene.image.ImageView;
 /* 776 */     Locale.setDefault(new Locale("en", "GB"));
 /* 777 */     System.out.println("Current Locale: " + Locale.getDefault());
 /*     */     
+              // Sustituir por Platform.runLater()
 /* 779 */     EventQueue.invokeLater(new Runnable() {
 /*     */           public void run() {
 /* 781 */             //(new PanelEditConfigLocalController(null)).setEditable(true);

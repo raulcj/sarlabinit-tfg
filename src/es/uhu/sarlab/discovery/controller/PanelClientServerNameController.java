@@ -1265,19 +1265,16 @@ import javafx.stage.StageStyle;
 /* 1602 */     this.jButtonProfile.setDisable(false);
                
 /* 1603 */     //this.listGateway.setVisible(true); MUESTRA PanelListGateway
-               startPanelListGatewayStage();
+               Main.getPanelListGatewayStage().show();
 /*      */   }
-
-             void startPanelListGatewayStage() throws IOException {
-                Main.getPanelListGatewayStage().show();
-             }
-/*      */ 
+ 
 /*      */   @FXML
 /*      */   void jButtonConfiguracionLocalActionPerformed() throws IOException {
                // Stage que abre el boton Configuracion Local
 /* 1608 */     //this.editor.setVisible(true);
                //Main.getPanelConectionLocalhostStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
-               Main.getPanelEditConfigLocalStage().show();
+               //Main.getPanelEditConfigLocalStage().show(); // ESTE VA AQUI
+               Main.getPanelConectionExperienceStage().show(); // AQUI IRIA EL DE CONFIG LOCAL
 /*      */   }
 /*      */ 
 /*      */   @FXML
@@ -1378,15 +1375,25 @@ import javafx.stage.StageStyle;
 /*      */   }
 /*      */ 
 /*      */   @FXML
-/*      */   void jButtonForwardingLookActionPerformed() {
+/*      */   void jButtonForwardingLookActionPerformed() throws IOException {  
 /* 1715 */     //this.panelConectionLocalhost.setVisible(true);
-/* 1716 */     ObservableList<String> modelo = observableArrayList(new ArrayList<String>());
+/* 1716 */     //ObservableList<String> modelo = observableArrayList(new ArrayList<String>());
+/* 1717 */     //if (this.sarlab != null) {
+/* 1718 */     //  modelo = (ObservableList<String>) this.sarlab.getDefaultListModel();
+/*      */     //}
+/* 1721 */     //this.panelConectionLocalhost.init(modelo);
+/* 1722 */     //this.panelConectionLocalhost.set();
+               // IMPLEMENTADO: (PROBAR SI FUNCIONA)
+               Main.getPanelConectionLocalhostStage().show();
+               ObservableList<String> modelo = observableArrayList(new ArrayList<>());
 /* 1717 */     if (this.sarlab != null) {
 /* 1718 */       modelo = (ObservableList<String>) this.sarlab.getDefaultListModel();
 /*      */     }
-/*      */     
-/* 1721 */     //this.panelConectionLocalhost.init(modelo);
-/* 1722 */     //this.panelConectionLocalhost.set();
+               FXMLLoader fxmlLoader = Main.getPanelConectionLocalhostLoader();
+               fxmlLoader.load();
+               PanelConectionLocalhostController panelConectionLocalhostController = fxmlLoader.getController();
+               panelConectionLocalhostController.init(modelo);
+               panelConectionLocalhostController.set();
 /*      */   }
 /*      */ 
 /*      */ 
@@ -1395,10 +1402,6 @@ import javafx.stage.StageStyle;
 /* 1728 */     //this.panelNodoFrowardingL.setVisible(true);
 /* 1729 */     //this.panelNodoFrowardingL.setIpInit();
 /*      */   }
-/*      */ 
-/*      */ 
-/*      */ 
-/*      */ 
 /*      */ 
 /*      */   @FXML
 /*      */   void jButtonProfileActionPerformed() {
@@ -1467,6 +1470,7 @@ import javafx.stage.StageStyle;
 /*      */          
 /*      */   @FXML
 /*      */   void jButton1ActionPerformed() throws IOException {
+                // IMPLEMENTADO
                 // Habilitar todas las lineas => no refresca correctamente la UI
                 //FXMLLoader fxmlLoader = Main.getPanelConsoleLoader();
                 //fxmlLoader.load();

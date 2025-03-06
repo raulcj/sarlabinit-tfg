@@ -1,0 +1,65 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import javafx.scene.control.Button?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.ListView?>
+<?import javafx.scene.control.ScrollPane?>
+<?import javafx.scene.control.TitledPane?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
+<?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.VBox?>
+
+<AnchorPane prefHeight="428.0" prefWidth="521.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelConectionExperienceController">
+   <children>
+      <VBox layoutX="149.0" layoutY="14.0" prefHeight="428.0" prefWidth="521.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+         <children>
+            <AnchorPane minHeight="-Infinity" prefHeight="80.0" prefWidth="512.0">
+               <children>
+                  <HBox alignment="CENTER_LEFT" prefHeight="142.4" prefWidth="502.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <children>
+                        <ImageView fitHeight="69.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@resources/Remote-Desktop64x64.png" />
+                           </image></ImageView>
+                        <Label fx:id="LabelSARLAB" text="Selector de perfil de conexiones" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+            <AnchorPane prefHeight="336.0" prefWidth="512.0">
+               <children>
+                  <TitledPane fx:id="jTitledPane1" alignment="CENTER" animated="false" collapsible="false" prefHeight="207.2" prefWidth="521.6" text="Perfiles de conexiones" textAlignment="JUSTIFY" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                    <content>
+                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
+                           <children>
+                              <ScrollPane fx:id="jScrollPane2" fitToHeight="true" fitToWidth="true" prefHeight="112.0" prefWidth="520.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                <content>
+                                  <AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" minHeight="0.0" minWidth="0.0">
+                                       <children>
+                                          <ListView fx:id="jListHardware" prefHeight="91.2" prefWidth="499.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
+                                       </children>
+                                    </AnchorPane>
+                                </content>
+                              </ScrollPane>
+                           </children>
+                        </AnchorPane>
+                    </content>
+                  </TitledPane>
+               </children>
+            </AnchorPane>
+            <AnchorPane maxHeight="-Infinity" prefHeight="130.0" prefWidth="512.0">
+               <children>
+                  <HBox alignment="CENTER" prefHeight="143.2" prefWidth="521.6" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                     <children>
+                        <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Seleccion" />
+                        <Button fx:id="jButton2" mnemonicParsing="false" onAction="#jButton2ActionPerformed" text="Cancelar" />
+                     </children>
+                  </HBox>
+               </children>
+            </AnchorPane>
+         </children>
+      </VBox>
+   </children>
+</AnchorPane>
