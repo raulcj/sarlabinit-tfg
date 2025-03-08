@@ -3,6 +3,7 @@
  */
 package es.nebsyst.sarlabinit.main;
 
+import es.uhu.sarlab.discovery.controller.PanelClientServerNameController;
 import es.uhu.sarlab.discovery.vistaTFG.PanelClientServerName;
 import java.awt.AWTException;
 import java.awt.Image;
@@ -17,9 +18,13 @@ import java.awt.event.MouseEvent;
 import java.awt.event.MouseListener;
 import java.awt.event.WindowAdapter;
 import java.awt.event.WindowEvent;
+import java.io.IOException;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.fxml.FXMLLoader;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.ImageIcon;
@@ -33,6 +38,8 @@ public class MySystemTray {
     private Stage restoreStage;
     private Stage discoveryStage;
     private Stage progressBarStage;
+    private PanelClientServerNameController discoveryController;
+    
     //private PanelClientServerName clientName
     private PopupMenu popup = new PopupMenu();
     private final Image image = new ImageIcon(getClass().getResource("/es/nebsyst/sarlabinit/resource/execjar128.png")).getImage();
@@ -50,7 +57,7 @@ public class MySystemTray {
         
         this.restoreStage = restoreStage;
         this.discoveryStage = discoveryStage;
-        this.progressBarStage = progressBarStage;
+        //this.progressBarStage = progressBarStage;
         //comprueba si SystemTray es soportado en el sistema
         if (SystemTray.isSupported()) {
             //obtiene instancia SystemTray
@@ -93,7 +100,7 @@ public class MySystemTray {
                 System.exit(0);
             };
 
-            //Restaurar aplicacion
+            //Restaurar aplicacion "PanelEJSAppList"
             ActionListener restoreListener = e -> Platform.runLater(() -> {
                 this.restoreStage.show();
                 //si esta minimizado restaura JFrame
@@ -108,9 +115,8 @@ public class MySystemTray {
                     }
                 }
             });
-
-            ActionListener discoveryListener = e -> Platform.runLater(() -> {
-                       
+            //Restaurar aplicacion "Discovery"
+            ActionListener discoveryListener = e -> Platform.runLater(() -> {           
                 if (this.discoveryStage == null) {
                     this.discoveryStage.show();
                 } else {
@@ -120,15 +126,22 @@ public class MySystemTray {
                     }
                 }
                 // ENSEÑA EL STAGE DE LA BARRA DE PROGRESO
-                if (this.progressBarStage != null && progressBarStage.getOwner() == null) {
-                    this.progressBarStage.initOwner(discoveryStage);
-                    this.progressBarStage.initModality(Modality.WINDOW_MODAL);
-                    this.progressBarStage.setAlwaysOnTop(true);
-                    this.progressBarStage.show();
-                }
-                   
+                //if (this.progressBarStage != null && progressBarStage.getOwner() == null) {
+                //    this.progressBarStage.initOwner(discoveryStage);
+                //    this.progressBarStage.initModality(Modality.WINDOW_MODAL);
+                //    this.progressBarStage.setAlwaysOnTop(true);
+                //    this.progressBarStage.show();
+                //}
+                // ENSEÑA LA BARRA DE PROGRESO YA IMPLEMENTADA
+                if (discoveryController == null) {
+                    try {
+                        discoveryController = Main.getDiscoveryController();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MySystemTray.class.getName()).log(Level.SEVERE, null, ex);
+                    }
+                    discoveryController.init();     
+                }                 
             });
-
             //Se crean los Items del menu PopUp y se añaden
             MenuItem exitAppItem = new MenuItem("Salir");
             exitAppItem.addActionListener(exitListener);

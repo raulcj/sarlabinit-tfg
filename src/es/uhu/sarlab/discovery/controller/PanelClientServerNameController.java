@@ -66,6 +66,7 @@ import javax.swing.Timer;
 import org.apache.log4j.PropertyConfigurator;
 import java.util.logging.Logger;
 import java.util.logging.Level;
+import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import static javafx.collections.FXCollections.observableArrayList;
@@ -94,10 +95,11 @@ import javafx.scene.image.Image;
 import static javafx.stage.Modality.APPLICATION_MODAL;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
+import javax.swing.JFrame;
 
 
 /*      */ 
-/*      */ public class PanelClientServerNameController implements Initializable {
+/*      */ public class PanelClientServerNameController implements Initializable, InterfazBarLogo, PropertyChangeListener {
     
 /*   62 */   public final static Logger log = Logger.getLogger(PanelClientServerNameController.class.getName());
 /*      */   String userLog;
@@ -242,18 +244,20 @@ import javafx.stage.StageStyle;
 /*  120 */     this.ps = new PrintStream(this.baos);
 /*  121 */     System.setOut(this.ps);
 /*  122 */     initComponents();
-/*  123 */     //setLocationRelativeTo((Component)null);
 /*  124 */     ButtonEnabled(false); // poner en false
-/*  125 */     this.jButtonTools.setDisable(true);
-/*  126 */     this.jButtonForwarding.setDisable(true);
-/*  127 */     this.jButtonForwardingLook.setDisable(true);
+/*  125 */     this.jButtonTools.setDisable(false); // poner en true
+/*  126 */     this.jButtonForwarding.setDisable(false); // poner en true
+/*  127 */     this.jButtonForwardingLook.setDisable(false); // poner en true
+               
 /*  128 */     if (!OS.isWindows()) {
 /*  129 */       this.jButtonLocal.setVisible(false);
 /*      */     }
-/*  131 */     this.jButtonProfile.setDisable(true);
+/*  131 */     this.jButtonProfile.setDisable(false); // poner en true
 /*  132 */     this.sentinel = new Sentinel();
                // Se añade para que se muestre el botón Actualizar al abrir el panel
                this.jButtonActualizar.setVisible(true);
+               // Se añade para que jButtonLocalActionPerformed() no lance NullPointerEx
+               //init();
                // intentando mostrar la ProgressBar...
                //performLoadingTask(progressBarDiscovery.getProgressBar());
 /*      */   }
@@ -287,27 +291,31 @@ import javafx.stage.StageStyle;
        }
 
 /*      */   public void ButtonEnabled(boolean enable) {
-/*  136 */     this.jButtonDesktop.setVisible(enable);
-/*  137 */     this.jButtonModbus.setVisible(enable);
-/*  138 */     this.jButtonSFDTP.setVisible(enable);
-/*  139 */     this.jButtonSsh.setVisible(enable);
-/*  140 */     this.jButtonTelnet.setVisible(enable);
-/*  141 */     this.jButtonVNC.setVisible(enable);
-/*  142 */     this.jButtonNavegador.setVisible(enable);
-/*  143 */     this.jButtonActualizar.setVisible(enable);
-/*  144 */     this.jTextFieldURL.setVisible(enable);
-/*  145 */     this.jTextFieldDesktop.setVisible(enable);
-/*  146 */     this.jTextFieldModbus.setVisible(enable);
-/*  147 */     this.jTextFieldPortNav.setVisible(enable);
-/*  148 */     this.jTextFieldSsh.setVisible(enable);
-/*  149 */     this.jTextFieldTelnet.setVisible(enable);
-/*  150 */     this.jTextFieldVNC.setVisible(enable);
-/*  151 */     this.jTextFieldsFTP.setVisible(enable);
+/*  136 */     this.jButtonDesktop.setDisable(!enable);
+/*  137 */     this.jButtonModbus.setDisable(!enable);
+/*  138 */     this.jButtonSFDTP.setDisable(!enable);
+/*  139 */     this.jButtonSsh.setDisable(!enable);
+/*  140 */     this.jButtonTelnet.setDisable(!enable);
+/*  141 */     this.jButtonVNC.setDisable(!enable);
+/*  142 */     this.jButtonNavegador.setDisable(!enable);
+/*  143 */     this.jButtonActualizar.setDisable(enable); // debe estar activado al inicio
+/*  144 */     this.jTextFieldURL.setEditable(enable);
+/*  145 */     this.jTextFieldDesktop.setEditable(enable);
+/*  146 */     this.jTextFieldModbus.setEditable(enable);
+/*  147 */     this.jTextFieldPortNav.setEditable(enable);
+/*  148 */     this.jTextFieldSsh.setEditable(enable);
+/*  149 */     this.jTextFieldTelnet.setEditable(enable);
+/*  150 */     this.jTextFieldVNC.setEditable(enable);
+/*  151 */     this.jTextFieldsFTP.setEditable(enable);
 /*      */   }
 
 /*      */   public void init() {
-/*  162 */     this.barLogo = new BarLogo((InterfazBarLogo) this);
-/*  163 */     this.barLogo.init();
+                //Platform.runLater(() -> {
+                if (this.barLogo == null) {
+                    this.barLogo = new BarLogo((InterfazBarLogo) this);
+/*  163 */          this.barLogo.init();
+                }             
+                //});
 /*      */   }
 /*      */   
 /*      */   public String ipInit() {
@@ -660,14 +668,17 @@ import javafx.stage.StageStyle;
 /*  989 */     ObservableList<String> observableListModel = observableArrayList(new ArrayList<String>());
 /*  990 */     this.jList1.setItems(observableListModel);
 /*  991 */     if (this.sarlab == null) {
-/*  992 */       this.barLogo.init();
+                 if (this.barLogo == null) {
+                     this.barLogo = new BarLogo((InterfazBarLogo) this);
+                     this.barLogo.init();
+                     this.barLogo = null;
+                 } 
 /*  993 */       ButtonEnabled(false); // poner en false
 /*  994 */       this.jButtonActualizar.setDisable(true); // poner en true
 /*      */     } else {
 /*  996 */       GetParameters getParameters = new GetParameters();
 /*  997 */       this.directoryRegisterNameSarlab = getParameters.getDirectoryRegisterNameSarlab(this.registerGatewayOld);
-/*  998 */       if (this.directoryRegisterNameSarlab != null) {
-/*      */         
+/*  998 */       if (this.directoryRegisterNameSarlab != null) {        
 /* 1000 */         observableListModel = (ObservableList<String>) this.directoryRegisterNameSarlab.getListModel();
 /* 1001 */         this.jList1.setItems(observableListModel);
 /*      */       } 
@@ -720,26 +731,26 @@ import javafx.stage.StageStyle;
 /*      */   }
 /*      */ 
 /*      */   public void selectService(RegisterName registerName) {
-/* 1055 */     this.jTextFieldDesktop.setVisible(registerName.isRdesktop());
+/* 1055 */     this.jTextFieldDesktop.setEditable(registerName.isRdesktop());
 /* 1056 */     this.jTextFieldDesktop.setText(Integer.toString(registerName.getRdesktopPort()));
 /* 1057 */     this.jButtonDesktop.setVisible(registerName.isRdesktop());
-/* 1058 */     this.jTextFieldVNC.setVisible(registerName.isVnc());
+/* 1058 */     this.jTextFieldVNC.setEditable(registerName.isVnc());
 /* 1059 */     this.jTextFieldVNC.setText(Integer.toString(registerName.getVncPort()));
 /* 1060 */     this.jButtonVNC.setVisible(registerName.isVnc());
-/* 1061 */     this.jTextFieldTelnet.setVisible(registerName.isTelnet());
+/* 1061 */     this.jTextFieldTelnet.setEditable(registerName.isTelnet());
 /* 1062 */     this.jTextFieldTelnet.setText(Integer.toString(registerName.getTelnetPort()));
 /* 1063 */     this.jButtonTelnet.setVisible(registerName.isTelnet());
-/* 1064 */     this.jTextFieldSsh.setVisible(registerName.isSsh());
+/* 1064 */     this.jTextFieldSsh.setEditable(registerName.isSsh());
 /* 1065 */     this.jTextFieldSsh.setText(Integer.toString(registerName.getSshPort()));
 /* 1066 */     this.jButtonSsh.setVisible(registerName.isSsh());
-/* 1067 */     this.jTextFieldsFTP.setVisible(registerName.isSftp());
+/* 1067 */     this.jTextFieldsFTP.setEditable(registerName.isSftp());
 /* 1068 */     this.jTextFieldsFTP.setText(Integer.toString(registerName.getSftpPort()));
 /* 1069 */     this.jButtonSFDTP.setVisible(registerName.isSftp());
-/* 1070 */     this.jTextFieldModbus.setVisible(registerName.isModbus());
+/* 1070 */     this.jTextFieldModbus.setEditable(registerName.isModbus());
 /* 1071 */     this.jTextFieldModbus.setText(Integer.toString(registerName.getModbusPort()));
 /* 1072 */     this.jButtonModbus.setVisible(registerName.isModbus());
-/* 1073 */     this.jTextFieldURL.setVisible(registerName.isHttp());
-/* 1074 */     this.jTextFieldPortNav.setVisible(registerName.isHttp());
+/* 1073 */     this.jTextFieldURL.setEditable(registerName.isHttp());
+/* 1074 */     this.jTextFieldPortNav.setEditable(registerName.isHttp());
 /* 1075 */     this.jRadioAxi.setVisible(registerName.isHttp());
 /* 1076 */     this.jRadioEnlarge.setVisible(registerName.isHttp());
 /* 1077 */     this.jRadioFree.setVisible(registerName.isHttp());
@@ -759,26 +770,26 @@ import javafx.stage.StageStyle;
 /*      */   }
 /*      */ 
 /*      */   public void removeService() {
-/* 1097 */     this.jTextFieldDesktop.setDisable(true);
+/* 1097 */     this.jTextFieldDesktop.setEditable(true);
 /* 1098 */     this.jTextFieldDesktop.setText("");
 /* 1099 */     this.jButtonDesktop.setDisable(true);
-/* 1100 */     this.jTextFieldVNC.setDisable(true);
+/* 1100 */     this.jTextFieldVNC.setEditable(true);
 /* 1101 */     this.jTextFieldVNC.setText("");
 /* 1102 */     this.jButtonVNC.setDisable(true);
-/* 1103 */     this.jTextFieldTelnet.setDisable(true);
+/* 1103 */     this.jTextFieldTelnet.setEditable(true);
 /* 1104 */     this.jTextFieldTelnet.setText("");
 /* 1105 */     this.jButtonTelnet.setDisable(true);
-/* 1106 */     this.jTextFieldSsh.setDisable(true);
+/* 1106 */     this.jTextFieldSsh.setEditable(true);
 /* 1107 */     this.jTextFieldSsh.setText("");
 /* 1108 */     this.jButtonSsh.setDisable(true);
-/* 1109 */     this.jTextFieldsFTP.setDisable(true);
+/* 1109 */     this.jTextFieldsFTP.setEditable(true);
 /* 1110 */     this.jTextFieldsFTP.setText("");
 /* 1111 */     this.jButtonSFDTP.setDisable(true);
-/* 1112 */     this.jTextFieldModbus.setDisable(true);
+/* 1112 */     this.jTextFieldModbus.setEditable(true);
 /* 1113 */     this.jTextFieldModbus.setText("");
 /* 1114 */     this.jButtonModbus.setDisable(true);
-/* 1115 */     this.jTextFieldURL.setDisable(true);
-/* 1116 */     this.jTextFieldPortNav.setDisable(true);
+/* 1115 */     this.jTextFieldURL.setEditable(true);
+/* 1116 */     this.jTextFieldPortNav.setEditable(true);
 /* 1117 */     this.jRadioAxi.setDisable(true);
 /* 1118 */     this.jRadioEnlarge.setDisable(true);
 /* 1119 */     this.jRadioFree.setDisable(true);
@@ -1292,7 +1303,11 @@ import javafx.stage.StageStyle;
 /* 1624 */       this.sarlab.delay(500);
 /*      */     } 
 /* 1626 */     this.sarlab = null;
-/* 1627 */     this.barLogo.init();
+               if (this.barLogo == null) {
+                   this.barLogo = new BarLogo((InterfazBarLogo) this);
+                   this.barLogo.init();
+                   this.barLogo = null;
+               }   
 /* 1628 */     ButtonEnabled(false);
 /* 1629 */     this.jButtonActualizar.setDisable(true);
 /*      */   }
@@ -1320,7 +1335,7 @@ import javafx.stage.StageStyle;
 /*      */   @FXML
 /*      */   void jRadioEnlargeActionPerformed() {
 /*      */     RegisterName registerName;
-/* 1658 */     this.jTextFieldURL.setDisable(true);
+/* 1658 */     this.jTextFieldURL.setEditable(true);
 /*      */ 
 /*      */     
 /* 1661 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
@@ -1354,7 +1369,7 @@ import javafx.stage.StageStyle;
 /* 1694 */       this.url = "http://" + registerName.getIp();
 /*      */     } 
 /* 1696 */     this.jTextFieldURL.setText(this.url);
-/* 1697 */     this.jTextFieldURL.setDisable(false);
+/* 1697 */     this.jTextFieldURL.setEditable(false);
 /*      */   }
 /*      */ 
 /*      */   @FXML
@@ -1631,7 +1646,8 @@ import javafx.stage.StageStyle;
 /*      */   }
 /*      */ 
 
-/*      */   public void initBarLogo() {
+/*      */   @Override
+             public void initBarLogo() {
 /*      */     try {
 /* 1959 */       this.serverUDPThread = new ServerUDPThread(4448, 1024);
 /* 1960 */       this.serverUDPThread.start();
@@ -1663,11 +1679,17 @@ import javafx.stage.StageStyle;
 /*      */   }
 /*      */ 
 /*      */ 
-/*      */   
+/*      */   @Override
 /*      */   public void endBarLogo() {
 /* 1987 */     this.serverUDPThread.end();
 /* 1988 */     DirectoryRegisterName directoryRegisterName = this.serverUDPThread.getDirectoryRegisterName();
-/* 1989 */     setListModel((ObservableList<String>) this.serverUDPThread.getListModel());
+/* 1989 */     //setListModel((ObservableList<String>) this.serverUDPThread.getListModel()); DA ERROR
+               // Volcado de lista DefaultListModel en lista ObservableList
+               ObservableList<String> copiedList = observableArrayList(new ArrayList<>());
+               for (int i = 0; i < this.serverUDPThread.getListModel().size(); i++) {
+                   copiedList.add((String) this.serverUDPThread.getListModel().get(i));
+               }
+               setListModel(copiedList);
 /* 1990 */     this.jButtonActualizar.setDisable(false);
 /*      */   }
 /*      */ 
@@ -1720,6 +1742,7 @@ import javafx.stage.StageStyle;
 /* 2043 */     return IdGIOT.substring(5).toLowerCase();
 /*      */   }
 /*      */ 
+             @Override
 /*      */   public void propertyChange(PropertyChangeEvent evt) {
 /* 2157 */     if ("progress" == evt.getPropertyName()) {
 /* 2158 */       //this.progressBar.setIndeterminate(false);
@@ -1835,6 +1858,25 @@ import javafx.stage.StageStyle;
         private void addPropertyChangeListener(PanelClientServerNameController aThis) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
+        
+        public static void main(String[] args) {
+               Platform.runLater(() -> {
+                   FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
+                   try {
+                       fxmlLoader.load();
+                   } catch (IOException ex) {
+                       Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+                   PanelClientServerNameController panelClientServerNameController = fxmlLoader.getController();
+                   //panelClientServerNameController.init();
+                   try {
+                       Main.getDiscoveryStage().show();
+                   } catch (IOException ex) {
+                       Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
+                   }
+               });         
+        }
+   
    }
 /*      */   
 /*      */   class Sentinel implements ActionListener

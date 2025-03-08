@@ -4,11 +4,13 @@
  */
 package es.nebsyst.sarlabinit.main;
 
+import es.uhu.sarlab.discovery.controller.PanelClientServerNameController;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
@@ -32,6 +34,7 @@ public class Main extends Application {
     private static Stage PanelEditConfigLocalStage;
     private static Stage PanelConectionExperienceStage;
     private static Stage PanelNodoFrowardingLStage;
+    private static PanelClientServerNameController discoveryController;
         
     @Override
     public void start(Stage panelEJSAppListStage) throws IOException {
@@ -79,11 +82,19 @@ public class Main extends Application {
     public static FXMLLoader getDiscoveryLoader() {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelClientServerName.fxml"));
     }
-     
+    
+    public static PanelClientServerNameController getDiscoveryController() throws IOException {
+        FXMLLoader fxmlLoader = getDiscoveryLoader();
+        fxmlLoader.load();
+        return fxmlLoader.getController();
+        
+    }
+    
     public static Stage getDiscoveryStage() throws IOException {
         if (DiscoveryStage == null) {
-            DiscoveryStage = new Stage();         
-            Scene scene = new Scene(getDiscoveryLoader().load());
+            DiscoveryStage = new Stage(); 
+            //Parent root = getDiscoveryParent(); // quitar?
+            Scene scene = new Scene(getDiscoveryLoader().load());       
             ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vistaTFG/Bundle_PanelClientServerName");
             DiscoveryStage.setTitle(bundle.getString("PanelClientServerName.title"));
             Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      

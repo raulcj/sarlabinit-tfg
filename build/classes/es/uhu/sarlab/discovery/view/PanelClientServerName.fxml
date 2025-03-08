@@ -13,16 +13,15 @@
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
    <children>
-      <VBox layoutX="148.0" layoutY="38.0" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="148.0" layoutY="38.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" prefHeight="93.0" prefWidth="750.0">
+            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="93.0" prefWidth="750.0">
                <children>
                   <ImageView fitHeight="79.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" translateX="-120.0">
                      <image>
@@ -41,9 +40,9 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox prefHeight="364.0" prefWidth="750.0">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="364.0" prefWidth="750.0">
                <children>
-                  <TitledPane animated="false" collapsible="false" prefHeight="367.0" prefWidth="543.0" text="Sistemas">
+                  <TitledPane animated="false" collapsible="false" prefHeight="367.0" text="Sistemas">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="337.0" prefWidth="557.0">
                            <children>
@@ -61,11 +60,11 @@
                         </AnchorPane>
                     </content>
                   </TitledPane>
-                  <TitledPane animated="false" collapsible="false" prefHeight="363.0" prefWidth="233.0" text="Servicios">
+                  <TitledPane animated="false" collapsible="false" prefHeight="363.0" text="Servicios">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="309.0" prefWidth="206.0">
                            <children>
-                              <GridPane prefHeight="337.6" prefWidth="205.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GridPane alignment="CENTER" hgap="20.0" prefHeight="336.8" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
@@ -84,16 +83,16 @@
                                  <children>
                                     <Label text="Servicio" />
                                     <Label text="Puerto" GridPane.columnIndex="1" />
-                                    <Button fx:id="jButtonDesktop" mnemonicParsing="false" onAction="#jButtonDesktopActionPerformed" text="Desktop" GridPane.rowIndex="1" />
-                                    <Button fx:id="jButtonVNC" mnemonicParsing="false" onAction="#jButtonVNCActionPerformed" text="VNC" GridPane.rowIndex="2" />
-                                    <Button fx:id="jButtonTelnet" mnemonicParsing="false" onAction="#jButtonTelnetActionPerformed" text="Telnet" GridPane.rowIndex="3" />
-                                    <Button fx:id="jButtonSsh" mnemonicParsing="false" onAction="#jButtonSshActionPerformed" text="SSH" GridPane.rowIndex="4" />
-                                    <Button fx:id="jButtonSFDTP" mnemonicParsing="false" onAction="#jButtonSFDTPActionPerformed" text="sFTP" GridPane.rowIndex="5" />
-                                    <Button fx:id="jButtonModbus" mnemonicParsing="false" onAction="#jButtonModbusActionPerformed" text="Modbus" GridPane.rowIndex="6" />
-                                    <Button fx:id="jButtonTools" mnemonicParsing="false" onAction="#jButtonToolsActionPerformed" text="Herramientas" GridPane.rowIndex="7" />
-                                    <Button fx:id="jButtonForwarding" mnemonicParsing="false" onAction="#jButtonForwardingActionPerformed" text="Redirección" GridPane.rowIndex="8" />
-                                    <Button fx:id="jButtonProfile" mnemonicParsing="false" onAction="#jButtonProfileActionPerformed" text="Perfil" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                    <Button fx:id="jButtonForwardingLook" mnemonicParsing="false" onAction="#jButtonForwardingLookActionPerformed" text="RedirecciónBuscar" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <Button fx:id="jButtonDesktop" mnemonicParsing="false" onAction="#jButtonDesktopActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Desktop" GridPane.rowIndex="1" />
+                                    <Button fx:id="jButtonVNC" mnemonicParsing="false" onAction="#jButtonVNCActionPerformed" prefHeight="26.0" prefWidth="120.0" text="VNC" GridPane.rowIndex="2" />
+                                    <Button fx:id="jButtonTelnet" mnemonicParsing="false" onAction="#jButtonTelnetActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Telnet" GridPane.rowIndex="3" />
+                                    <Button fx:id="jButtonSsh" mnemonicParsing="false" onAction="#jButtonSshActionPerformed" prefHeight="26.0" prefWidth="120.0" text="SSH" GridPane.rowIndex="4" />
+                                    <Button fx:id="jButtonSFDTP" mnemonicParsing="false" onAction="#jButtonSFDTPActionPerformed" prefHeight="26.0" prefWidth="120.0" text="sFTP" GridPane.rowIndex="5" />
+                                    <Button fx:id="jButtonModbus" mnemonicParsing="false" onAction="#jButtonModbusActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Modbus" GridPane.rowIndex="6" />
+                                    <Button fx:id="jButtonTools" mnemonicParsing="false" onAction="#jButtonToolsActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Herramientas" GridPane.rowIndex="7" />
+                                    <Button fx:id="jButtonForwarding" mnemonicParsing="false" onAction="#jButtonForwardingActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Redirección" GridPane.rowIndex="8" />
+                                    <Button fx:id="jButtonProfile" mnemonicParsing="false" onAction="#jButtonProfileActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Perfil" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Button fx:id="jButtonForwardingLook" mnemonicParsing="false" onAction="#jButtonForwardingLookActionPerformed" prefHeight="26.0" prefWidth="120.0" text="RedirecciónBuscar" GridPane.columnIndex="1" GridPane.rowIndex="8" />
                                     <TextField fx:id="jTextFieldDesktop" onAction="#jTextFieldDesktopActionPerformed" prefHeight="26.0" prefWidth="72.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="jTextFieldVNC" onAction="#jTextFieldVNCActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="jTextFieldTelnet" onAction="#jTextFieldTelnetActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="3" />
@@ -108,7 +107,7 @@
                   </TitledPane>
                </children>
             </HBox>
-            <VBox prefHeight="145.0" prefWidth="750.0">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="145.0" prefWidth="750.0">
                <children>
                   <TitledPane animated="false" collapsible="false" prefHeight="118.0" text="Web">
                     <content>
@@ -130,20 +129,20 @@
                         </AnchorPane>
                     </content>
                   </TitledPane>
-                  <Pane prefHeight="113.0" prefWidth="800.0">
+                  <AnchorPane>
                      <children>
-                        <ToolBar prefHeight="69.0" prefWidth="782.0">
-                          <items>
+                        <HBox alignment="CENTER_LEFT" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                           <children>
                             <Button fx:id="jButtonActualizar" mnemonicParsing="false" onAction="#jButtonActualizarActionPerformed" text="Actualizar" />
                               <Button fx:id="jButtonRemoto" mnemonicParsing="false" onAction="#jButtonRemotoActionPerformed" text="Acceso remoto" />
                               <Button fx:id="jButtonLocal" mnemonicParsing="false" onAction="#jButtonLocalActionPerformed" text="Acceso local" />
                               <Button fx:id="jButtonConfiguracionLocal" mnemonicParsing="false" onAction="#jButtonConfiguracionLocalActionPerformed" text="Configuración local" />
                               <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Consola" />
                               <Button fx:id="jButtonTest" mnemonicParsing="false" onAction="#jButtonTestActionPerformed" text="Test" />
-                          </items>
-                        </ToolBar>
+                           </children>
+                        </HBox>
                      </children>
-                  </Pane>
+                  </AnchorPane>
                </children>
             </VBox>
          </children>

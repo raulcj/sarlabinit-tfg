@@ -5,6 +5,7 @@
 package es.uhu.sarlab.discovery.controller;
 
 import es.nebsyst.encrypt.CryptographyAESSarlab2;
+import es.nebsyst.sarlabinit.main.Main;
 import es.uhu.sarlab.digexlab.giot.model.ParameterAccess;
 import es.uhu.sarlab.digexlab.giot.model.ParameterTunnel;
 import es.uhu.sarlab.digexlab.giot.model.ParameterVirtualFrontier;
@@ -16,15 +17,19 @@ import es.uhu.sarlab.utils.CommunicationsUtilities;
 import es.uhu.sarlab.utils.OS;
 import es.uhu.sarlab.utils.PropertiesFiles;
 import java.awt.event.ActionEvent;
+import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.ResourceBundle;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableListValue;
 import javafx.beans.value.ObservableValue;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Button;
 import javafx.scene.control.CheckBox;
@@ -34,9 +39,11 @@ import javafx.scene.control.PasswordField;
 import javafx.scene.control.ScrollPane;
 import javafx.scene.control.TextField;
 import javafx.scene.control.TitledPane;
+import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
 import javafx.scene.layout.Pane;
 import javafx.scene.text.Text;
+import javafx.stage.Stage;
 import javax.swing.AbstractListModel;
 import javax.swing.ImageIcon;
 import javax.swing.JOptionPane;
@@ -129,11 +136,13 @@ public class PanelListGatewayController implements Initializable {
     private TextField jTextTimeOUT; 
     @FXML
     private TextField jTextlIdConnect;
+    
+    private Stage panelListGatewayStage;
+    private PanelClientServerNameController panelClientServerNameController;
    
-    private void initPanelListGateway() {
+    private void initPanelListGateway() throws IOException {
         // Se inicializan los componentes no presentes en .fxml
         jPasswordPassGIOT = new PasswordField();
-        //jList1 = new ListView<>(); // necesario?? o se puede quitar
         // Se declara el bundle
         ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelListGateway");
         // Seteo de componentes con texto
@@ -198,7 +207,26 @@ public class PanelListGatewayController implements Initializable {
         this.jList1.setItems(this.listModel);
         
         ButtonGIOT(false);
-    }
+        // Adicion de Listener para cerrar la ventana
+        panelListGatewayStage = Main.getPanelListGatewayStage();
+        FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
+        fxmlLoader.load();
+        panelClientServerNameController = fxmlLoader.getController();
+        this.panelListGatewayStage.setOnCloseRequest( e -> {
+            if (this.panelClientServerNameController.sarlab == null) {
+                // Podria dar ERROR: ya que jLabel 6 es de tipo Label y no ImageView...
+                Image iconJLabel6 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/LAN64x64.png").toExternalForm());
+                ImageView iconViewJLabel6 = new ImageView(iconJLabel6);
+                this.panelClientServerNameController.jLabel6.setGraphic(iconViewJLabel6);
+                this.panelClientServerNameController.jLabelNetConnect.setText("LAN");
+                this.panelClientServerNameController.jButtonTools.setDisable(true); // setDisable
+                this.panelClientServerNameController.jButtonForwarding.setDisable(true);
+                this.panelClientServerNameController.jButtonForwardingLook.setDisable(true);
+                this.panelClientServerNameController.jButtonProfile.setDisable(true);
+            } 
+                this.panelClientServerNameController.toUpdate();   
+        });   
+        }
     
     public void ButtonGIOT(boolean value) {
         this.jTextPortInputGIOTTunnel.setVisible(value);
@@ -526,7 +554,11 @@ public class PanelListGatewayController implements Initializable {
         
         @Override
         public void initialize(URL url, ResourceBundle rb) {
-           initPanelListGateway();
+            try {
+                initPanelListGateway();
+            } catch (IOException ex) {
+                Logger.getLogger(PanelListGatewayController.class.getName()).log(Level.SEVERE, null, ex);
+            }
         }
     
 }
