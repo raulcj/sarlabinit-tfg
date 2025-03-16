@@ -8,14 +8,19 @@ import es.nebsyst.sarlabinit.daemon.GesJarProcess;
 import es.nebsyst.sarlabinit.daemon.ServerRuntime;
 import es.nebsyst.sarlabinit.daemon.model.DirectoryEjsApp;
 import es.nebsyst.sarlabinit.daemon.model.EjsApp;
+import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.Main;
 import es.nebsyst.sarlabinit.main.MySystemTray;
+import es.nebsyst.sarlabinit.main.StageManager;
 import es.nebsyst.util.OS;
 import java.awt.SystemTray;
 import java.io.File;
+import java.io.FileDescriptor;
 import java.io.FileNotFoundException;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.IOException;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Properties;
@@ -82,7 +87,9 @@ public class PanelEJSAppListController implements Initializable {
     String labelBoton;
     String bAnadir = "Añadir...";
     String bModificar = "Modificar";
-   
+    // Stages llamados
+    private Stage panelJarProcessStage;
+    
     private ListView<String> jList1;
     
     @FXML
@@ -116,7 +123,7 @@ public class PanelEJSAppListController implements Initializable {
     @FXML
     private TextField jTextFieldDescrip;
     
-    private void initPanelEJSAppList() throws IOException { 
+    private void initPanelEJSAppList() throws IOException {
         PropertyConfigurator.configure(configLog4j);
         log.debug("****** Iniciando SARLAB init **********");
         log.debug("fileConfig = " + fileConfig);
@@ -288,12 +295,7 @@ public class PanelEJSAppListController implements Initializable {
             // System.out.println("No seleccion ");
         }
     }
-   
-    @FXML
-    void startPanelJarProcess() throws IOException {
-        Main.getPanelJarProcessStage().show();
-    }
-    
+
     @FXML
     void jButtonEditActionPerformed() {
          // TODO add your handling code here:
@@ -348,8 +350,14 @@ public class PanelEJSAppListController implements Initializable {
     }    
     
     @FXML
-    void jButton4ActionPerformed() throws IOException {                                         
-        startPanelJarProcess();
+    void jButton4ActionPerformed() throws IOException {                                          
+        if (panelJarProcessStage == null) {
+            panelJarProcessStage = StageManager.getInstance().getStage("PanelJarProcess");
+            FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelJarProcess");
+            Scene scene = new Scene(fxmlLoader.load());            
+            panelJarProcessStage.setScene(scene);
+        }
+        panelJarProcessStage.show();
     }  
     
     @FXML

@@ -1,7 +1,9 @@
 
 package es.uhu.sarlab.discovery.controller;
 
+import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.Main;
+import es.nebsyst.sarlabinit.main.StageManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
@@ -22,6 +24,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 /*     */ 
 /*     */ public class PanelConectionLocalhostController implements Initializable
 /*     */ {
@@ -30,7 +33,8 @@ import javafx.scene.image.Image;
 /*  40 */   public String mode = "new";
 /*     */   
 /*     */   //PanelClientServerName clientName;
-/*     */   
+/*     */   private Stage panelConectionLocalhostStage;
+
 /*     */   ObservableList<String> modelHardware;
 /*  45 */   int selectorListIdExpPowerDevice = -1;
 /*  46 */   int selectorListHardware = -1;
@@ -49,7 +53,6 @@ import javafx.scene.image.Image;
             }
 /*     */   
 /*     */   private void initPanelConectionLocalhost() {
-/*  52 */     //this.clientName = clientName;
 /*  53 */     initComponents();
 /*     */   }
 /*     */   
@@ -84,26 +87,20 @@ import javafx.scene.image.Image;
  
 /*     */   @FXML
 /*     */   void jButton2ActionPerformed() throws IOException {
-/* 245 */     Main.getPanelConectionLocalhostStage().hide();
+                this.panelConectionLocalhostStage = StageManager.getInstance().getStage("PanelConectionLocalhost");
+                this.panelConectionLocalhostStage.hide(); 
 /*     */   }
 
 /*     */   public static void main(String[] args) {
 /* 252 */     Locale.setDefault(new Locale("en", "EN"));
               Platform.runLater(() -> {
-                  try {
-                      Main.getPanelConectionLocalhostStage().show();
-                  } catch (IOException ex) {
-                      Logger.getLogger(PanelConectionLocalhostController.class.getName()).log(Level.SEVERE, null, ex);
-                  }
+                  
+                  //StageManager.getInstance().getStage("PanelConectionLocalhost").show();
+                  
                   ObservableList<String> modelo = observableArrayList(new ArrayList<String>());
                   modelo.add("Marco");
                   //probar con controlador
-                  FXMLLoader fxmlLoader = Main.getPanelConectionLocalhostLoader();
-                  try {
-                      fxmlLoader.load();
-                  } catch (IOException ex) {
-                      Logger.getLogger(PanelConectionLocalhostController.class.getName()).log(Level.SEVERE, null, ex);
-                  }
+                  FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionLocalhost");           
                   PanelConectionLocalhostController panelConectionLocalhostController = fxmlLoader.getController();  
                   panelConectionLocalhostController.init(modelo);
                   panelConectionLocalhostController.set();

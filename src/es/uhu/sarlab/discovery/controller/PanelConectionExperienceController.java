@@ -1,6 +1,8 @@
 package es.uhu.sarlab.discovery.controller;
 
+import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.Main;
+import es.nebsyst.sarlabinit.main.StageManager;
 /*     */ import es.uhu.sarlab.discovery.GetParameters.GetParameters;
 /*     */ import es.uhu.sarlab.discovery.model.RegisterGateway;
 /*     */ import es.uhu.sarlab.discovery.webservlet.model.HashMapExperienceWeb;
@@ -27,6 +29,7 @@ import javafx.scene.control.SelectionMode;
 import javafx.scene.control.TitledPane;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 /*     */ public class PanelConectionExperienceController implements Initializable {
     
@@ -39,6 +42,9 @@ import javafx.scene.image.ImageView;
 /*  51 */   String myURIMyGatewayOld = null;  
 /*  53 */   int selectorListExperience = -1; 
             String url; 
+            
+            // Stages usados
+            private Stage panelConectionExperienceStage;
             
             @FXML
             private Label LabelSARLAB;
@@ -127,12 +133,13 @@ import javafx.scene.image.ImageView;
 /* 287 */       if (listForwardingL != null)
 /*     */       {
 /* 289 */         //this.clientName.addForwardingExperienceLocalhostL(listForwardingL);
-                  FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
-                  fxmlLoader.load();
+                  FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
+                  //fxmlLoader.load();
                   PanelClientServerNameController panelClientServerNameController = fxmlLoader.getController();
                   panelClientServerNameController.addForwardingExperienceLocalhostL(listForwardingL);
 /*     */       }
-/* 291 */       Main.getPanelConectionExperienceStage().hide();
+                panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
+                panelConectionExperienceStage.hide();
 /*     */     } else {
                 Alert mensaje = new Alert(Alert.AlertType.WARNING);
                 mensaje.setContentText("Debe seleccionar una experiencia");
@@ -142,27 +149,23 @@ import javafx.scene.image.ImageView;
 /*     */ 
             @FXML
 /*     */   void jButton2ActionPerformed() throws IOException {
-/* 307 */     Main.getPanelConectionExperienceStage().hide();
+              panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
+/* 307 */     panelConectionExperienceStage.hide();
 /*     */   }
   
 /*     */   public static void main(String[] args) {
-              Platform.runLater(()-> {
+              //Platform.runLater(()-> {
                 //PanelConectionExperience panelConectionLocalhost = new PanelConectionExperience(null);
 /* 318 */       //panelConectionLocalhost.setVisible(true);
                 //ObservableList<String> modelo = observableArrayList(new ArrayList<String>());
 /* 320 */       //modelo.add("Marco");
 /* 321 */       //panelConectionLocalhost.init(modelo);
-                FXMLLoader fxmlLoader = Main.getPanelConectionExperienceLoader();
-                try {
-                    fxmlLoader.load();
-                  } catch (IOException ex) {
-                      Logger.getLogger(PanelConectionExperienceController.class.getName()).log(Level.SEVERE, null, ex);
-                  }
-                PanelConectionExperienceController panelConectionLocalhost = fxmlLoader.getController();
+                FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience"); 
+                PanelConectionExperienceController panelConectionLocalhostController = fxmlLoader.getController();
                 ObservableList<String> modelo = observableArrayList(new ArrayList<String>());
 /* 320 */       modelo.add("Marco");
-                panelConectionLocalhost.init(modelo);
-              }); 
+                panelConectionLocalhostController.init(modelo);
+              //}); 
 /*     */   }
 /*     */
 

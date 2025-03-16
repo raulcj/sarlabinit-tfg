@@ -4,6 +4,7 @@
 package es.nebsyst.sarlabinit.main;
 
 import es.uhu.sarlab.discovery.controller.PanelClientServerNameController;
+import es.uhu.sarlab.discovery.controller.PanelConectionLocalhostController;
 import es.uhu.sarlab.discovery.vistaTFG.PanelClientServerName;
 import java.awt.AWTException;
 import java.awt.Image;
@@ -25,6 +26,7 @@ import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
+import javafx.scene.Scene;
 import javafx.stage.Modality;
 import javafx.stage.Stage;
 import javax.swing.ImageIcon;
@@ -37,7 +39,6 @@ public class MySystemTray {
 
     private Stage restoreStage;
     private Stage discoveryStage;
-    private Stage progressBarStage;
     private PanelClientServerNameController discoveryController;
     
     //private PanelClientServerName clientName
@@ -53,11 +54,10 @@ public class MySystemTray {
      * @param stage
      * @param stage
      */
-    public MySystemTray(Stage restoreStage, Stage discoveryStage, Stage progressBarStage) {
+    public MySystemTray(Stage restoreStage) {
         
+        // Main Stage
         this.restoreStage = restoreStage;
-        this.discoveryStage = discoveryStage;
-        //this.progressBarStage = progressBarStage;
         //comprueba si SystemTray es soportado en el sistema
         if (SystemTray.isSupported()) {
             //obtiene instancia SystemTray
@@ -118,7 +118,16 @@ public class MySystemTray {
             //Restaurar aplicacion "Discovery"
             ActionListener discoveryListener = e -> Platform.runLater(() -> {           
                 if (this.discoveryStage == null) {
-                    this.discoveryStage.show();
+                    try {
+                        this.discoveryStage = StageManager.getInstance().getStage("PanelClientServerName");
+                        FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
+                        Scene scene = new Scene(fxmlLoader.load());
+                        this.discoveryController = fxmlLoader.getController();
+                        this.discoveryStage.setScene(scene);
+                        this.discoveryStage.show();
+                    } catch (IOException ex) {
+                        Logger.getLogger(MySystemTray.class.getName()).log(Level.SEVERE, null, ex);
+                    }
                 } else {
                     this.discoveryStage.show();
                     if (this.discoveryStage.isIconified()) {
@@ -132,15 +141,8 @@ public class MySystemTray {
                 //    this.progressBarStage.setAlwaysOnTop(true);
                 //    this.progressBarStage.show();
                 //}
-                // ENSEÑA LA BARRA DE PROGRESO YA IMPLEMENTADA
-                if (discoveryController == null) {
-                    try {
-                        discoveryController = Main.getDiscoveryController();
-                    } catch (IOException ex) {
-                        Logger.getLogger(MySystemTray.class.getName()).log(Level.SEVERE, null, ex);
-                    }
-                    discoveryController.init();     
-                }                 
+                // ENSEÑA LA BARRA DE PROGRESO YA IMPLEMENTADA                             
+                discoveryController.init();                             
             });
             //Se crean los Items del menu PopUp y se añaden
             MenuItem exitAppItem = new MenuItem("Salir");

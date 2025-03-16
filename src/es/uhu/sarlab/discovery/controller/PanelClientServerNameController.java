@@ -2,7 +2,9 @@
 
 /*      */ import clientsarlab.EJSClientSarlab2;
 /*      */ import clientsarlab.GIOTClientSarlab3;
+import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.Main;
+import es.nebsyst.sarlabinit.main.StageManager;
 
 /*      */ import es.uhu.execapp.system.ExecApp;
 /*      */ import es.uhu.sarlab.digexlab.experience.model.Connection;
@@ -10,7 +12,6 @@ import es.nebsyst.sarlabinit.main.Main;
 /*      */ import es.uhu.sarlab.discovery.GetParameters.GetParameters;
 /*      */ import es.uhu.sarlab.discovery.ServerUDPThread;
 import es.uhu.sarlab.discovery.UtilIp;
-import static es.uhu.sarlab.discovery.controller.ProgressBarDiscoveryController.progressBarDiscovery;
 /*      */ import es.uhu.sarlab.discovery.model.DirectoryRegisterName;
 import es.uhu.sarlab.discovery.model.DirectoryServiceRegisterName;
 /*      */ import es.uhu.sarlab.discovery.model.RegisterGateway;
@@ -39,6 +40,8 @@ import java.awt.event.MouseAdapter;
 /*      */ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 /*      */ import java.io.ByteArrayOutputStream;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 /*      */ import java.io.IOException;
@@ -133,6 +136,20 @@ import javax.swing.JFrame;
 /*   97 */   PrintStream old = System.out;
 /*   99 */   String locale = null; 
 
+            // Se declaran para llevar un control de los Stages usados
+            // Quitar estas declaraciones..
+            private Stage panelListGatewayStage;
+            private Stage panelEditConfigLocalStage;
+            private Stage panelConectionLocalhostStage;
+            private Stage panelNodoFrowardingLStage;
+            private Stage panelConectionExperienceStage;
+            private Stage panelConsoleStage;
+            
+            private PanelConectionLocalhostController panelConectionLocalhostController;
+            private PanelNodoFrowardingLController panelNodoFrowardingLController;
+            private PanelConectionExperienceController panelConectionExperienceController;
+            private PanelConsoleController panelConsoleController;
+            
             private ToggleGroup buttonGroup1; // misma funcionalidad que ButtonGroup pero diferente funcionamiento
             @FXML
             private Button jButton1; 
@@ -226,7 +243,7 @@ import javax.swing.JFrame;
                 return this.baos; 
             }
              
-/*      */   private void initPanelClientServerName() throws IOException {
+/*      */   private void initPanelClientServerName() {
 /*  105 */     String configLog4j = OS.isWindows() ? "C:/sarlab/config/log4jsarlabdiscoveryview.properties" : "/sarlab/config/log4jsarlabdiscoveryview.properties";
 /*  106 */     PropertyConfigurator.configure(configLog4j);
 /*  107 */     this.sarlab = null;
@@ -256,38 +273,18 @@ import javax.swing.JFrame;
 /*  132 */     this.sentinel = new Sentinel();
                // Se añade para que se muestre el botón Actualizar al abrir el panel
                this.jButtonActualizar.setVisible(true);
-               // Se añade para que jButtonLocalActionPerformed() no lance NullPointerEx
-               //init();
-               // intentando mostrar la ProgressBar...
-               //performLoadingTask(progressBarDiscovery.getProgressBar());
 /*      */   }
-    // ¿ ES ÚTIL EL SIGUIENTE MÉTODO PARA EL FUNCIONAMIENTO DE ProgressBar?
-    // Simulate a loading task using a background thread
-       private void performLoadingTask(ProgressBar progressBar) {
-           javafx.concurrent.Task<Void> task = new javafx.concurrent.Task<>() {
-               @Override
-               protected Void call() throws Exception {
-                   for (int i = 0; i <= 100; i++) {
-                       Thread.sleep(30);
-                       updateProgress(i, 100);
-                   }
-                   return null;
-               }
-           };
-
-           progressBar.progressProperty().bind(task.progressProperty());
-
-           task.setOnSucceeded(e -> progressBar.setVisible(false));
-
-           Thread thread = new Thread(task);
-           thread.setDaemon(true);
-           thread.start();
-       }
-       
+    
        // METODO PARA REALIZAR PRUEBAS
        @FXML
-       void jButtonTestActionPerformed() throws IOException {
-           Main.getProgressBarStage().show();
+       void jButtonTestActionPerformed() throws IOException {          
+            if (panelConectionExperienceStage == null) {
+                panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
+                FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
+                Scene scene = new Scene(fxmlLoader.load());
+                panelConectionExperienceStage.setScene(scene);
+            }
+                panelConectionExperienceStage.show();
        }
 
 /*      */   public void ButtonEnabled(boolean enable) {
@@ -310,12 +307,11 @@ import javax.swing.JFrame;
 /*      */   }
 
 /*      */   public void init() {
-                //Platform.runLater(() -> {
                 if (this.barLogo == null) {
                     this.barLogo = new BarLogo((InterfazBarLogo) this);
 /*  163 */          this.barLogo.init();
+                    this.barLogo = null; // añadido para correcto funcionamiento
                 }             
-                //});
 /*      */   }
 /*      */   
 /*      */   public String ipInit() {
@@ -671,7 +667,7 @@ import javax.swing.JFrame;
                  if (this.barLogo == null) {
                      this.barLogo = new BarLogo((InterfazBarLogo) this);
                      this.barLogo.init();
-                     this.barLogo = null;
+                     this.barLogo = null; // añadido para correcto funcionamiento
                  } 
 /*  993 */       ButtonEnabled(false); // poner en false
 /*  994 */       this.jButtonActualizar.setDisable(true); // poner en true
@@ -1265,9 +1261,9 @@ import javax.swing.JFrame;
 /*      */   @FXML
 /*      */   void jButtonRemotoActionPerformed() throws IOException{
 /* 1593 */     removeService();
-               Image iconJLabel6 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/wan64x64.png").toExternalForm());
-               ImageView iconViewJLabel6 = new ImageView(iconJLabel6);
-/*  437 */     this.jLabel6.setGraphic(iconViewJLabel6);
+               Image iconJLabel61 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/wan64x64.png").toExternalForm());
+               ImageView iconViewJLabel61 = new ImageView(iconJLabel61);
+/*  437 */     this.jLabel6.setGraphic(iconViewJLabel61);
                ObservableList<String> observableListModel = observableArrayList(new ArrayList<String>());
 /*  990 */     this.jList1.setItems(observableListModel);
 /* 1597 */     if (OS.isWindows()) {
@@ -1277,12 +1273,40 @@ import javax.swing.JFrame;
 /* 1601 */     this.jButtonForwardingLook.setDisable(false);
 /* 1602 */     this.jButtonProfile.setDisable(false);
                
-               Main.getPanelListGatewayStage().show();
+               if (this.panelListGatewayStage == null) {
+                   this.panelListGatewayStage = StageManager.getInstance().getStage("PanelListGateway");
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelListGateway");
+                   Scene scene = new Scene(fxmlLoader.load());
+                   this.panelListGatewayStage.setScene(scene);
+               }
+               
+                // Evento al cerrar la ventana principal
+               this.panelListGatewayStage.setOnCloseRequest( e -> {
+                    if (this.sarlab == null) {
+                        // Podria dar ERROR: jLabel 6 es de tipo Label y no ImageView...
+                        Image iconJLabel62 = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/LAN64x64.png").toExternalForm());
+                        ImageView iconViewJLabel62 = new ImageView(iconJLabel62);
+                        this.jLabel6.setGraphic(iconViewJLabel62);
+                        this.jLabelNetConnect.setText("LAN");
+                        this.jButtonTools.setDisable(true); // setDisable
+                        this.jButtonForwarding.setDisable(true);
+                        this.jButtonForwardingLook.setDisable(true);
+                        this.jButtonProfile.setDisable(true);
+                    } 
+                    toUpdate(); 
+                });   
+               this.panelListGatewayStage.show();
 /*      */   }
  
 /*      */   @FXML
-/*      */   void jButtonConfiguracionLocalActionPerformed() throws IOException {
-               Main.getPanelEditConfigLocalStage().show();
+/*      */   void jButtonConfiguracionLocalActionPerformed() throws IOException {       
+               if (panelEditConfigLocalStage == null) {
+                   panelEditConfigLocalStage = StageManager.getInstance().getStage("PanelEditConfigLocal");
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEditConfigLocal");
+                   Scene scene = new Scene(fxmlLoader.load());
+                   panelEditConfigLocalStage.setScene(scene);
+               }
+               panelEditConfigLocalStage.show();
 /*      */   }
 /*      */ 
 /*      */   @FXML
@@ -1306,7 +1330,7 @@ import javax.swing.JFrame;
                if (this.barLogo == null) {
                    this.barLogo = new BarLogo((InterfazBarLogo) this);
                    this.barLogo.init();
-                   this.barLogo = null;
+                   this.barLogo = null; // añadido para correcto funcionamiento
                }   
 /* 1628 */     ButtonEnabled(false);
 /* 1629 */     this.jButtonActualizar.setDisable(true);
@@ -1395,26 +1419,36 @@ import javax.swing.JFrame;
 /*      */     //}
 /* 1721 */     //this.panelConectionLocalhost.init(modelo);
 /* 1722 */     //this.panelConectionLocalhost.set();
-               // IMPLEMENTADO: (PROBAR SI FUNCIONA)
-               Main.getPanelConectionLocalhostStage().show();
+               // IMPLEMENTADO: (PROBAR SI FUNCIONA)   
+               if (panelConectionLocalhostStage == null) {
+                   panelConectionLocalhostStage = StageManager.getInstance().getStage("PanelConectionLocalhost");
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionLocalhost");
+                   Scene scene = new Scene(fxmlLoader.load());
+                   panelConectionLocalhostController = fxmlLoader.getController();             
+                   panelConectionLocalhostStage.setScene(scene);
+               }
+               panelConectionLocalhostStage.show();
+               
                ObservableList<String> modelo = observableArrayList(new ArrayList<>());
 /* 1717 */     if (this.sarlab != null) {
 /* 1718 */       modelo = (ObservableList<String>) this.sarlab.getDefaultListModel();
 /*      */     }
-               FXMLLoader fxmlLoader = Main.getPanelConectionLocalhostLoader();
-               fxmlLoader.load();
-               PanelConectionLocalhostController panelConectionLocalhostController = fxmlLoader.getController();
+
                panelConectionLocalhostController.init(modelo);
-               panelConectionLocalhostController.set();
+               panelConectionLocalhostController.set();      
 /*      */   }
 /*      */ 
 /*      */ 
 /*      */   @FXML
-/*      */   void jButtonForwardingActionPerformed() throws IOException {
-               Main.getPanelNodoFrowardingLStage().show();
-               FXMLLoader fxmlLoader = Main.getPanelNodoFrowardingLLoader();
-               fxmlLoader.load();
-               PanelNodoFrowardingLController panelNodoFrowardingLController = fxmlLoader.getController();
+/*      */   void jButtonForwardingActionPerformed() throws IOException {  
+               if (panelNodoFrowardingLStage == null) {
+                   panelNodoFrowardingLStage = StageManager.getInstance().getStage("PanelNodoFrowardingL");
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelNodoFrowardingL");
+                   Scene scene = new Scene(fxmlLoader.load());
+                   panelNodoFrowardingLController = fxmlLoader.getController();             
+                   panelNodoFrowardingLStage.setScene(scene);
+               }
+               panelNodoFrowardingLStage.show();
                panelNodoFrowardingLController.setIpInit();
 /*      */   }
 /*      */ 
@@ -1434,14 +1468,22 @@ import javax.swing.JFrame;
 /* 1749 */       //this.panelConectionExperience.setMyirtualFrontierOld(this.myirtualFrontierOld);
 /* 1750 */       //this.panelConectionExperience.setMyURIMyGatewayOld(this.myURIMyGatewayOld);
 /* 1751 */       //this.panelConectionExperience.setVisible(true);
-                 FXMLLoader fxmlLoader = Main.getPanelConectionExperienceLoader();
-                 fxmlLoader.load();
-                 PanelConectionExperienceController panelConectionExperienceController = fxmlLoader.getController();
+
+                 if (panelConectionExperienceStage == null) {
+                     panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
+                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
+                     Scene scene = new Scene(fxmlLoader.load());
+                     panelConectionExperienceController = fxmlLoader.getController();
+                     panelConectionExperienceStage.setScene(scene);
+                 }
+                
                  panelConectionExperienceController.setModel(hashMapExperienceWeb);
                  panelConectionExperienceController.setRegisterGateway(this.registerGatewayOld);
                  panelConectionExperienceController.setMyirtualFrontierOld(this.myirtualFrontierOld);
-                 panelConectionExperienceController.setMyURIMyGatewayOld(this.myURIMyGatewayOld);
-                 Main.getPanelConectionExperienceStage().show();
+                 panelConectionExperienceController.setMyURIMyGatewayOld(this.myURIMyGatewayOld);                            
+                 panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
+                 
+                 panelConectionExperienceStage.show();
 /*      */     } 
 /*      */   }
 /*      */ 
@@ -1492,15 +1534,36 @@ import javax.swing.JFrame;
 /*      */   private void lineausuarioActionPerformed(ActionEvent evt) {}
 /*      */          
 /*      */   @FXML
-/*      */   void jButton1ActionPerformed() throws IOException {
-                // IMPLEMENTADO
-                // Habilitar todas las lineas => no refresca correctamente la UI
-                //FXMLLoader fxmlLoader = Main.getPanelConsoleLoader();
-                //fxmlLoader.load();
-                //PanelConsoleController panelConsoleController = fxmlLoader.getController();       
-                Main.getPanelConsoleStage().show();
-                // Puede dar NullPointerEx
-                //panelConsoleController.startTimer();
+/*      */   void jButton1ActionPerformed() throws IOException {   
+                if (panelConsoleStage == null) {
+                    panelConsoleStage = StageManager.getInstance().getStage("PanelConsole");
+                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConsole");
+                    Scene scene = new Scene(fxmlLoader.load());
+                    panelConsoleController = fxmlLoader.getController();
+                    panelConsoleStage.setScene(scene);
+                }
+                    panelConsoleStage.show();
+           //Platform.runLater( () -> {      
+                //panelConsoleStage = StageManager.getInstance().getStage("PanelConsole");
+                //panelConsoleStage.show();
+                //FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConsole");
+                // Se llamada a load() si no se ha obtenido el nodo padre anteriormente
+                //if (fxmlLoader.getRoot() == null) {
+                //    try {
+                //        fxmlLoader.load();
+                //    } catch (IOException ex) {
+                //        Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
+                //    }
+                //}
+                
+                // Evento en cierre
+                    panelConsoleStage.setOnCloseRequest( e -> {
+                      System.out.println("*******Close console *********");
+                      if (panelConsoleController.timer != null)
+                          panelConsoleController.stopTimer(); 
+                    }); 
+                    panelConsoleController.startTimer();
+              //});
 /*      */   }
 /*      */  
 /*      */   public void initURL() {
@@ -1787,11 +1850,7 @@ import javax.swing.JFrame;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        try {
-            initPanelClientServerName();
-        } catch (IOException ex) {
-            Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
-        }
+            initPanelClientServerName();   
     }
     
  class Task extends SwingWorker<Void, Void> {
@@ -1858,25 +1917,7 @@ import javax.swing.JFrame;
         private void addPropertyChangeListener(PanelClientServerNameController aThis) {
             throw new UnsupportedOperationException("Not supported yet."); //To change body of generated methods, choose Tools | Templates.
         }
-        
-        public static void main(String[] args) {
-               Platform.runLater(() -> {
-                   FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
-                   try {
-                       fxmlLoader.load();
-                   } catch (IOException ex) {
-                       Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-                   PanelClientServerNameController panelClientServerNameController = fxmlLoader.getController();
-                   //panelClientServerNameController.init();
-                   try {
-                       Main.getDiscoveryStage().show();
-                   } catch (IOException ex) {
-                       Logger.getLogger(PanelClientServerNameController.class.getName()).log(Level.SEVERE, null, ex);
-                   }
-               });         
-        }
-   
+          
    }
 /*      */   
 /*      */   class Sentinel implements ActionListener

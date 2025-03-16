@@ -1,14 +1,23 @@
 package es.uhu.sarlab.discovery.controller;
 
+import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.Main;
+import es.nebsyst.sarlabinit.main.StageManager;
 import es.uhu.sarlab.utils.BoardListener;
+import java.io.FileDescriptor;
+import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.OutputStream;
+import java.io.PrintStream;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.Timer;
 import java.util.TimerTask;
+import java.util.concurrent.ExecutorService;
+import java.util.concurrent.Executors;
 import java.util.logging.Level;
 import java.util.logging.Logger;
+
 import javafx.application.Platform;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
@@ -20,6 +29,8 @@ import javafx.scene.control.TextArea;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
 import javafx.stage.Stage;
+import java.util.logging.*;
+
 /*     */  /**
  * 
  *  TO-DO: El metodo startTimer() debería ejecutarse cada vez que se abre la ventana
@@ -44,24 +55,13 @@ import javafx.stage.Stage;
             @FXML
 /*     */   private TextArea jTextConsole;
                        
-            private PanelClientServerNameController panelClientServerNameController;
-            private Stage panelConsoleStage;
+            private PanelClientServerNameController panelClientServerNameController;       
 
-            private void initPanelConsole() throws IOException {
-              FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
-              fxmlLoader.load();     
-              this.panelClientServerNameController = fxmlLoader.getController();
-              this.panelConsoleStage = Main.getPanelConsoleStage();
+            private void initPanelConsole() throws IOException {         
               this.timer = new Timer(true);  
 /*  30 */     this.timerTask = new MyTimerTask();
-              startTimer();
-/*  32 */     initComponents();
-              // Evento en cierre
-              this.panelConsoleStage.setOnCloseRequest( e -> {
-                  System.out.println("*******Close console *********");
-                  if (this.timer != null)
-                      stopTimer(); 
-              });          
+              //startTimer();
+/*  32 */     initComponents();                
 /*     */   }
 /*     */   
             public TextArea getJTextConsole() {
@@ -75,14 +75,20 @@ import javafx.stage.Stage;
 /*     */  
 /*     */   public void startTimer() {
     /*  51 */ this.timerTask = new MyTimerTask(); 
-              //if (timer == null) {
-                this.timer = new Timer(true);
-              //}
+              this.timer = new Timer(true);
     /*  53 */ this.timer.scheduleAtFixedRate(this.timerTask, 0L, 1000L);
+              // añadido-inicio
+              this.jCheckBox1.setSelected(true);
+/*  46 */     this.jCheckBox1.setText("Stop");
+              // añadido-fin
               System.out.println("TimerTask start");   
             }
 
 /*     */   public void stopTimer() {
+                if (panelClientServerNameController == null) {
+                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");               
+                    panelClientServerNameController = fxmlLoader.getController(); 
+                }  
                 if (this.jTextConsole != null) {     
                     this.jTextConsole.setText(panelClientServerNameController.baos.toString());
                 }
@@ -91,14 +97,14 @@ import javafx.stage.Stage;
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {
-        Platform.runLater(() -> {
-             try {
-                initPanelConsole();   
-                setVisible(true);
+        //Platform.runLater(() -> {   
+            try {   
+                initPanelConsole();
             } catch (IOException ex) {
                 Logger.getLogger(PanelConsoleController.class.getName()).log(Level.SEVERE, null, ex);
             }
-        });                 
+            setVisible(true);      
+        //});                 
     }
     
  public class MyTimerTask
@@ -107,7 +113,11 @@ import javafx.stage.Stage;
 /*     */       @Override
                 public void run() {
                 Platform.runLater(() -> {
-                    if (PanelConsoleController.this.jTextConsole != null) {                    
+                    if (panelClientServerNameController == null) {
+                       FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");         
+                       panelClientServerNameController = fxmlLoader.getController(); 
+                    }  
+                    if (PanelConsoleController.this.jTextConsole != null) {                
                         getJTextConsole().setText(panelClientServerNameController.baos.toString());
         /*     */   } else { 
                         stopTimer();
@@ -141,12 +151,20 @@ import javafx.stage.Stage;
 /*     */   }
 /*     */ 
 /*     */   @FXML
-/*     */   void jButton1ActionPerformed() throws IOException {  
+/*     */   void jButton1ActionPerformed() throws IOException { 
+              if (panelClientServerNameController == null) {
+                  FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");               
+                  panelClientServerNameController = fxmlLoader.getController(); 
+              } 
               this.jTextConsole.setText(panelClientServerNameController.baos.toString());    
 /*     */   }
 
             @FXML
 /*     */   void jCheckBox1ActionPerformed() {
+              if (panelClientServerNameController == null) {
+                  FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");               
+                  panelClientServerNameController = fxmlLoader.getController(); 
+              }    
 /* 201 */     if (this.jCheckBox1.isSelected()) {
 /* 202 */       this.jCheckBox1.setText("Stop");
 /* 203 */       startTimer();
@@ -159,17 +177,26 @@ import javafx.stage.Stage;
 /*     */   }
 /*     */  
             @FXML
-/*     */   void jButton2ActionPerformed() {      
+/*     */   void jButton2ActionPerformed() {    
+             if (panelClientServerNameController == null) {
+                 FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");               
+                 panelClientServerNameController = fxmlLoader.getController(); 
+             }   
 /* 213 */     this.boardListener.setClipboard(panelClientServerNameController.baos.toString());
 /*     */   }
 /*     */   
             @FXML
 /*     */   void jButton3ActionPerformed() {
+              if (panelClientServerNameController == null) {
+                  FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");               
+                  panelClientServerNameController = fxmlLoader.getController(); 
+              }  
 /* 217 */     panelClientServerNameController.baos.reset();
 /* 218 */     this.jTextConsole.setText(panelClientServerNameController.baos.toString());
 /*     */   }
 
 }
+
 
 
 /* Location:              C:\Users\alumno\Documents\NetBeansProjects\Java2JavaFX\lib\libdiscoverysarlab1.0.1.jar!\e\\uhu\sarlab\discovery\vista\PanelConsole.class

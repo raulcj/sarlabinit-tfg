@@ -1,6 +1,7 @@
 package es.uhu.sarlab.discovery.controller;
 
 import es.nebsyst.sarlabinit.main.Main;
+import es.nebsyst.sarlabinit.main.StageManager;
 import es.uhu.sarlab.discovery.GIOTLocatorService;
 import es.uhu.sarlab.discovery.model.RegisterName;
 import es.uhu.sarlab.utils.DirectoryFilesUtility;
@@ -25,6 +26,7 @@ import javafx.scene.control.TitledPane;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.Image;
 import javafx.scene.image.ImageView;
+import javafx.stage.Stage;
 
 /*     */ 
 /**
@@ -35,6 +37,8 @@ import javafx.scene.image.ImageView;
 /*     */ public class PanelEditConfigLocalController implements Initializable {
 /*     */   RegisterName registerName;
 /*     */   //PanelClientServerName clientName;
+            private Stage panelEditConfigLocalStage;
+            
             @FXML
 /*     */   private Button jButtonSave;
             @FXML
@@ -425,8 +429,8 @@ import javafx.scene.image.ImageView;
 /* 735 */     this.registerName.toFileXML(giveMeFileNameConfigXML());
 /* 736 */     //setEditable(false);
 /* 737 */     //if (this.clientName != null) this.clientName.toUpdate();
-              Main.getPanelEditConfigLocalStage().hide();
-              Main.getProgressBarStage().show();
+              panelEditConfigLocalStage = StageManager.getInstance().getStage("PanelEditConfigLocal");
+              panelEditConfigLocalStage.show();
 /*     */   }
 /*     */   
             @FXML

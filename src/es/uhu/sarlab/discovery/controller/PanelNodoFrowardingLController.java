@@ -1,6 +1,8 @@
 package es.uhu.sarlab.discovery.controller;
 
+import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.Main;
+import es.nebsyst.sarlabinit.main.StageManager;
 
 import java.io.IOException;
 /*     */ import java.net.InetAddress;
@@ -21,6 +23,7 @@ import javafx.scene.control.Label;
 import javafx.scene.control.TextField;
 import javafx.scene.image.ImageView;
 import javafx.scene.image.Image;
+import javafx.stage.Stage;
 
 /**
  * TO-DO: Modificar la UI en SceneBuilder: quitar BorderPane y poner VBox/HBox en su lugar
@@ -38,6 +41,8 @@ import javafx.scene.image.Image;
 /*     */   public String descriptionRemote;
 /*     */   public String formatListSelect;
 
+            private Stage panelNodoFrowardingLStage;
+            
             @FXML
 /*     */   private Button jButtonCancel;
             @FXML
@@ -72,19 +77,38 @@ import javafx.scene.image.Image;
             private PanelClientServerNameController panelClientServerNameController;
             
 /*     */   public void initPanelNodoFrowardingL() throws IOException {
+              /**
+               * 
+               * ¡¡¡¡ IMPORTANTE !!!!
+               * 
+               * 
+               * Los objetos declarados aqui que no se encuentren anotados con @FXML seran nulos para 
+               * los metodos anotados tambien con @FXML. Los metodos que no esten anotados con @FXML
+               * pueden recibir con exito las referencias pasadas a los objetos declarados aqui
+               * y no obtener NPE.
+               * 
+               * Por ej.: la inicializacion del controller de PanelClientServerName la puede aprovechar
+               * el metodo setIpInit()
+               *
+              // Controlador de PanelClientServerName
+              //FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
+              //panelClientServerNameController = fxmlLoader.getController();
+              //
+              //(Para homogeneizar la estructura del codigo se borraran las ultimas lineas comentadas)
+              
 /*  44 */     initComponents();
 /*  46 */     this.jTextFieldIPL.setText("127.0.0.1");
 /*  47 */     this.jTextFieldIPL.setEditable(false);
 /*  48 */     this.jTextFieldPortL.setText("0");
 /*  49 */     this.jTextFieldPortR.setText("0");
 /*  50 */     this.mode = "local";
-              // Controlador de PanelClientServerName
-              FXMLLoader fxmlLoader = Main.getDiscoveryLoader();
-              fxmlLoader.load();
-              panelClientServerNameController = fxmlLoader.getController();
+              
 /*     */   }
 
 /*     */   public void setIpInit() {
+              // Controlador de PanelClientServerName
+              FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
+              panelClientServerNameController = fxmlLoader.getController();
 /*  54 */     this.jTextFieldIPR.setText(panelClientServerNameController.ipInit());
 /*     */   }
  
@@ -134,6 +158,10 @@ import javafx.scene.image.Image;
 /*     */ 
 /*     */   @FXML
 /*     */   void jButtonOkActionPerformed() throws IOException {
+              // Controlador de PanelClientServerName
+              FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
+              panelClientServerNameController = fxmlLoader.getController();
+              
 /* 351 */     this.IPLocal = this.jTextFieldIPL.getText();
 /* 352 */     this.IPRemote = this.jTextFieldIPR.getText();
 /* 353 */     this.portLocal = this.jTextFieldPortL.getText();
@@ -144,17 +172,15 @@ import javafx.scene.image.Image;
 /* 358 */       portL = Integer.parseInt(this.portLocal);
 /* 359 */       portR = Integer.parseInt(this.portRemote);
 /* 360 */       this.formatListSelect = String.format("[%15s,%5s]-->[%15s,%5s]|%s ", new Object[] { this.IPLocal, this.portLocal, this.IPRemote, this.portRemote, this.descriptionRemote });
-/* 361 */       if (this.mode.equals("local"))
-/*     */       {
-/*     */         
+/* 361 */       if (this.mode.equals("local")) { 
 /* 364 */         panelClientServerNameController.addForwardingLocalhostL(this.descriptionRemote, this.IPRemote, portR, portL);
 /*     */       }
-/*     */       
 /* 367 */       if (this.mode.equals("adress")) {
 /* 368 */         System.out.println(this.formatListSelect + " " + portR + " " + portL);
 /* 369 */         panelClientServerNameController.addForwardingLocalAdressL(this.descriptionRemote, this.IPRemote, portR, portL);
 /*     */       } 
-                Main.getPanelNodoFrowardingLStage().hide();
+                panelNodoFrowardingLStage = StageManager.getInstance().getStage("PanelNodoFrowardingL");
+                panelNodoFrowardingLStage.hide();
 /*     */     }
 /* 373 */     catch (NumberFormatException e) {
 /* 374 */       this.jTextFieldPortL.requestFocus();
@@ -169,7 +195,8 @@ import javafx.scene.image.Image;
 
             @FXML
 /*     */   void jButtonCancelActionPerformed() throws IOException {
-              Main.getPanelNodoFrowardingLStage().hide();
+              panelNodoFrowardingLStage = StageManager.getInstance().getStage("PanelNodoFrowardingL");
+              panelNodoFrowardingLStage.hide();
 /*     */   }
 /*     */ 
 /*     */   @FXML
@@ -192,12 +219,8 @@ import javafx.scene.image.Image;
 /*     */   public static void main(String[] args) {
 /* 419 */     Locale.setDefault(new Locale("en", "GB"));
               Platform.runLater(() -> {
-                try {
-                    // ¿Esto es UTIL?
-                    Main.getPanelNodoFrowardingLStage().show();
-                } catch (IOException ex) {
-                    Logger.getLogger(PanelNodoFrowardingLController.class.getName()).log(Level.SEVERE, null, ex);
-                }
+               // ¿Esto es UTIL?
+               StageManager.getInstance().getStage("PanelNodoFrowardingL");   
               });  
 /*     */   }
 /*     */
