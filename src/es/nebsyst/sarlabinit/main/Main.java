@@ -65,7 +65,7 @@ public class Main extends Application {
         // Permite abrir las opciones del SystemTray mas de una vez
         Platform.setImplicitExit(false);
         // Carga SystemTray con el Main Stage 
-        MySystemTray mySystemTray = new MySystemTray(panelEJSAppListStage); 
+        MySystemTrayFX mySystemTrayFX = new MySystemTrayFX(panelEJSAppListStage);
     }
     
     // SARLABINIT (componentes)
