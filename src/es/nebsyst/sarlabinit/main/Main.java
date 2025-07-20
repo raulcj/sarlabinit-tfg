@@ -4,7 +4,6 @@
  */
 package es.nebsyst.sarlabinit.main;
 
-import es.uhu.sarlab.discovery.controller.PanelClientServerNameController;
 import java.io.IOException;
 import java.util.ResourceBundle;
 import javafx.application.Application;
@@ -58,13 +57,13 @@ public class Main extends Application {
         // Main stage (PanelEJSAppList)
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
         Scene scene = new Scene(fxmlLoader.load());       
-        panelEJSAppListStage.setTitle("Poner titulo en esta ventana? (PanelEJSAppList)");
+        panelEJSAppListStage.setTitle("");
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
         panelEJSAppListStage.getIcons().add(icono);
         panelEJSAppListStage.setScene(scene);    
         // Permite abrir las opciones del SystemTray mas de una vez
         Platform.setImplicitExit(false);
-        // Carga SystemTray con el Main Stage 
+        // Carga SystemTrayFX con el Main Stage 
         MySystemTrayFX mySystemTrayFX = new MySystemTrayFX(panelEJSAppListStage);
     }
     

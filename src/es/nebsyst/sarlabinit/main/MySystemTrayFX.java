@@ -9,8 +9,6 @@ import es.uhu.sarlab.discovery.controller.PanelClientServerNameController;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
-import javafx.scene.image.Image;
-import javafx.stage.Modality;
 import javafx.stage.Stage;
 import java.io.IOException;
 import javafx.scene.control.MenuItem;
@@ -70,11 +68,6 @@ public class MySystemTrayFX {
                     this.discoveryController = fxmlLoader.getController();
                     this.discoveryStage.setScene(scene);
                     this.discoveryStage.show();
-                    //Stage dialogStage = new Stage();
-                    //dialogStage.setScene(new Scene(loader.load()));
-                    //dialogStage.initModality(Modality.APPLICATION_MODAL);
-                    //dialogStage.setTitle("Gestor de conexiones");
-                    //dialogStage.showAndWait();
                 } catch (IOException e) {
                     e.printStackTrace();
                 }

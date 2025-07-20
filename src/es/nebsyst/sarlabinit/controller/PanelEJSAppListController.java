@@ -87,8 +87,9 @@ public class PanelEJSAppListController implements Initializable {
     String labelBoton;
     String bAnadir = "Añadir...";
     String bModificar = "Modificar";
-    // Stages llamados
+    
     private Stage panelJarProcessStage;
+    //private PanelJarProcessController panelJarProcessController;
     
     private ListView<String> jList1;
     
@@ -354,8 +355,8 @@ public class PanelEJSAppListController implements Initializable {
         if (panelJarProcessStage == null) {
             panelJarProcessStage = StageManager.getInstance().getStage("PanelJarProcess");
             FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelJarProcess");
-            Scene scene = new Scene(fxmlLoader.load());            
-            panelJarProcessStage.setScene(scene);
+            Scene scene = new Scene(fxmlLoader.load());
+            panelJarProcessStage.setScene(scene);       
         }
         panelJarProcessStage.show();
     }  

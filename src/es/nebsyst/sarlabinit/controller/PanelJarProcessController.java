@@ -8,12 +8,15 @@ import es.nebsyst.sarlabinit.daemon.GesJarProcess;
 import java.net.URL;
 import java.util.ResourceBundle;
 import java.util.StringTokenizer;
+import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
 import javafx.scene.control.ListView;
+import javafx.scene.image.Image;
+import javafx.stage.Stage;
 import org.apache.log4j.Logger;
 
 /**
@@ -26,28 +29,27 @@ public class PanelJarProcessController implements Initializable {
     private final static Logger log = Logger.getLogger(PanelJarProcessController.class);
     
     private ObservableList<String> listModel;
+    
+    @FXML
     private ListView<String> jList1;
         
-    private void initList() {
-         jList1 = new ListView<>();
-    }
-    private void setList() {
-        try {               
-            listModel = (ObservableList<String>) GesJarProcess.listProcessJarRunning();
-            jList1.setItems(listModel);
-        } catch (Exception ex) {
-            // Logger.getLogger(PanelJarProcess.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    public void setList() {
+        // Added backend
+        ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+        jList1.setItems(ejemplos); 
     } 
     
     @FXML
-    void actualizar() {
-        try {
-            listModel = (ObservableList<String>) GesJarProcess.listProcessJarRunning();
-            jList1.setItems(listModel);
-        } catch (Exception ex) {
-            //Logger.getLogger(PanelJarProcess.class.getName()).log(Level.SEVERE, null, ex);
-        }
+    void actualizar() throws Exception {
+        //listModel = (ObservableList<String>) GesJarProcess.listProcessJarRunning();
+        //jList1.setItems(listModel);  
+        // Added backend
+        Alert mensaje = new Alert(AlertType.INFORMATION);
+        mensaje.setTitle("Información");
+        mensaje.setHeaderText("Estado del proceso actualizado.");
+        Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("../resource/exec128.png")));
+        mensaje.show();
     }
     
     @FXML
@@ -72,11 +74,17 @@ public class PanelJarProcessController implements Initializable {
                 //Logger.getLogger(PanelJarProcess.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
+        // Added backend
+        Alert mensaje_info = new Alert(AlertType.INFORMATION);
+        mensaje_info.setTitle("Información");
+        mensaje_info.setHeaderText("Proceso detenido.");
+        Stage stage = (Stage) mensaje_info.getDialogPane().getScene().getWindow();
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("../resource/exec128.png")));
+        mensaje_info.show();
     }
     
     @Override
-    public void initialize(URL url, ResourceBundle rb) {
-        initList();
+    public void initialize(URL url, ResourceBundle rb) { 
         setList();
     }
 
