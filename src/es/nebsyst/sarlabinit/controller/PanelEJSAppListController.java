@@ -91,6 +91,7 @@ public class PanelEJSAppListController implements Initializable {
     private Stage panelJarProcessStage;
     //private PanelJarProcessController panelJarProcessController;
     
+    @FXML
     private ListView<String> jList1;
     
     @FXML
@@ -138,7 +139,7 @@ public class PanelEJSAppListController implements Initializable {
         } else {
             listModel = observableArrayList(new ArrayList<>());
         }
-        jList1 = new ListView<>();
+        jList1 = new ListView<String>();
         jList1.setItems(listModel);
         jPanel3 = new TitledPane();
         jPanel3.setText(Estado0);
@@ -155,7 +156,9 @@ public class PanelEJSAppListController implements Initializable {
         jList1.prefWidthProperty().bind(jScrollPane1.widthProperty());
         jScrollPane1.setContent(jList1);
         
-        // CONTINUAR ???...
+        // Added backend
+        ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+        jList1.setItems(ejemplos); 
     }
     
     static public String initPathDirEJSExport() {
@@ -385,6 +388,7 @@ public class PanelEJSAppListController implements Initializable {
         nameEjsApp = jTextFieldNameEJSApp.getText();
         settings = jTextFieldParam.getText();
         descriction = jTextFieldDescrip.getText();
+        
         if (OS.isWindows()) {
             fileConfig = "C:/sarlab/service/servicesarlab.xml";
         }
@@ -393,13 +397,13 @@ public class PanelEJSAppListController implements Initializable {
                 listModel.addAll(String.format(patron, nameEjsApp, settings, descriction));
             }
             clearText();
-            directoryEjsApp.generateXML(fileConfig);
+            //directoryEjsApp.generateXML(fileConfig);
         } else {
             int ind = jList1.getSelectionModel().getSelectedIndex();
             if (ind != -1) {
                 directoryEjsApp.set(ind, new EjsApp(nameEjsApp, descriction, settings));
                 listModel.set(ind, String.format(patron, nameEjsApp, settings, descriction));
-                directoryEjsApp.generateXML(fileConfig);
+                //directoryEjsApp.generateXML(fileConfig);
             }
         }
     }              
