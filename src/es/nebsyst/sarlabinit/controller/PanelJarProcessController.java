@@ -41,6 +41,7 @@ public class PanelJarProcessController implements Initializable {
     
     @FXML
     void actualizar() throws Exception {
+        // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
         //listModel = (ObservableList<String>) GesJarProcess.listProcessJarRunning();
         //jList1.setItems(listModel);  
         // Added backend

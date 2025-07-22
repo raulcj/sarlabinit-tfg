@@ -72,6 +72,7 @@ import java.util.logging.Level;
 import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -273,6 +274,9 @@ import javax.swing.JFrame;
 /*  132 */     this.sentinel = new Sentinel();
                // Se añade para que se muestre el botón Actualizar al abrir el panel
                this.jButtonActualizar.setVisible(true);
+               // Added backend
+               ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+               jList1.setItems(ejemplos); 
 /*      */   }
     
        // METODO PARA REALIZAR PRUEBAS
@@ -322,7 +326,8 @@ import javax.swing.JFrame;
 /*      */   }
 /*      */   
 /*      */   public void setListModel(ObservableList<String> observableListModel) {
-/*  174 */     this.jList1.setItems(observableListModel);
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/*  174 */     //this.jList1.setItems(observableListModel); POR BACKEND
 /*      */   }
 /*      */   
 /*      */   public void findSarlabComplet() {
@@ -706,8 +711,10 @@ import javax.swing.JFrame;
 /*      */ 
 /*      */     
 /* 1030 */     if (this.sarlab == null) {
-/*      */       
-/* 1032 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+/*      */       // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/* 1032 */       //registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+                 // Added backend
+                 registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
 /*      */     } else {
 /* 1034 */       registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
 /*      */     } 
@@ -720,8 +727,12 @@ import javax.swing.JFrame;
 /*      */         }
 /* 1043 */         this.jTextFieldURL.setText(this.url);
 /*      */       } 
-/*      */       
+/*      */       // Added backend
+                 registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
+                 
 /* 1046 */       this.selecRegisterName = registerName;
+                 // Added backend
+                 registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
 /* 1047 */       selectService(registerName);
 /*      */     } 
 /*      */   }
@@ -763,6 +774,8 @@ import javax.swing.JFrame;
 /* 1088 */       this.jTextFieldPortNav.setText(Integer.toString(portLocal));
 /*      */     } 
 /* 1091 */     initURL();
+               // Added backend
+               //registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
 /*      */   }
 /*      */ 
 /*      */   public void removeService() {
@@ -1572,7 +1585,10 @@ import javax.swing.JFrame;
 /*      */     
 /* 1814 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1815 */     if (this.sarlab == null) {
-/* 1816 */       RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+                 // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/* 1816 */       //RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+                 // Added backend
+                 RegisterName registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
 /* 1817 */       sPort = Integer.toString(registerName.getHttpPort());
 /* 1818 */       if (!"80".equals(sPort)) {
 /* 1819 */         urlLocal = "http://" + registerName.getIp() + ":" + sPort;
@@ -1581,6 +1597,8 @@ import javax.swing.JFrame;
 /*      */       } 
 /*      */     } else {
 /* 1824 */       RegisterName registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+                 // Added backend
+                 registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
 /* 1825 */       sPort = Integer.toString(registerName.getHttpPort());
 /* 1826 */       String deviceName = registerName.getIp() + ":" + sPort;
 /*      */       
@@ -1591,6 +1609,7 @@ import javax.swing.JFrame;
 /* 1832 */         urlLocal = "http://" + registerName.getIp();
 /*      */       } 
 /*      */     } 
+
 /* 1835 */     if (this.jRadioEnlarge.isSelected()) {
 /* 1836 */       urlLocal = urlLocal + "/stream/video.mjpeg";
 /*      */     }
@@ -1608,7 +1627,9 @@ import javax.swing.JFrame;
 /*      */     
 /* 1850 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1851 */     if (this.sarlab == null) {
-/* 1852 */       RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+/* 1852 */       //RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+                 // Added backend
+                 RegisterName registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
 /* 1853 */       sPort = this.jTextFieldPortNav.getText();
 /* 1854 */       if (!"80".equals(sPort)) {
 /* 1855 */         urlLocal = "http://" + registerName.getIp() + ":" + sPort;
@@ -1616,7 +1637,9 @@ import javax.swing.JFrame;
 /* 1857 */         urlLocal = "http://" + registerName.getIp();
 /*      */       } 
 /*      */     } else {
-/* 1860 */       RegisterName registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+/* 1860 */       //RegisterName registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+                 // Added backend
+                 RegisterName registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
 /* 1861 */       sPort = this.jTextFieldPortNav.getText();
 /* 1862 */       if (!"80".equals(sPort)) {
 /* 1863 */         urlLocal = "http://" + registerName.getIp() + ":" + sPort;
@@ -1644,7 +1667,10 @@ import javax.swing.JFrame;
 /*      */     
 /* 1886 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1887 */     if (this.sarlab == null) {
-/* 1888 */       RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+                 // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/* 1888 */       //RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+                 // Added backend
+                 RegisterName registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
 /* 1889 */       String sPort = this.jTextFieldPortNav.getText();
 /* 1890 */       if (!"80".equals(sPort)) {
 /* 1891 */         urlLocal = "http://" + registerName.getIp() + ":" + this.jTextFieldPortNav.getText();
@@ -1746,13 +1772,15 @@ import javax.swing.JFrame;
 /*      */   public void endBarLogo() {
 /* 1987 */     this.serverUDPThread.end();
 /* 1988 */     DirectoryRegisterName directoryRegisterName = this.serverUDPThread.getDirectoryRegisterName();
-/* 1989 */     //setListModel((ObservableList<String>) this.serverUDPThread.getListModel()); DA ERROR
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/* 1989 */     //setListModel((ObservableList<String>) this.serverUDPThread.getListModel());
                // Volcado de lista DefaultListModel en lista ObservableList
                ObservableList<String> copiedList = observableArrayList(new ArrayList<>());
                for (int i = 0; i < this.serverUDPThread.getListModel().size(); i++) {
                    copiedList.add((String) this.serverUDPThread.getListModel().get(i));
                }
-               setListModel(copiedList);
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+               //setListModel(copiedList);
 /* 1990 */     this.jButtonActualizar.setDisable(false);
 /*      */   }
 /*      */ 

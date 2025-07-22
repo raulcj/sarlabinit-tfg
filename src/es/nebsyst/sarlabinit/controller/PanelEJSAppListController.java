@@ -397,12 +397,14 @@ public class PanelEJSAppListController implements Initializable {
                 listModel.addAll(String.format(patron, nameEjsApp, settings, descriction));
             }
             clearText();
+            // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
             //directoryEjsApp.generateXML(fileConfig);
         } else {
             int ind = jList1.getSelectionModel().getSelectedIndex();
             if (ind != -1) {
                 directoryEjsApp.set(ind, new EjsApp(nameEjsApp, descriction, settings));
                 listModel.set(ind, String.format(patron, nameEjsApp, settings, descriction));
+                // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
                 //directoryEjsApp.generateXML(fileConfig);
             }
         }
