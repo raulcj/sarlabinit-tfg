@@ -1669,8 +1669,9 @@ import javax.swing.JFrame;
 /* 1887 */     if (this.sarlab == null) {
                  // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
 /* 1888 */       //RegisterName registerName = this.serverUDPThread.getRegisterNametoArray(ind);
-                 // Added backend
+                 // INICIO - Added backend
                  RegisterName registerName = new RegisterName("127.0.0.1", "SarlabNET", "SarlabINIT");
+                 // FIN - Added backend
 /* 1889 */       String sPort = this.jTextFieldPortNav.getText();
 /* 1890 */       if (!"80".equals(sPort)) {
 /* 1891 */         urlLocal = "http://" + registerName.getIp() + ":" + this.jTextFieldPortNav.getText();

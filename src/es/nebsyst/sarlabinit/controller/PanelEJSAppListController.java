@@ -156,9 +156,10 @@ public class PanelEJSAppListController implements Initializable {
         jList1.prefWidthProperty().bind(jScrollPane1.widthProperty());
         jScrollPane1.setContent(jList1);
         
-        // Added backend
+        // INICIO - Added backend
         ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
         jList1.setItems(ejemplos); 
+        // FIN - Added backend
     }
     
     static public String initPathDirEJSExport() {
@@ -308,10 +309,11 @@ public class PanelEJSAppListController implements Initializable {
         if (ind != -1) {
             jPanel3.setText(Estado1);  
             jButtonAñadirModificar.setText("Modificar");
-            EjsApp ejsApp = directoryEjsApp.get(ind);
-            jTextFieldNameEJSApp.setText(ejsApp.getNameEjsApp());
-            jTextFieldParam.setText(ejsApp.getSettings());
-            jTextFieldDescrip.setText(ejsApp.getDescriction());
+            // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+            //EjsApp ejsApp = directoryEjsApp.get(ind);
+            //jTextFieldNameEJSApp.setText(ejsApp.getNameEjsApp());
+            //jTextFieldParam.setText(ejsApp.getSettings());
+            //jTextFieldDescrip.setText(ejsApp.getDescriction());
         }   
     }
     
@@ -326,10 +328,11 @@ public class PanelEJSAppListController implements Initializable {
             fileConfig = "C:/sarlab/service/servicesarlab.xml";
         }
         if (ind != -1) {
-            listModel.remove(ind);
-            directoryEjsApp.remove(ind);
-            directoryEjsApp.generateXML(fileConfig);
-            clearText();
+            // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+            //listModel.remove(ind);
+            //directoryEjsApp.remove(ind);
+            //directoryEjsApp.generateXML(fileConfig);
+            //clearText();
         }
     }
     
