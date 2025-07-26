@@ -71,11 +71,21 @@ public class MySystemTrayFX {
                 } catch (IOException e) {
                     e.printStackTrace();
                 }
+                if (this.discoveryController == null) {
+                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
+                    this.discoveryController = fxmlLoader.getController();       
+                }
+                this.discoveryController.initList();
             } else {
                 this.discoveryStage.show();
                 if (this.discoveryStage.isIconified()) {
                     this.discoveryStage.show();
-                }               
+                }     
+                if (this.discoveryController == null) {
+                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
+                    this.discoveryController = fxmlLoader.getController();       
+                }
+                this.discoveryController.initList();
             } 
             this.discoveryController.init();
         });

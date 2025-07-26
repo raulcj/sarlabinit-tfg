@@ -150,6 +150,7 @@ import javax.swing.JFrame;
             private PanelNodoFrowardingLController panelNodoFrowardingLController;
             private PanelConectionExperienceController panelConectionExperienceController;
             private PanelConsoleController panelConsoleController;
+            private PanelListGatewayController panelListGatewayController;
             
             private ToggleGroup buttonGroup1; // misma funcionalidad que ButtonGroup pero diferente funcionamiento
             @FXML
@@ -273,11 +274,7 @@ import javax.swing.JFrame;
 /*  131 */     this.jButtonProfile.setDisable(false); // poner en true
 /*  132 */     this.sentinel = new Sentinel();
                // Se añade para que se muestre el botón Actualizar al abrir el panel
-               this.jButtonActualizar.setVisible(true);
-               // INICIO - Added backend
-               ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
-               jList1.setItems(ejemplos); 
-               // FIN - Added backend
+               this.jButtonActualizar.setVisible(true);          
                // Grupo de los botones Radio
                ToggleGroup tGroup = new ToggleGroup();
                jRadioFree.setToggleGroup(tGroup);
@@ -285,6 +282,13 @@ import javax.swing.JFrame;
                jRadioAxi.setToggleGroup(tGroup);
                
 /*      */   }
+
+       // INICIO - Added backend
+       public void initList() {
+           ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+           jList1.setItems(ejemplos); 
+       }
+       // FIN - Added backend
     
        // METODO PARA REALIZAR PRUEBAS
        @FXML
@@ -295,7 +299,12 @@ import javax.swing.JFrame;
                 Scene scene = new Scene(fxmlLoader.load());
                 panelConectionExperienceStage.setScene(scene);
             }
-                panelConectionExperienceStage.show();
+            if (panelConectionExperienceController == null) {
+                FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
+                panelConectionExperienceController = fxmlLoader.getController();
+            }
+            panelConectionExperienceController.initList();
+            panelConectionExperienceStage.show();
        }
 
 /*      */   public void ButtonEnabled(boolean enable) {
@@ -361,12 +370,14 @@ import javax.swing.JFrame;
 /*      */ 
 /*      */   
 /*      */   public void addForwardingLocalhostL(String deviceName, String ipRemote, int portRemote, int portLocal) {
-/*  201 */     this.sarlab.addconnectionLocalhostL(deviceName, ipRemote, portRemote, portLocal);
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAKL
+/*  201 */     //this.sarlab.addconnectionLocalhostL(deviceName, ipRemote, portRemote, portLocal);
 /*      */   }
 /*      */ 
 /*      */   
 /*      */   public void addForwardingLocalAdressL(String deviceName, String ipRemote, int portRemote, int portLocal) {
-/*  206 */     this.sarlab.addconnectionLocalAddressL(deviceName, ipRemote, portRemote, portLocal);
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAKL
+/*  206 */     //this.sarlab.addconnectionLocalAddressL(deviceName, ipRemote, portRemote, portLocal);
 /*      */   }
 /*      */   
 /*      */   public void addForwardingExperienceLocalhostL(ListForwardingL listForwardingL) {
@@ -698,6 +709,9 @@ import javax.swing.JFrame;
 /* 1007 */     removeService();
 /* 1008 */     toUpdate();
 /* 1009 */     if (this.directoryRegisterNameSarlab != null);
+               // INICIO - Added backed
+               initList();
+               // FIN - Added backed
 /*      */   }
 /*      */ 
 /*      */   @FXML
@@ -1297,12 +1311,19 @@ import javax.swing.JFrame;
                
                if (this.panelListGatewayStage == null) {
                    this.panelListGatewayStage = StageManager.getInstance().getStage("PanelListGateway");
-                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelListGateway");
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelListGateway");     
                    Scene scene = new Scene(fxmlLoader.load());
                    this.panelListGatewayStage.setScene(scene);
-               }
+               }    
                
-                // Evento al cerrar la ventana principal
+               if (this.panelListGatewayController == null) {
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelListGateway");
+                   this.panelListGatewayController = fxmlLoader.getController();
+               }
+               // Inicia la lista de backend de prueba
+               this.panelListGatewayController.initList();
+              
+               // Evento al cerrar la ventana principal
                this.panelListGatewayStage.setOnCloseRequest( e -> {
                     if (this.sarlab == null) {
                         // Podria dar ERROR: jLabel 6 es de tipo Label y no ImageView...
@@ -1459,15 +1480,20 @@ import javax.swing.JFrame;
                    panelConectionLocalhostController = fxmlLoader.getController();             
                    panelConectionLocalhostStage.setScene(scene);
                }
-               panelConectionLocalhostStage.show();
-               
+               if (panelConectionLocalhostController == null) {
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionLocalhost");
+                   panelConectionLocalhostController = fxmlLoader.getController();          
+               }          
+               panelConectionLocalhostStage.show();              
                ObservableList<String> modelo = observableArrayList(new ArrayList<>());
 /* 1717 */     if (this.sarlab != null) {
 /* 1718 */       modelo = (ObservableList<String>) this.sarlab.getDefaultListModel();
 /*      */     }
-
                panelConectionLocalhostController.init(modelo);
-               panelConectionLocalhostController.set();      
+               panelConectionLocalhostController.set(); 
+               // INICIO - Added backend
+               panelConectionLocalhostController.initList();
+               // FIN - Added backend
 /*      */   }
 /*      */ 
 /*      */ 

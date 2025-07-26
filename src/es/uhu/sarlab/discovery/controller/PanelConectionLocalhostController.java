@@ -12,6 +12,7 @@ import java.util.ResourceBundle;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -84,6 +85,13 @@ import javafx.stage.Stage;
               });
 
             }   
+
+       // INICIO - Added backend
+       public void initList() {
+           ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+           jListHardware.setItems(ejemplos); 
+       }
+       // FIN - Added backend
  
 /*     */   @FXML
 /*     */   void jButton2ActionPerformed() throws IOException {

@@ -209,7 +209,15 @@ public class PanelListGatewayController implements Initializable {
         //this.listModel = (ObservableList<String>) this.directoryGatewayRemote.getDefaultListModel();
         this.jList1.setItems(this.listModel);   
         ButtonGIOT(false);
+        
     }
+    
+    // INICIO - Added backend
+    public void initList() {
+      ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+      jList1.setItems(ejemplos); 
+    }
+    // FIN - Added backend  
     
     public void ButtonGIOT(boolean value) {
         this.jTextPortInputGIOTTunnel.setVisible(value);
@@ -287,9 +295,10 @@ public class PanelListGatewayController implements Initializable {
 /* 449 */     this.jCheckBoxGIoT.setDisable(true);
               int ind = jList1.getSelectionModel().getSelectedIndex();
 /* 452 */     if (ind != -1) {
-/* 453 */       String key = (String) this.listModel.get(ind);   
-/* 455 */       RegisterGateway registerGatewayOrg = this.directoryGatewayRemote.get(key);
-/* 456 */       this.registerGateway = registerGatewayOrg.clone();
+                // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/* 453 */       //String key = (String) this.listModel.get(ind);   
+/* 455 */       //RegisterGateway registerGatewayOrg = this.directoryGatewayRemote.get(key);
+/* 456 */       //this.registerGateway = registerGatewayOrg.clone();
 /* 457 */       this.registerGateway.setPassGIOT(CryptographyAESSarlab2.decrypt(this.registerGateway.getPassGIOT()));
 /* 458 */       this.jTextlIdConnect.setText(this.registerGateway.getIdConnect());
 /* 459 */       String idGIOT = this.registerGateway.getIdGIOT();

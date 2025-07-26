@@ -34,9 +34,10 @@ public class PanelJarProcessController implements Initializable {
     private ListView<String> jList1;
         
     public void setList() {
-        // Added backend
+        // INICIO - Added backend
         ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
         jList1.setItems(ejemplos); 
+        // FIN - Added backend
     } 
     
     @FXML
@@ -44,13 +45,14 @@ public class PanelJarProcessController implements Initializable {
         // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
         //listModel = (ObservableList<String>) GesJarProcess.listProcessJarRunning();
         //jList1.setItems(listModel);  
-        // Added backend
+        // INICIO - Added message
         Alert mensaje = new Alert(AlertType.INFORMATION);
         mensaje.setTitle("Información");
         mensaje.setHeaderText("Estado del proceso actualizado.");
         Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("../resource/exec128.png")));
         mensaje.show();
+        // FIN - Added message
     }
     
     @FXML
@@ -75,13 +77,14 @@ public class PanelJarProcessController implements Initializable {
                 //Logger.getLogger(PanelJarProcess.class.getName()).log(Level.SEVERE, null, ex);
             }
         } 
-        // Added backend
+        // INICIO - Added message
         Alert mensaje_info = new Alert(AlertType.INFORMATION);
         mensaje_info.setTitle("Información");
         mensaje_info.setHeaderText("Proceso detenido.");
         Stage stage = (Stage) mensaje_info.getDialogPane().getScene().getWindow();
         stage.getIcons().add(new Image(getClass().getResourceAsStream("../resource/exec128.png")));
         mensaje_info.show();
+        // FIN - Added message
     }
     
     @Override

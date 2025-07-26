@@ -15,6 +15,7 @@ import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.application.Platform;
+import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
@@ -68,6 +69,13 @@ import javafx.stage.Stage;
 /*  66 */     this.modelExperience = modelHardware;
 /*  67 */     this.jListHardware.setItems(this.modelExperience);
 /*     */   }
+
+            // INICIO - Added backend
+            public void initList() {
+                ObservableList<String> modelExperience = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+                jListHardware.setItems(modelExperience); 
+            }
+            // FIN - Added backend
 /*     */   
 /*     */   public void setModel(HashMapExperienceWeb hashMapExperienceWeb) {
 /*  71 */     this.hashMapExperienceWeb = hashMapExperienceWeb;
@@ -123,13 +131,14 @@ import javafx.stage.Stage;
             @FXML
 /*     */   void jButton1ActionPerformed() throws IOException {
 /* 279 */     if (this.selectorListExperience != -1) {
-/* 280 */       String s = (String) this.modelExperience.get(this.selectorListExperience);
-/* 281 */       System.out.println(s);
-/* 282 */       String nameFile = (String)this.hashMapExperienceWeb.getDirectory().get(s);
-/* 283 */       System.out.println(nameFile);
+                // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/* 280 */       //String s = (String) this.modelExperience.get(this.selectorListExperience);
+/* 281 */       //System.out.println(s);
+/* 282 */       //String nameFile = (String)this.hashMapExperienceWeb.getDirectory().get(s);
+/* 283 */       //System.out.println(nameFile);
 /* 284 */       ListForwardingL listForwardingL = new ListForwardingL();
 /* 285 */       GetParameters getParameters = new GetParameters();
-/* 286 */       listForwardingL = getParameters.getListForwardingL(this.registerGatewayOld, nameFile);
+/* 286 */       //listForwardingL = getParameters.getListForwardingL(this.registerGatewayOld, nameFile);
 /* 287 */       if (listForwardingL != null)
 /*     */       {
 /* 289 */         //this.clientName.addForwardingExperienceLocalhostL(listForwardingL);
