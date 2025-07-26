@@ -29,6 +29,7 @@ import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableListValue;
 import javafx.beans.value.ObservableValue;
+import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableArrayList;
 import javafx.collections.ObservableList;
 import javafx.event.EventHandler;
@@ -433,13 +434,14 @@ public class PanelListGatewayController implements Initializable {
 /* 605 */     int ind = jList1.getSelectionModel().getSelectedIndex();
 /* 606 */     this.jCheckBoxGIoT.setSelected(false);
 /* 607 */     this.jCheckBoxGIoT.setDisable(false);
-/* 608 */     String key = (String) this.listModel.get(ind);
-/*     */     
-/* 610 */     this.registerGateway = this.directoryGatewayRemote.get(key);
+              // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL     
+/* 608 */     //String key = (String) this.listModel.get(ind);
+/* 610 */     //this.registerGateway = this.directoryGatewayRemote.get(key);
 /* 611 */     this.directoryGatewayRemote.remove(this.registerGateway);
-              ObservableList<String> modelo = (ObservableList<String>) this.jList1.getSelectionModel();
-              modelo.remove(ind);
-/* 614 */     this.listModel = (ObservableList<String>) this.directoryGatewayRemote.getDefaultListModel();
+              ObservableList<String> modelo = observableArrayList(this.jList1.getSelectionModel().getSelectedItem());
+              // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL     
+              //modelo.remove(ind);
+/* 614 */     //this.listModel = (ObservableList<String>) this.directoryGatewayRemote.getDefaultListModel();
 /* 615 */     this.jList1.setItems(this.listModel);
 /* 616 */     this.directoryGatewayRemote.toFileXML(giveMeFileNameConfigXML());
 /* 617 */     initJText();
@@ -453,11 +455,11 @@ public class PanelListGatewayController implements Initializable {
     void jButtonSelectActionPerformed() {
 /* 625 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelListGateway");
 /* 626 */     int ind = jList1.getSelectionModel().getSelectedIndex();
-/* 627 */     String key = (String) this.listModel.get(ind);
+              // ANULADO PARA BACKED DE PRUEBA FUNCIONAL
+/* 627 */     //String key = (String) this.listModel.get(ind);    
+/* 629 */     //RegisterGateway registerGatewayOrg = this.directoryGatewayRemote.get(key);
 /*     */     
-/* 629 */     RegisterGateway registerGatewayOrg = this.directoryGatewayRemote.get(key);
-/*     */     
-/* 631 */     this.registerGateway = registerGatewayOrg.clone();
+/* 631 */     //this.registerGateway = registerGatewayOrg.clone();
 /* 632 */     this.registerGateway.setPassGIOT(CryptographyAESSarlab2.decrypt(this.registerGateway.getPassGIOT()));
 /*     */     
 /* 634 */     ParameterAccess parameterAccess = new ParameterAccess();
@@ -484,25 +486,26 @@ public class PanelListGatewayController implements Initializable {
 /*     */       } 
 /* 656 */       if (!publicPort.equals(this.registerGateway.getPortInputGIOTTunnel())) {
 /* 657 */         this.registerGateway.setPortInputGIOTTunnel(publicPort.getPortGIoTTunnel());
-/* 658 */         registerGatewayOrg.setPortInputGIOTTunnel(publicPort.getPortGIoTTunnel());
+                  // ANULADO PARA BACKED DE PRUEBA FUNCIONAL
+/* 658 */         //registerGatewayOrg.setPortInputGIOTTunnel(publicPort.getPortGIoTTunnel());
 /* 659 */         this.registerGateway.setPortInputGIOTWeb(publicPort.getPortGIoTWeb());
-/* 660 */         registerGatewayOrg.setPortInputGIOTWeb(publicPort.getPortGIoTWeb());
-/* 661 */         this.directoryGatewayRemote.set(key, registerGatewayOrg);
+                  // ANULADO PARA BACKED DE PRUEBA FUNCIONAL
+/* 660 */         //registerGatewayOrg.setPortInputGIOTWeb(publicPort.getPortGIoTWeb());
+/* 661 */         //this.directoryGatewayRemote.set(key, registerGatewayOrg);
 /* 662 */         this.directoryGatewayRemote.toFileXML(giveMeFileNameConfigXML());
 /*     */       } 
 /*     */     } else {
 /* 665 */       parameterAccess = new ParameterAccess(this.registerGateway.getIpServerSarlab(), this.registerGateway.getPortServerSarlab(), this.registerGateway.getUserGIOT(), this.registerGateway.getPassGIOT(), this.registerGateway.getIdGIOT());
 /*     */     } 
+              // ANULADO PARA BACKED DE PRUEBA FUNCIONAL
 /* 667 */     //this.clientName.titleConnect(this.registerGateway.getIdConnect());
-/* 668 */     //setVisible(false);
 /* 669 */     if (this.registerGateway.getIdExp().equals("")) {
 /* 670 */       this.registerGateway.setIdExp("Null");
 /*     */     }
 /* 672 */     if (this.registerGateway.getTimeOUT().equals("")) {
 /* 673 */       this.registerGateway.setTimeOUT("600");
 /*     */     }
-/*     */ 
-/*     */     
+/*     */     // ANULADO PARA BACKED DE PRUEBA FUNCIONAL
 /* 677 */     //this.clientName.connectGIOT(this.registerGateway);
 /*     */   }
         
