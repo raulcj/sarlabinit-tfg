@@ -5,6 +5,7 @@
 package es.nebsyst.sarlabinit.main;
 
 import java.io.IOException;
+import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.application.Platform;
@@ -24,6 +25,9 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     public static void main(String[] args) {
+        // Primera ventana prompt podría ser para seleccion de idioma (ES/GB)
+        Locale.setDefault(Locale.UK); // Establece idioma
+        System.out.println(Locale.getDefault().toString());
         launch();
     }
        

@@ -151,7 +151,7 @@ import javafx.stage.Stage;
                 panelConectionExperienceStage.hide();
 /*     */     } else {
                 Alert mensaje = new Alert(Alert.AlertType.WARNING);
-                mensaje.setContentText("Debe seleccionar una experiencia");
+                mensaje.setContentText("Debe seleccionar una experiencia.");
                 mensaje.showAndWait();
 /*     */     } 
 /*     */   }

@@ -279,8 +279,7 @@ import javax.swing.JFrame;
                ToggleGroup tGroup = new ToggleGroup();
                jRadioFree.setToggleGroup(tGroup);
                jRadioEnlarge.setToggleGroup(tGroup);
-               jRadioAxi.setToggleGroup(tGroup);
-               
+               jRadioAxi.setToggleGroup(tGroup);        
 /*      */   }
 
        // INICIO - Added backend
@@ -308,12 +307,13 @@ import javax.swing.JFrame;
        }
 
 /*      */   public void ButtonEnabled(boolean enable) {
-/*  136 */     this.jButtonDesktop.setDisable(!enable);
-/*  137 */     this.jButtonModbus.setDisable(!enable);
-/*  138 */     this.jButtonSFDTP.setDisable(!enable);
-/*  139 */     this.jButtonSsh.setDisable(!enable);
-/*  140 */     this.jButtonTelnet.setDisable(!enable);
-/*  141 */     this.jButtonVNC.setDisable(!enable);
+/*  136 */     this.jButtonDesktop.setDisable(enable); // Previous value: !enable
+/*  137 */     this.jButtonModbus.setDisable(enable); // Previous value: !enable
+/*  138 */     this.jButtonSFDTP.setDisable(enable); // Previous value: !enable
+/*  139 */     this.jButtonSsh.setDisable(enable); // Previous value: !enable
+/*  140 */     this.jButtonTelnet.setDisable(enable); // Previous value: !enable
+/*  141 */     this.jButtonVNC.setDisable(enable); // Previous value: !enable
+
 /*  142 */     this.jButtonNavegador.setDisable(!enable);
 /*  143 */     this.jButtonActualizar.setDisable(enable); // debe estar activado al inicio
 /*  144 */     this.jTextFieldURL.setEditable(enable);
@@ -832,15 +832,14 @@ import javax.swing.JFrame;
             @FXML
             void jButtonDesktopActionPerformed() {
 /*      */     int port;
-/* 1125 */     RegisterName registerName = null;
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/* 1125 */     //RegisterName registerName = null;
 /*      */ 
-/*      */     
 /* 1128 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
 /* 1129 */     if (this.sarlab == null) {
-/*      */       
-/* 1131 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+/* 1131 */        //registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
-/* 1133 */       registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+/* 1133 */        //registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
 /*      */     } 
 /* 1135 */     String sPort = this.jTextFieldDesktop.getText();
 /*      */     try {
@@ -849,30 +848,38 @@ import javax.swing.JFrame;
 /* 1139 */       this.jTextFieldDesktop.setText("3389");
 /* 1140 */       port = 3389;
 /*      */     } 
-/* 1142 */     if (registerName != null) {
-/* 1143 */       this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
+/* 1142 */      //if (registerName != null) {
+/* 1143 */        //this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
 /* 1144 */       ExecApp exec = new ExecApp();
-/* 1145 */       String deviceName = registerName.getIp() + ":" + sPort;
+/* 1145 */        //String deviceName = registerName.getIp() + ":" + sPort;
 /* 1146 */       if (this.sarlab == null) {
 /* 1147 */         if (OS.isWindows()) {
-/* 1148 */           exec.rdesktop(registerName.getIp(), port);
+/* 1148 */            //exec.rdesktop(registerName.getIp(), port);
 /*      */         } else {
-/* 1150 */           exec.exec("/usr/bin/rdesktop " + registerName.getIp() + ":" + port);
+/* 1150 */            //exec.exec("/usr/bin/rdesktop " + registerName.getIp() + ":" + port);
 /*      */         } 
 /*      */       } else {
-/* 1153 */         int portLocal; if (this.sarlab.isConnectionLocalhost(deviceName)) {
-/* 1154 */           portLocal = this.sarlab.getPortLocal(deviceName);
-/*      */         } else {
-/* 1156 */           portLocal = freePort();
-/* 1157 */           this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, portLocal);
+/* 1153 */          //int portLocal; if (this.sarlab.isConnectionLocalhost(deviceName)) {
+/* 1154 */            //portLocal = this.sarlab.getPortLocal(deviceName);
+/*      */          //} else {
+/* 1156 */            //portLocal = freePort();
+/* 1157 */            //this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, portLocal);
 /*      */         } 
 /* 1159 */         if (OS.isWindows()) {
-/* 1160 */           exec.rdesktop((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
+/* 1160 */            //exec.rdesktop((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
 /*      */         } else {
-/* 1162 */           exec.exec("/usr/bin/rdesktop 127.0.0.1:" + portLocal);
+/* 1162 */            //exec.exec("/usr/bin/rdesktop 127.0.0.1:" + portLocal);
 /*      */         } 
-/*      */       } 
-/*      */     } 
+/*      */        //} 
+/*      */      //} 
+             // INICIO - Added message
+             Alert mensaje = new Alert(AlertType.INFORMATION);
+             mensaje.setTitle("Información");
+             mensaje.setHeaderText("Conexión RDP establecida.");
+             Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/Display 48_24x24-32.gif")));
+             mensaje.show();
+             // FIN - Added message
 /*      */   }
 /*      */ 
 /*      */   @FXML
@@ -933,16 +940,15 @@ import javax.swing.JFrame;
 /*      */   
              @FXML
 /*      */   void jButtonVNCActionPerformed() {
-/*      */     RegisterName registerName;
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/*      */     //RegisterName registerName;
 /* 1227 */     int port = 0;
 /* 1228 */     int ind = this.jList1.getSelectionModel().getSelectedIndex();
-/*      */ 
-/*      */     
-/* 1231 */     if (this.sarlab == null) {
-/*      */       
-/* 1233 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+/*      */    
+/* 1231 */     if (this.sarlab == null) {  
+/* 1233 */       //registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
-/* 1235 */       registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+/* 1235 */       //registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
 /*      */     } 
 /* 1237 */     String sPort = this.jTextFieldVNC.getText();
 /*      */     try {
@@ -951,32 +957,40 @@ import javax.swing.JFrame;
 /* 1241 */       this.jTextFieldVNC.setText("5900");
 /* 1242 */       sPort = "5900";
 /*      */     } 
-/* 1244 */     if (registerName != null) {
-/* 1245 */       this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
+/* 1244 */     //if (registerName != null) {
+/* 1245 */       //this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
 /* 1246 */       ExecApp exec = new ExecApp();
 /* 1247 */       String programVNC = "C:/Program Files/RealVNC/VNC Viewer/vncviewer.exe ";
 /*      */       
-/* 1249 */       String deviceName = registerName.getIp() + ":" + sPort;
+/* 1249 */       //String deviceName = registerName.getIp() + ":" + sPort;
 /* 1250 */       if (this.sarlab == null) {
 /* 1251 */         if (OS.isWindows()) {
-/* 1252 */           exec.exec(programVNC + registerName.getIp() + ":" + sPort);
+/* 1252 */           //exec.exec(programVNC + registerName.getIp() + ":" + sPort);
 /*      */         } else {
-/* 1254 */           exec.exec("/usr/bin/vncviewer " + registerName.getIp() + ":" + sPort);
+/* 1254 */           //exec.exec("/usr/bin/vncviewer " + registerName.getIp() + ":" + sPort);
 /*      */         } 
 /*      */       } else {
-/* 1257 */         if (this.sarlab.isConnectionLocalhost(deviceName)) {
-/* 1258 */           this.portLocalVLC = this.sarlab.getPortLocal(deviceName);
-/*      */         } else {
-/* 1260 */           this.portLocalVLC = freePort();
-/* 1261 */           this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, this.portLocalVLC);
+/* 1257 */         //if (this.sarlab.isConnectionLocalhost(deviceName)) {
+/* 1258 */          //this.portLocalVLC = this.sarlab.getPortLocal(deviceName);
+/*      */         //} else {
+/* 1260 */           //this.portLocalVLC = freePort();
+/* 1261 */           //this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, this.portLocalVLC);
 /*      */         } 
 /* 1263 */         if (OS.isWindows()) {
 /* 1264 */           exec.exec(programVNC + "127.0.0.1:" + Integer.toString(this.portLocalVLC));
 /*      */         } else {
 /* 1266 */           exec.exec("/usr/bin/vncviewer 127.0.0.1:" + Integer.toString(this.portLocalVLC));
 /*      */         } 
-/*      */       } 
-/*      */     } 
+/*      */       //} 
+/*      */     //} 
+             // INICIO - Added message
+             Alert mensaje = new Alert(AlertType.INFORMATION);
+             mensaje.setTitle("Información");
+             mensaje.setHeaderText("Conexión VNC establecida.");
+             Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/vnc.png")));
+             mensaje.show();
+             // FIN - Added message
 /*      */   }
 /*      */    
 /*      */   private void jTextFieldDesktopFocusGained() {
@@ -1080,15 +1094,15 @@ import javax.swing.JFrame;
 /*      */ 
 /*      */   @FXML
 /*      */   void jButtonSshActionPerformed() {
-/*      */     RegisterName registerName;
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/*      */     //RegisterName registerName;
 /* 1382 */     int port; 
                int ind = this.jList1.getSelectionModel().getSelectedIndex();
   
-/* 1386 */     if (this.sarlab == null) {
-/*      */       
-/* 1388 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+/* 1386 */     if (this.sarlab == null) {     
+/* 1388 */       //registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
-/* 1390 */       registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+/* 1390 */       //registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
 /*      */     } 
 /* 1392 */     String sPort = this.jTextFieldSsh.getText();
 /*      */     try {
@@ -1097,59 +1111,65 @@ import javax.swing.JFrame;
 /* 1396 */       this.jTextFieldSsh.setText("22");
 /* 1397 */       port = 22;
 /*      */     } 
-/* 1399 */     if (registerName != null) {
-/* 1400 */       this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
+/* 1399 */     //if (registerName != null) {
+/* 1400 */       //this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
 /* 1401 */       ExecApp exec = new ExecApp();
-/* 1402 */       String deviceName = registerName.getIp() + ":" + sPort;
+/* 1402 */       //String deviceName = registerName.getIp() + ":" + sPort;
 /*      */       
 /* 1404 */       if (this.sarlab == null) {
 /* 1405 */         if (OS.isWindows()) {
-/* 1406 */           exec.ssh(registerName.getIp(), port);
+/* 1406 */           //exec.ssh(registerName.getIp(), port);
 /*      */         } else {
 /* 1408 */           TextInputDialog dialog = new TextInputDialog();
                      dialog.setContentText("user");
                      Optional<String> seleccion = dialog.showAndWait();
 /* 1409 */           if (seleccion == null) {
 /*      */             return;
-/*      */           }
-/*      */           
-/* 1413 */           exec.exec("/usr/bin/xterm -fa 'Monospace' -fs 14 -T ssh_" + registerName.getIp() + ":" + sPort + " -e /usr/bin/ssh " + seleccion + "@" + registerName.getIp() + " -p " + sPort);
+/*      */           }       
+/* 1413 */           //exec.exec("/usr/bin/xterm -fa 'Monospace' -fs 14 -T ssh_" + registerName.getIp() + ":" + sPort + " -e /usr/bin/ssh " + seleccion + "@" + registerName.getIp() + " -p " + sPort);
 /*      */         } 
 /*      */       } else {
-/* 1416 */         int portLocal; if (this.sarlab.isConnectionLocalhost(deviceName)) {
-/* 1417 */           portLocal = this.sarlab.getPortLocal(deviceName);
-/*      */         } else {
-/* 1419 */           portLocal = freePort();
-/* 1420 */           this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, portLocal);
+/* 1416 */         //int portLocal; 
+                   //if (this.sarlab.isConnectionLocalhost(deviceName)) {
+/* 1417 */           //portLocal = this.sarlab.getPortLocal(deviceName);
+/*      */         //} else {
+/* 1419 */           //portLocal = freePort();
+/* 1420 */           //this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, portLocal);
 /*      */         } 
 /* 1422 */         if (OS.isWindows()) {
-/* 1423 */           exec.ssh((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
+/* 1423 */           //exec.ssh((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
 /*      */         } else {
                      TextInputDialog dialog = new TextInputDialog();
                      dialog.setContentText("user");
                      Optional<String> seleccion = dialog.showAndWait();
 /* 1426 */           if (seleccion == null) {
 /*      */             return;
-/*      */           }
-/*      */           
-/* 1430 */           exec.exec("/usr/bin/xterm -fa 'Monospace' -fs 14 -T ssh_" + registerName.getIp() + ":" + sPort + " -e /usr/bin/ssh " + seleccion + "@127.0.0.1 -p " + portLocal);
+/*      */           }  
+/* 1430 */           //exec.exec("/usr/bin/xterm -fa 'Monospace' -fs 14 -T ssh_" + registerName.getIp() + ":" + sPort + " -e /usr/bin/ssh " + seleccion + "@127.0.0.1 -p " + portLocal);
 /*      */         } 
-/*      */       } 
-/*      */     } 
+/*      */       //} 
+/*      */     //} 
+             // INICIO - Added message
+             Alert mensaje = new Alert(AlertType.INFORMATION);
+             mensaje.setTitle("Información");
+             mensaje.setHeaderText("Conexión SSH establecida.");
+             Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/ssh.png")));
+             mensaje.show();
+             // FIN - Added message
 /*      */   }
 /*      */ 
 /*      */   @FXML
 /*      */   void jButtonTelnetActionPerformed() {
-/*      */     RegisterName registerName;
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/*      */     //RegisterName registerName;
 /* 1439 */     int port;
                int ind = this.jList1.getSelectionModel().getSelectedIndex();
-/*      */ 
 /*      */     
-/* 1442 */     if (this.sarlab == null) {
-/*      */       
-/* 1444 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+/* 1442 */     if (this.sarlab == null) { 
+/* 1444 */        //registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
-/* 1446 */       registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+/* 1446 */        //registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
 /*      */     } 
 /* 1448 */     String sPort = this.jTextFieldTelnet.getText();
 /*      */     try {
@@ -1158,44 +1178,52 @@ import javax.swing.JFrame;
 /* 1452 */       this.jTextFieldTelnet.setText("23");
 /* 1453 */       port = 23;
 /*      */     } 
-/* 1455 */     if (registerName != null) {
-/* 1456 */       this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
+/* 1455 */      //if (registerName != null) {
+/* 1456 */        //this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
 /* 1457 */       ExecApp exec = new ExecApp();
-/* 1458 */       String deviceName = registerName.getIp() + ":" + sPort;
+/* 1458 */        // deviceName = registerName.getIp() + ":" + sPort;
 /*      */       
 /* 1460 */       if (this.sarlab == null) {
 /* 1461 */         if (OS.isWindows()) {
-/* 1462 */           exec.telnet(registerName.getIp(), port);
+/* 1462 */            //exec.telnet(registerName.getIp(), port);
 /*      */         } else {
-/* 1464 */           exec.exec("/usr/bin/xterm -fa 'Monospace' -fs 14 -T telnet_" + registerName.getIp() + ":" + sPort + " -e /usr/bin/telnet " + registerName.getIp() + " " + sPort);
+/* 1464 */            //exec.exec("/usr/bin/xterm -fa 'Monospace' -fs 14 -T telnet_" + registerName.getIp() + ":" + sPort + " -e /usr/bin/telnet " + registerName.getIp() + " " + sPort);
 /*      */         } 
 /*      */       } else {
 /*      */         int portLocal;
-/* 1468 */         if (this.sarlab.isConnectionLocalhost(deviceName)) {
-/* 1469 */           portLocal = this.sarlab.getPortLocal(deviceName);
-/*      */         } else {
-/* 1471 */           portLocal = freePort();
-/* 1472 */           this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, portLocal);
+/* 1468 */          //if (this.sarlab.isConnectionLocalhost(deviceName)) {
+/* 1469 */            //portLocal = this.sarlab.getPortLocal(deviceName);
+/*      */          //} else {
+/* 1471 */            //portLocal = freePort();
+/* 1472 */            //this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, portLocal);
 /*      */         } 
 /* 1474 */         if (OS.isWindows()) {
-/* 1475 */           exec.telnet((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
+/* 1475 */            //exec.telnet((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
 /*      */         } else {
-/* 1477 */           exec.exec("/usr/bin/xterm -fa 'Monospace' -fs 14 -T telnet_" + registerName.getIp() + ":" + sPort + " -e /usr/bin/telnet  127.0.0.1 " + portLocal);
+/* 1477 */            //exec.exec("/usr/bin/xterm -fa 'Monospace' -fs 14 -T telnet_" + registerName.getIp() + ":" + sPort + " -e /usr/bin/telnet  127.0.0.1 " + portLocal);
 /*      */         } 
-/*      */       } 
-/*      */     } 
+/*      */        //} 
+/*      */      //} 
+             // INICIO - Added message
+             Alert mensaje = new Alert(AlertType.INFORMATION);
+             mensaje.setTitle("Información");
+             mensaje.setHeaderText("Conexión Telnet establecida.");
+             Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/telnet.png")));
+             mensaje.show();
+             // FIN - Added message
 /*      */   }
 /*      */ 
 /*      */   @FXML
 /*      */   void jButtonSFDTPActionPerformed() {
-/*      */     RegisterName registerName;
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/*      */     //RegisterName registerName;
 /* 1486 */     int port, ind = this.jList1.getSelectionModel().getSelectedIndex();
 
-/* 1489 */     if (this.sarlab == null) {
-/*      */       
-/* 1491 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+/* 1489 */     if (this.sarlab == null) {     
+/* 1491 */       //registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
-/* 1493 */       registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+/* 1493 */       //registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
 /*      */     } 
 /* 1495 */     String sPort = this.jTextFieldsFTP.getText();
 /*      */     try {
@@ -1204,50 +1232,55 @@ import javax.swing.JFrame;
 /* 1499 */       this.jTextFieldDesktop.setText("22");
 /* 1500 */       port = 22;
 /*      */     } 
-/* 1502 */     if (registerName != null) {
-/* 1503 */       this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
+/* 1502 */     //if (registerName != null) {
+/* 1503 */       //this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
 /* 1504 */       ExecApp exec = new ExecApp();
-/* 1505 */       String deviceName = registerName.getIp() + ":" + sPort;
-/*      */       
+/* 1505 */       //String deviceName = registerName.getIp() + ":" + sPort;
 /* 1507 */       if (this.sarlab == null) {
 /* 1508 */         if (OS.isWindows()) {
-/* 1509 */           exec.sftp(registerName.getIp(), port);
+/* 1509 */           //exec.sftp(registerName.getIp(), port);
 /*      */         } else {
-/* 1511 */          
 /* 1512 */           // this.jDialog1.setVisible(true); ¿cumple esta funciona la linea de debajo?
                      this.jDialog1.initStyle(StageStyle.DECORATED);
-/* 1513 */           exec.exec("/usr/bin/filezilla sftp://" + this.userLog + ":" + this.passwdLog + "@" + registerName.getIp() + ":" + sPort);
+/* 1513 */           //exec.exec("/usr/bin/filezilla sftp://" + this.userLog + ":" + this.passwdLog + "@" + registerName.getIp() + ":" + sPort);
 /*      */         } 
 /*      */       } else {
-/* 1516 */         int portLocal; if (this.sarlab.isConnectionLocalhost(deviceName)) {
-/* 1517 */           portLocal = this.sarlab.getPortLocal(deviceName);
-/*      */         } else {
-/* 1519 */           portLocal = freePort();
-/* 1520 */           this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, portLocal);
+/* 1516 */         //int portLocal; if (this.sarlab.isConnectionLocalhost(deviceName)) {
+/* 1517 */           //portLocal = this.sarlab.getPortLocal(deviceName);
+/*      */         //} else {
+/* 1519 */           //portLocal = freePort();
+/* 1520 */           //this.sarlab.addconnectionLocalhostL(deviceName, registerName.getIp(), port, portLocal);
 /*      */         } 
 /* 1522 */         if (OS.isWindows()) {
-/* 1523 */           exec.sftp((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
+/* 1523 */           //exec.sftp((EJSClientSarlab2)this.sarlab, registerName.getIp(), port);
 /*      */         } else {
 /* 1526 */           // this.jDialog1.setVisible(true); ¿cumple esta funciona la linea de debajo?
                      this.jDialog1.initStyle(StageStyle.DECORATED);
-/* 1527 */           exec.exec("/usr/bin/filezilla sftp://" + this.userLog + ":" + this.passwdLog + "@127.0.0.1:" + portLocal);
+/* 1527 */           //exec.exec("/usr/bin/filezilla sftp://" + this.userLog + ":" + this.passwdLog + "@127.0.0.1:" + portLocal);
 /*      */         } 
-/*      */       } 
-/*      */     } 
+/*      */       //} 
+/*      */     //} 
+             // INICIO - Added message
+             Alert mensaje = new Alert(AlertType.INFORMATION);
+             mensaje.setTitle("Información");
+             mensaje.setHeaderText("Conexión sFTP establecida.");
+             Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/Folder 102_24x24-32.gif")));
+             mensaje.show();
+             // FIN - Added message
 /*      */   }
 /*      */ 
 /*      */   @FXML
 /*      */   void jButtonModbusActionPerformed() {
-/*      */     RegisterName registerName;
+               // ANULADO PARA BACKEND DE PRUEBA FUNCIONAL
+/*      */     //RegisterName registerName;
 /* 1536 */     int port;
                int ind = this.jList1.getSelectionModel().getSelectedIndex();
-/*      */ 
-/*      */     
+/*      */      
 /* 1539 */     if (this.sarlab == null) {
-/*      */       
-/* 1541 */       registerName = this.serverUDPThread.getRegisterNametoArray(ind);
+/* 1541 */       //registerName = this.serverUDPThread.getRegisterNametoArray(ind);
 /*      */     } else {
-/* 1543 */       registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
+/* 1543 */       //registerName = this.directoryRegisterNameSarlab.getRegisterNametoArray(ind);
 /*      */     } 
 /* 1545 */     String sPort = this.jTextFieldModbus.getText();
 /*      */     try {
@@ -1256,20 +1289,28 @@ import javax.swing.JFrame;
 /* 1549 */       this.jTextFieldModbus.setText("502");
 /* 1550 */       port = 502;
 /*      */     } 
-/* 1552 */     if (registerName != null) {
-/* 1553 */       this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
+/* 1552 */     //if (registerName != null) {
+/* 1553 */       //this.log.info("Ind = " + ind + " ip= " + registerName.getIp());
 /* 1554 */       if (this.sarlab == null) {
-/* 1555 */         MasterModbus modBusMaster = new MasterModbus(registerName.getIp(), this.jTextFieldModbus.getText(), "1");
-/* 1556 */         modBusMaster.connect();
-/* 1557 */         modBusMaster.monitorInit();
+/* 1555 */         //MasterModbus modBusMaster = new MasterModbus(registerName.getIp(), this.jTextFieldModbus.getText(), "1");
+/* 1556 */         //modBusMaster.connect();
+/* 1557 */         //modBusMaster.monitorInit();
 /*      */       } else {
 /* 1559 */         int portLocal = freePort();
-/* 1560 */         this.sarlab.addconnectionLocalhostL("Monitor Modbus", registerName.getIp(), port, portLocal);
+/* 1560 */         //this.sarlab.addconnectionLocalhostL("Monitor Modbus", registerName.getIp(), port, portLocal);
 /* 1561 */         MasterModbus modBusMaster = new MasterModbus("127.0.0.1", Integer.toString(portLocal), "1");
 /* 1562 */         modBusMaster.connect();
 /* 1563 */         modBusMaster.monitorInit();
 /*      */       } 
-/*      */     } 
+/*      */     //} 
+             // INICIO - Added message
+             Alert mensaje = new Alert(AlertType.INFORMATION);
+             mensaje.setTitle("Información");
+             mensaje.setHeaderText("Conexión Modbus establecida.");
+             Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/modbus.png")));
+             mensaje.show();
+             // FIN - Added message
 /*      */   }
 /*      */ 
 /*      */   @FXML
@@ -1514,8 +1555,7 @@ import javax.swing.JFrame;
 /*      */   void jButtonProfileActionPerformed() throws IOException {
 /* 1738 */     String url = "";
 /* 1739 */     if (this.sarlab != null) {
-/* 1740 */       HashMapExperienceWeb hashMapExperienceWeb = new HashMapExperienceWeb();
-/*      */       
+/* 1740 */       HashMapExperienceWeb hashMapExperienceWeb = new HashMapExperienceWeb();      
 /* 1742 */       GetParameters getParameters = new GetParameters();
 /* 1743 */       hashMapExperienceWeb = getParameters.getHashMapExperienceWeb(this.registerGatewayOld);
 /* 1744 */       if (hashMapExperienceWeb == null) {
@@ -1525,28 +1565,27 @@ import javax.swing.JFrame;
 /* 1748 */       //this.panelConectionExperience.setRegisterGateway(this.registerGatewayOld);
 /* 1749 */       //this.panelConectionExperience.setMyirtualFrontierOld(this.myirtualFrontierOld);
 /* 1750 */       //this.panelConectionExperience.setMyURIMyGatewayOld(this.myURIMyGatewayOld);
-/* 1751 */       //this.panelConectionExperience.setVisible(true);
-
-                 if (panelConectionExperienceStage == null) {
-                     panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
-                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
-                     Scene scene = new Scene(fxmlLoader.load());
-                     panelConectionExperienceController = fxmlLoader.getController();
-                     panelConectionExperienceStage.setScene(scene);
-                 }
-                
+/* 1751 */       //this.panelConectionExperience.setVisible(true);      
                  panelConectionExperienceController.setModel(hashMapExperienceWeb);
                  panelConectionExperienceController.setRegisterGateway(this.registerGatewayOld);
                  panelConectionExperienceController.setMyirtualFrontierOld(this.myirtualFrontierOld);
                  panelConectionExperienceController.setMyURIMyGatewayOld(this.myURIMyGatewayOld);                            
-                 panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
-                 
-                 panelConectionExperienceStage.show();
+
 /*      */     } 
+               if (panelConectionExperienceStage == null) {
+                   panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
+                   Scene scene = new Scene(fxmlLoader.load());
+                   panelConectionExperienceStage.setScene(scene);
+               }
+               if (panelConectionExperienceController == null) {
+                   FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
+                   panelConectionExperienceController = fxmlLoader.getController();
+               }
+               panelConectionExperienceController.initList();
+               panelConectionExperienceStage.show();
 /*      */   }
-/*      */ 
-/*      */ 
-/*      */   
+
 /*      */   private void lineausuarioKeyPressed(KeyEvent evt) {
 /* 1758 */     char ch = evt.getKeyChar();
 /* 1759 */     if (ch == '\n') {
