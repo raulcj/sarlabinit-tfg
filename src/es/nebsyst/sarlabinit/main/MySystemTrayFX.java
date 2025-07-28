@@ -11,6 +11,8 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
+import java.util.logging.Level;
+import java.util.logging.Logger;
 import javafx.scene.control.MenuItem;
 
 /**
@@ -20,18 +22,19 @@ import javafx.scene.control.MenuItem;
 
 public class MySystemTrayFX {
 
+    private Stage mainStage;
     private Stage restoreStage;
     private Stage discoveryStage;
     private PanelClientServerNameController discoveryController;
     private FXTrayIcon trayIcon;
 
     public MySystemTrayFX(Stage primaryStage) {
-        this.restoreStage = primaryStage;
+        this.mainStage = primaryStage;
         setupTrayIcon();
     }
 
     private void setupTrayIcon() {
-        trayIcon = new FXTrayIcon(restoreStage, getClass().getResource("../resource/execjar128.png")); 
+        trayIcon = new FXTrayIcon(mainStage, getClass().getResource("../resource/execjar128.png")); 
         trayIcon.setTooltip("Servicio SARLAB");
         trayIcon.show();
         // Añadir los elementos del menú contextual
@@ -51,10 +54,22 @@ public class MySystemTrayFX {
 
     private void showRestaurar() {
         Platform.runLater(() -> {
-            if (!this.restoreStage.isShowing()) {
+            if (this.restoreStage == null) {
+                try {
+                    this.restoreStage = StageManager.getInstance().getStage("PanelEJSAppList");
+                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEJSAppList");
+                    Scene scene = new Scene(fxmlLoader.load());
+                    this.restoreStage.setScene(scene);
+                    this.restoreStage.show();
+                } catch (IOException e) {
+                    Logger.getLogger(MySystemTrayFX.class.getName()).log(Level.SEVERE, null, e);
+                }
+            } else {
                 this.restoreStage.show();
+                if (this.restoreStage.isIconified()) {
+                    this.restoreStage.show();
+                }
             }
-            this.restoreStage.toFront();
         });
     }
 
@@ -69,7 +84,7 @@ public class MySystemTrayFX {
                     this.discoveryStage.setScene(scene);
                     this.discoveryStage.show();
                 } catch (IOException e) {
-                    e.printStackTrace();
+                    Logger.getLogger(MySystemTrayFX.class.getName()).log(Level.SEVERE, null, e);
                 }
                 if (this.discoveryController == null) {
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
@@ -88,6 +103,8 @@ public class MySystemTrayFX {
                 this.discoveryController.initList();
             } 
             this.discoveryController.init();
+            // Esconder PanelMain al abrir Discovery
+            mainStage.hide();
         });
     }
 

@@ -92,6 +92,7 @@ import javafx.scene.control.RadioButton;
 import javafx.scene.control.ListView;
 import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextInputDialog;
+import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
 import javafx.scene.control.Tooltip;
 import javafx.scene.image.ImageView;
@@ -191,6 +192,7 @@ import javax.swing.JFrame;
             private Button jButtonTest;
             
             private Dialog jDialog1; 
+            @FXML
             private Label jLabel1; 
             private Label jLabel2; 
             private Label jLabel3; 
@@ -199,22 +201,33 @@ import javax.swing.JFrame;
             public Label jLabel6;
             private Label jLabel7;
             private Label jLabel8; 
-            
+            @FXML
+            private Label jLabel10;
+            @FXML
+            private Label title;
             @FXML
             private Label jLabelList; 
             public Label jLabelNetConnect; 
+            @FXML
             private Label jLabelTituloService; 
             @FXML
             public ListView<String> jList1; 
             private Pane jPanel1; 
-            private Pane jPanel2; 
+            //private Pane jPanel2; --> TitledPane
             private Pane jPanel3; 
             private Pane jPanel4; 
             private Pane jPanel5; 
-            private Pane jPanel6; 
+            //private Pane jPanel6;--> TitledPane
             private Pane jPanel7; 
             private Pane jPanelBotones; 
             private Pane jPanelNavegador; 
+            
+            @FXML
+            private TitledPane jPanel2;
+            @FXML
+            private TitledPane jPanel6;
+            
+            
             @FXML
             private RadioButton jRadioAxi; 
             @FXML
@@ -400,8 +413,7 @@ import javax.swing.JFrame;
 /*  234 */     this.jPanel7 = new Pane();
 /*  235 */     this.jButtonLogin = new Button();
 /*  236 */     this.jPanelBotones = new Pane();
-/*  237 */   
-/*  242 */     this.jPanel2 = new Pane();
+/*  237 */  
 /*  243 */     
 /*  244 */     this.jPanel1 = new Pane();
 /*  245 */     this.jScrollPane1 = new ScrollPane();
@@ -411,10 +423,7 @@ import javax.swing.JFrame;
 /*  249 */     this.jLabel5 = new Label();
 /*  250 */     this.jLabel6 = new Label();
 /*  251 */     this.jLabelNetConnect = new Label();
-/*  252 */     this.jPanel6 = new Pane();
-/*  265 */     this.jLabelTituloService = new Label();
 /*  270 */     this.jPanelNavegador = new Pane();
-/*  272 */     this.jLabel1 = new Label();
 /*  274 */     this.jLabel3 = new Label();
 /*      */     
 /*  280 */     //this.jDialog1.setIconImage(getIconImage());
@@ -424,8 +433,11 @@ import javax.swing.JFrame;
 /*  282 */     this.jDialog1.initModality(APPLICATION_MODAL);
 /*  283 */     this.jDialog1.setResizable(false);
 
+              
+
 /*  290 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vistaTFG/Bundle_PanelClientServerName");
-/*  291 */     this.jLabel2.setText(bundle.getString("PanelClientServerName.jLabel2.text_1"));
+/*  291 */     this.title.setText(bundle.getString("PanelClientServerName.title"));
+               this.jLabel2.setText(bundle.getString("PanelClientServerName.jLabel2.text_1"));
 /*      */     
 /*      */     /*   APLICAR EN EVENTO AL SELECCIONAR LA LINEA DE USUARIO  */ 
 /*  310 */   //  this.lineausuario.addKeyListener(new KeyAdapter() {
@@ -486,8 +498,8 @@ import javax.swing.JFrame;
 /*  437 */     this.jButton1.setGraphic(iconViewJButton1);  
 /*  454 */     this.jButton1.setText(bundle.getString("PanelClientServerName.jButton1.text_1"));
  
-/*  495 */     //this.jPanel2.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanel2.border.title")));
-
+               this.jPanel2.setText(bundle.getString("PanelClientServerName.jPanel2.border.title"));
+                       
 /*  499 */     this.jLabelList.setText(bundle.getString("PanelClientServerName.jLabelList.text"));
 /*      */     
 /*  501 */     //this.jPanel1.setBorder(BorderFactory.createTitledBorder(""));
@@ -510,8 +522,9 @@ import javax.swing.JFrame;
 /*  558 */    
 /*  561 */     this.jLabelNetConnect.setText(bundle.getString("PanelClientServerName.jLabelNetConnect.text"));
 /*      */     
-/*  597 */     //this.jPanel6.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanel6.border.title")));
-/*      */     
+               this.jPanel6.setText(bundle.getString("PanelClientServerName.jPanel6.border.title"));
+
+
                Image iconJButtonDesktop = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/Display 48_24x24-32.gif").toExternalForm());
                ImageView iconViewJButtonDesktop = new ImageView(iconJButtonDesktop);
 /*  437 */     this.jButtonDesktop.setGraphic(iconViewJButtonDesktop); 
@@ -624,7 +637,7 @@ import javax.swing.JFrame;
                         }
                     } 
                });
-/*  733 */    
+
 /*  740 */     this.jLabelTituloService.setText(bundle.getString("PanelClientServerName.jLabelTituloService.text"));
 /*      */     
                Image iconJButtonTools = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/tools.png").toExternalForm());
@@ -652,6 +665,7 @@ import javax.swing.JFrame;
 /*  861 */     this.jButtonNavegador.setText(bundle.getString("PanelClientServerName.jButtonNavegador.text"));
 /*  862 */     
 /*  869 */     this.jLabel1.setText(bundle.getString("PanelClientServerName.jLabel1.text"));
+               this.jLabel10.setText(bundle.getString("PanelClientServerName.jLabel1.text"));
 /*      */     
 /*  871 */     this.jTextFieldPortNav.setText(bundle.getString("PanelClientServerName.jTextFieldPortNav.text"));
 /*  872 */     this.jTextFieldPortNav.focusedProperty().addListener(new ChangeListener<Boolean>() {

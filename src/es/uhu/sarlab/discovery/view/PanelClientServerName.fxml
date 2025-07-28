@@ -17,7 +17,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
    <children>
       <VBox layoutX="148.0" layoutY="38.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
@@ -28,7 +28,7 @@
                         <Image url="@resources/Network-Remote-Desktop-icon.png" />
                      </image>
                   </ImageView>
-                  <Label prefHeight="60.0" prefWidth="290.0" text="Examinador de red LAN" textAlignment="CENTER">
+                  <Label fx:id="title" prefHeight="60.0" prefWidth="290.0" text="Examinador de red LAN" textAlignment="CENTER">
                      <font>
                         <Font size="27.0" />
                      </font>
@@ -42,7 +42,7 @@
             </HBox>
             <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="364.0" prefWidth="750.0">
                <children>
-                  <TitledPane animated="false" collapsible="false" prefHeight="367.0" text="Sistemas">
+                  <TitledPane fx:id="jPanel2" animated="false" collapsible="false" prefHeight="367.0" text="Sistemas">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="337.0" prefWidth="557.0">
                            <children>
@@ -60,7 +60,7 @@
                         </AnchorPane>
                     </content>
                   </TitledPane>
-                  <TitledPane animated="false" collapsible="false" prefHeight="363.0" text="Servicios">
+                  <TitledPane fx:id="jPanel6" animated="false" collapsible="false" prefHeight="363.0" prefWidth="288.0" text="Servicios">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="309.0" prefWidth="206.0">
                            <children>
@@ -81,8 +81,8 @@
                                     <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
                                 </rowConstraints>
                                  <children>
-                                    <Label text="Servicio" />
-                                    <Label text="Puerto" GridPane.columnIndex="1" />
+                                    <Label fx:id="jLabelTituloService" text="Servicio" />
+                                    <Label fx:id="jLabel10" text="Puerto" GridPane.columnIndex="1" />
                                     <Button fx:id="jButtonDesktop" mnemonicParsing="false" onAction="#jButtonDesktopActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Desktop" GridPane.rowIndex="1" />
                                     <Button fx:id="jButtonVNC" mnemonicParsing="false" onAction="#jButtonVNCActionPerformed" prefHeight="26.0" prefWidth="120.0" text="VNC" GridPane.rowIndex="2" />
                                     <Button fx:id="jButtonTelnet" mnemonicParsing="false" onAction="#jButtonTelnetActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Telnet" GridPane.rowIndex="3" />
@@ -116,7 +116,7 @@
                               <ToolBar prefHeight="49.6" prefWidth="748.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <Button fx:id="jButtonNavegador" mnemonicParsing="false" onAction="#jButtonNavegadorActionPerformed" text="Navegador" />
-                                    <Label text="Puerto" />
+                                    <Label fx:id="jLabel1" text="Puerto" />
                                     <TextField fx:id="jTextFieldPortNav" onAction="#jTextFieldPortNavActionPerformed" />
                                     <Label text="URL" />
                                     <TextField fx:id="jTextFieldURL" onAction="#jTextFieldURLActionPerformed" />

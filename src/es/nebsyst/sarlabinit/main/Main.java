@@ -25,19 +25,17 @@ import javafx.stage.Stage;
 public class Main extends Application {
     
     public static void main(String[] args) {
-        // Primera ventana prompt podría ser para seleccion de idioma (ES/GB)
-        Locale.setDefault(Locale.UK); // Establece idioma
-        System.out.println(Locale.getDefault().toString());
         launch();
     }
        
     @Override
-    public void start(Stage panelEJSAppListStage) throws IOException {
+    public void start(Stage panelMainStage) throws IOException {
         // Inicializa las clases gestoras Manager
         FXMLLoaderManager fxmlLoaderManager = FXMLLoaderManager.getInstance();
         StageManager stageManager = StageManager.getInstance();
-        // Registra la jerarquia de FXML de cada vista
+        // Registra los FXML de cada vista
         // es.nebsyst.sarlabinit
+        fxmlLoaderManager.registerLoader("PanelEJSAppList", getPanelEJSAppListLoader());
         fxmlLoaderManager.registerLoader("PanelJarProcess", getPanelJarProcessLoader());
         // es.uhu.sarlab.discovery  
         fxmlLoaderManager.registerLoader("PanelListGateway", getPanelListGatewayLoader());
@@ -49,6 +47,7 @@ public class Main extends Application {
         fxmlLoaderManager.registerLoader("PanelClientServerName", getDiscoveryLoader());
         // Registra los Stage
         // es.nebsyst.sarlabinit
+        stageManager.registerStage("PanelEJSAppList", getPanelEJSAppListStage());
         stageManager.registerStage("PanelJarProcess", getPanelJarProcessStage());
         // es.uhu.sarlab.discovery
         stageManager.registerStage("PanelListGateway", getPanelListGatewayStage());
@@ -58,26 +57,44 @@ public class Main extends Application {
         stageManager.registerStage("PanelConectionExperience", getPanelConectionExperienceStage());
         stageManager.registerStage("PanelNodoFrowardingL", getPanelNodoFrowardingLStage());
         stageManager.registerStage("PanelClientServerName", getDiscoveryStage());
-        // Main stage (PanelEJSAppList)
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
-        Scene scene = new Scene(fxmlLoader.load());       
-        panelEJSAppListStage.setTitle("");
-        Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
-        panelEJSAppListStage.getIcons().add(icono);
-        panelEJSAppListStage.setScene(scene);    
+        // Main stage (PanelMain)
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelMain.fxml"));
+        //fxmlLoader.setResources(ResourceBundle.getBundle("../../../uhu/sarlab/discovery/view/bundle/Bundle.properties", getLocale()));
+        Scene scene = new Scene(fxmlLoader.load()); 
+        panelMainStage.setTitle("Servicio SARLAB");
+        Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/sarlab.png");   
+        panelMainStage.getIcons().add(icono);
+        panelMainStage.setScene(scene);    
+        // Registrar stage principal
+        stageManager.registerStage("PanelMain", panelMainStage);
+        panelMainStage.show();
         // Permite abrir las opciones del SystemTray mas de una vez
         Platform.setImplicitExit(false);
-        // Carga SystemTrayFX con el Main Stage 
-        MySystemTrayFX mySystemTrayFX = new MySystemTrayFX(panelEJSAppListStage);
+        // Cargar SystemTrayFX
+        MySystemTrayFX mySystemTrayFX = new MySystemTrayFX(panelMainStage);
     }
     
     // SARLABINIT (componentes)
     
+    public FXMLLoader getPanelEJSAppListLoader() {
+        return new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
+    }
+    
+    public Stage getPanelEJSAppListStage() {
+        Stage stage = new Stage();
+        //Scene scene = new Scene(getPanelJarProcessLoader().load());
+        stage.setTitle("Poner titulo en esta ventana? (PanelEJSAppList)");
+        Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
+        stage.getIcons().add(icono);
+        //stage.setScene(scene);
+        return stage;
+    }
+
     public FXMLLoader getPanelJarProcessLoader() { 
         return new FXMLLoader(Main.class.getResource("../view/PanelJarProcess.fxml"));
     }
     
-    public Stage getPanelJarProcessStage() throws IOException {
+    public Stage getPanelJarProcessStage() {
         Stage stage = new Stage();
         //Scene scene = new Scene(getPanelJarProcessLoader().load());
         stage.setTitle("Poner titulo en esta ventana? (PanelJarProcess)");
@@ -93,7 +110,7 @@ public class Main extends Application {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelClientServerName.fxml"));
     }
     
-    public Stage getDiscoveryStage() throws IOException {
+    public Stage getDiscoveryStage() {
         Stage stage = new Stage(); 
         //Scene scene = new Scene(getDiscoveryLoader().load());       
         ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vistaTFG/Bundle_PanelClientServerName");
@@ -108,7 +125,7 @@ public class Main extends Application {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelListGateway.fxml"));
     }
      
-    public Stage getPanelListGatewayStage() throws IOException {
+    public Stage getPanelListGatewayStage() {
         Stage stage = new Stage();
         //Scene scene = new Scene(getPanelListGatewayLoader().load());
         stage.setTitle("Poner titulo en esta ventana? (PanelListGateway)");
@@ -122,7 +139,7 @@ public class Main extends Application {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConectionLocalhost.fxml"));
     }
     
-    public Stage getPanelConectionLocalhostStage() throws IOException {
+    public Stage getPanelConectionLocalhostStage() {
         Stage stage = new Stage();        
         //Scene scene = new Scene(getPanelConectionLocalhostLoader().load());
         stage.setTitle("Poner titulo en esta ventana? (PanelConectionLocalhost)");
@@ -136,7 +153,7 @@ public class Main extends Application {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConsole.fxml"));
     }
     
-    public Stage getPanelConsoleStage() throws IOException {
+    public Stage getPanelConsoleStage() {
         Stage stage = new Stage();         
         //Scene scene = new Scene(getPanelConsoleLoader().load());
         stage.setTitle("Poner titulo en esta ventana? (PanelConsole)");
@@ -150,7 +167,7 @@ public class Main extends Application {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelEditConfigLocal.fxml"));
     }
     
-    public Stage getPanelEditConfigLocalStage() throws IOException {
+    public Stage getPanelEditConfigLocalStage() {
         Stage stage = new Stage();
        //Scene scene = new Scene(getPanelEditConfigLocalLoader().load());
         stage.setTitle("Poner titulo en esta ventana? (PanelEditConfigLocal)");
@@ -164,7 +181,7 @@ public class Main extends Application {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConectionExperience.fxml"));
     }
          
-    public Stage getPanelConectionExperienceStage() throws IOException {
+    public Stage getPanelConectionExperienceStage() {
         Stage stage = new Stage();      
         //Scene scene = new Scene(getPanelConectionExperienceLoader().load());
         stage.setTitle("Poner titulo en esta ventana? (PanelConectionExperience)");
@@ -178,7 +195,7 @@ public class Main extends Application {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelNodoFrowardingL.fxml"));
     }
     
-    public Stage getPanelNodoFrowardingLStage() throws IOException {
+    public Stage getPanelNodoFrowardingLStage() {
         Stage stage = new Stage();  
         //Scene scene = new Scene(getPanelNodoFrowardingLLoader().load());
         ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelNodoFrowardingL");
