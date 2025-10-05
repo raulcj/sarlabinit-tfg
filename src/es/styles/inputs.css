@@ -1,0 +1,12 @@
+.text-field, .password-field, .combo-box-base, .choice-box {
+    -fx-background-color: white;
+    -fx-border-color: #0078D7;
+    -fx-border-radius: 6px;
+    -fx-background-radius: 6px;
+    -fx-padding: 0.5em;
+    -fx-prompt-text-fill: derive(#1a1a1a, 50%);
+}
+.text-field:focused, .combo-box-base:focused {
+    -fx-border-color: #005fa1;
+    -fx-effect: dropshadow(two-pass-box, rgba(0,120,215,0.3), 6, 0, 0, 0);
+}

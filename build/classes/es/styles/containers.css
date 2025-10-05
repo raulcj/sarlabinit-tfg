@@ -1,0 +1,4 @@
+.anchor-pane, .vbox, .hbox, .grid-pane {
+    -fx-padding: 16px;
+    -fx-spacing: 10px;
+}

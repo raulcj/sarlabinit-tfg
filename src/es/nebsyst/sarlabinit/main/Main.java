@@ -61,12 +61,23 @@ public class Main extends Application {
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelMain.fxml"));
         //fxmlLoader.setResources(ResourceBundle.getBundle("../../../uhu/sarlab/discovery/view/bundle/Bundle.properties", getLocale()));
         Scene scene = new Scene(fxmlLoader.load()); 
+        // Añadir estilos
+        scene.getStylesheets().addAll(
+                getClass().getResource("../../../styles/base.css").toExternalForm(),
+                getClass().getResource("../../../styles/buttons.css").toExternalForm(),
+                getClass().getResource("../../../styles/inputs.css").toExternalForm(),
+                getClass().getResource("../../../styles/containers.css").toExternalForm(),
+                getClass().getResource("../../../styles/lists_tables.css").toExternalForm(),
+                getClass().getResource("../../../styles/extras.css").toExternalForm(),
+                getClass().getResource("../../../styles/utilities.css").toExternalForm()
+        );
         panelMainStage.setTitle("Servicio SARLAB");
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/sarlab.png");   
         panelMainStage.getIcons().add(icono);
         panelMainStage.setScene(scene);    
         // Registrar stage principal
         stageManager.registerStage("PanelMain", panelMainStage);
+        panelMainStage.setResizable(false);
         panelMainStage.show();
         // Permite abrir las opciones del SystemTray mas de una vez
         Platform.setImplicitExit(false);

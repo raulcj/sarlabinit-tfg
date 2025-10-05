@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.control.ListView?>
@@ -17,11 +18,11 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="853.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
+<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="625.0" prefWidth="900.0" styleClass="btn-primary, container, form, label, list-view, radio-button, text-field, titled-pane" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
    <children>
-      <VBox layoutX="148.0" layoutY="38.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="800.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox layoutX="148.0" layoutY="38.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="93.0" prefWidth="750.0">
+            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="79.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" translateX="-120.0">
                      <image>
@@ -40,9 +41,9 @@
                   </ImageView>
                </children>
             </HBox>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="364.0" prefWidth="750.0">
+            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
                <children>
-                  <TitledPane fx:id="jPanel2" animated="false" collapsible="false" prefHeight="367.0" text="Sistemas">
+                  <TitledPane fx:id="jPanel2" animated="false" collapsible="false" prefHeight="367.0" text="Sistemas" HBox.hgrow="ALWAYS">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="337.0" prefWidth="557.0">
                            <children>
@@ -106,19 +107,22 @@
                     </content>
                   </TitledPane>
                </children>
+               <VBox.margin>
+                  <Insets />
+               </VBox.margin>
             </HBox>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="145.0" prefWidth="750.0">
+            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
                <children>
-                  <TitledPane animated="false" collapsible="false" prefHeight="118.0" text="Web">
+                  <TitledPane animated="false" collapsible="false" text="Web">
                     <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="45.0" prefWidth="729.0">
+                      <AnchorPane>
                            <children>
-                              <ToolBar prefHeight="49.6" prefWidth="748.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <ToolBar prefHeight="55.2" prefWidth="896.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                 <items>
                                   <Button fx:id="jButtonNavegador" mnemonicParsing="false" onAction="#jButtonNavegadorActionPerformed" text="Navegador" />
-                                    <Label fx:id="jLabel1" text="Puerto" />
+                                    <Label fx:id="jLabel1" alignment="CENTER" contentDisplay="CENTER" text="Puerto" />
                                     <TextField fx:id="jTextFieldPortNav" onAction="#jTextFieldPortNavActionPerformed" />
-                                    <Label text="URL" />
+                                    <Label alignment="CENTER" contentDisplay="CENTER" text="URL" />
                                     <TextField fx:id="jTextFieldURL" onAction="#jTextFieldURLActionPerformed" />
                                     <RadioButton fx:id="jRadioFree" mnemonicParsing="false" onAction="#jRadioFreeActionPerformed" text="URI Libre" />
                                     <RadioButton fx:id="jRadioEnlarge" mnemonicParsing="false" onAction="#jRadioEnlargeActionPerformed" text="Cámara UHU mjpg" />
@@ -128,21 +132,32 @@
                            </children>
                         </AnchorPane>
                     </content>
+                     <VBox.margin>
+                        <Insets />
+                     </VBox.margin>
                   </TitledPane>
-                  <AnchorPane>
-                     <children>
-                        <HBox alignment="CENTER_LEFT" spacing="5.0" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
-                           <children>
-                            <Button fx:id="jButtonActualizar" mnemonicParsing="false" onAction="#jButtonActualizarActionPerformed" text="Actualizar" />
-                              <Button fx:id="jButtonRemoto" mnemonicParsing="false" onAction="#jButtonRemotoActionPerformed" text="Acceso remoto" />
-                              <Button fx:id="jButtonLocal" mnemonicParsing="false" onAction="#jButtonLocalActionPerformed" text="Acceso local" />
-                              <Button fx:id="jButtonConfiguracionLocal" mnemonicParsing="false" onAction="#jButtonConfiguracionLocalActionPerformed" text="Configuración local" />
-                              <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Consola" />
-                              <Button fx:id="jButtonTest" mnemonicParsing="false" onAction="#jButtonTestActionPerformed" text="Test" />
-                           </children>
-                        </HBox>
-                     </children>
-                  </AnchorPane>
+                  <TitledPane collapsible="false">
+                     <content>
+                        
+                          
+                              <AnchorPane>
+                                 <children>
+                                    <HBox alignment="CENTER_LEFT" prefHeight="55.2" prefWidth="896.8" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                       <children>
+                                        <Button fx:id="jButtonActualizar" mnemonicParsing="false" onAction="#jButtonActualizarActionPerformed" text="Actualizar" />
+                                          <Button fx:id="jButtonRemoto" mnemonicParsing="false" onAction="#jButtonRemotoActionPerformed" text="Acceso remoto" />
+                                          <Button fx:id="jButtonLocal" mnemonicParsing="false" onAction="#jButtonLocalActionPerformed" text="Acceso local" />
+                                          <Button fx:id="jButtonConfiguracionLocal" mnemonicParsing="false" onAction="#jButtonConfiguracionLocalActionPerformed" text="Configuración local" />
+                                          <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Consola" />
+                                          <Button fx:id="jButtonTest" mnemonicParsing="false" onAction="#jButtonTestActionPerformed" text="Test" />
+                                       </children>
+                                    </HBox>
+                                 </children>
+                              </AnchorPane>
+                     </content>
+                  </TitledPane>
+                     
+                  
                </children>
             </VBox>
          </children>

@@ -12,16 +12,15 @@
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.HBox?>
-<?import javafx.scene.layout.Pane?>
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 <?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="500.0" prefWidth="600.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebsyst.sarlabinit.controller.PanelEJSAppListController">
+<AnchorPane prefHeight="600.0" prefWidth="725.0" styleClass="surface" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebsyst.sarlabinit.controller.PanelEJSAppListController">
    <children>
-      <VBox layoutX="-21.6" prefHeight="400.0" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox styleClass="form" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Pane fx:id="jPanel1" prefHeight="142.0" prefWidth="600.0">
+            <AnchorPane fx:id="jPanel1" VBox.vgrow="ALWAYS">
                <children>
                   <ImageView fitHeight="87.0" fitWidth="156.0" layoutX="26.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
                      <image>
@@ -34,44 +33,41 @@
                      </font>
                   </Text>
                </children>
-            </Pane>
-            <TitledPane fx:id="jPanel2" collapsible="false" prefHeight="300.0" prefWidth="600.0" text="Servicios">
+            </AnchorPane>
+            <TitledPane fx:id="jPanel2" collapsible="false" text="Servicios" VBox.vgrow="ALWAYS">
                <content>
-                  <Pane prefHeight="200.0" prefWidth="200.0">
+                  <AnchorPane>
                      <children>
-                        <VBox prefHeight="228.0" prefWidth="600.0">
+                        <VBox prefHeight="474.4" prefWidth="520.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="BOTTOM_LEFT" prefHeight="0.0" prefWidth="600.0" spacing="50.0">
+                              <HBox alignment="BOTTOM_LEFT" spacing="50.0" styleClass="form" VBox.vgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="Aplicacion jar">
+                                    <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="Aplicacion jar" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label text="Parametros en linea">
+                                    <Label text="Parametros en linea" HBox.hgrow="ALWAYS">
                                        <HBox.margin>
                                           <Insets />
                                        </HBox.margin>
                                     </Label>
-                                    <Label text="Descripcion" />
+                                    <Label text="Descripcion" HBox.hgrow="ALWAYS" />
                                  </children>
                                  <VBox.margin>
                                     <Insets />
                                  </VBox.margin>
-                                 <padding>
-                                    <Insets left="25.0" />
-                                 </padding>
                               </HBox>
-                              <AnchorPane>
+                              <AnchorPane VBox.vgrow="ALWAYS">
                                  <children>
-                                    <ScrollPane fx:id="jScrollPane1" layoutY="0.8000011444091797" onInputMethodTextChanged="#jList1ValueChanged" onMouseClicked="#jList1MouseClicked" onMousePressed="#jList1MousePressed" prefHeight="175.2" prefWidth="600.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                    <ScrollPane fx:id="jScrollPane1" fitToHeight="true" fitToWidth="true" onInputMethodTextChanged="#jList1ValueChanged" onMouseClicked="#jList1MouseClicked" onMousePressed="#jList1MousePressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                                        <content>
-                                          <ListView prefHeight="200.0" prefWidth="596.0" />
+                                          <ListView />
                                        </content>
                                     </ScrollPane>
                                  </children>
                               </AnchorPane>
-                              <ToolBar prefHeight="30.0" prefWidth="600.0">
+                              <ToolBar VBox.vgrow="ALWAYS">
                                 <items>
                                   <Button fx:id="jButtonEdit" mnemonicParsing="false" onAction="#jButtonEditActionPerformed" text="Editar" />
                                     <Button fx:id="jButtonErase" mnemonicParsing="false" onAction="#jButtonEraseActionPerformed" text="Borrar" />
@@ -91,44 +87,44 @@
                            </children>
                         </VBox>
                      </children>
-                  </Pane>
+                  </AnchorPane>
                </content>
             </TitledPane>
-            <TitledPane fx:id="jPanel3" collapsible="false" prefHeight="190.0" prefWidth="600.0" text="Nueva aplicación EJS">
+            <TitledPane fx:id="jPanel3" collapsible="false" text="Nueva aplicación EJS" VBox.vgrow="ALWAYS">
                <content>
-                  <Pane prefHeight="126.0" prefWidth="598.0">
+                  <AnchorPane>
                      <children>
-                        <VBox prefHeight="85.0" prefWidth="600.0">
+                        <VBox prefHeight="220.0" prefWidth="540.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox prefHeight="27.0" prefWidth="600.0">
+                                    <HBox VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Aplicación jar :" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="jTextFieldNameEJSApp" HBox.hgrow="ALWAYS" />
+                                          <Button fx:id="jButton2" mnemonicParsing="false" onAction="#jButton2ActionPerformed" text="Buscar" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                    <HBox VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Parámetros :" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="jTextFieldParam" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                    <HBox VBox.vgrow="ALWAYS">
+                                       <children>
+                                          <Label text="Descripción :" HBox.hgrow="ALWAYS" />
+                                          <TextField fx:id="jTextFieldDescrip" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                              <HBox>
                                  <children>
-                                    <Label text="Aplicación jar :" />
-                                    <TextField fx:id="jTextFieldNameEJSApp" />
-                                    <Button fx:id="jButton2" mnemonicParsing="false" onAction="#jButton2ActionPerformed" text="Buscar" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="26.0" prefWidth="600.0">
-                                 <children>
-                                    <Label text="Parámetros :" />
-                                    <TextField fx:id="jTextFieldParam" />
-                                 </children>
-                              </HBox>
-                              <HBox prefHeight="0.0" prefWidth="600.0">
-                                 <children>
-                                    <Label text="Descripción :" />
-                                    <TextField fx:id="jTextFieldDescrip" />
+                                    <Button fx:id="jButton7" mnemonicParsing="false" onAction="#jButton7ActionPerformed" text="Iniciar" HBox.hgrow="ALWAYS" />
+                                    <Button fx:id="jButtonAñadirModificar" mnemonicParsing="false" onAction="#jButtonAñadirModificarActionPerformed" text="Añadir..." HBox.hgrow="ALWAYS" />
                                  </children>
                               </HBox>
                            </children>
                         </VBox>
-                        <HBox layoutY="83.0" prefHeight="31.0" prefWidth="200.0">
-                           <children>
-                              <Button fx:id="jButton7" mnemonicParsing="false" onAction="#jButton7ActionPerformed" text="Iniciar" />
-                              <Button fx:id="jButtonAñadirModificar" mnemonicParsing="false" onAction="#jButtonAñadirModificarActionPerformed" text="Añadir..." />
-                           </children>
-                        </HBox>
                      </children>
-                  </Pane>
+                  </AnchorPane>
                </content>
             </TitledPane>
          </children>

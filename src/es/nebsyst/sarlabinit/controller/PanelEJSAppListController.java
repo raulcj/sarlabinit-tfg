@@ -362,8 +362,18 @@ public class PanelEJSAppListController implements Initializable {
             panelJarProcessStage = StageManager.getInstance().getStage("PanelJarProcess");
             FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelJarProcess");
             Scene scene = new Scene(fxmlLoader.load());
+            scene.getStylesheets().addAll(
+                    getClass().getResource("../../../styles/base.css").toExternalForm(),
+                    getClass().getResource("../../../styles/buttons.css").toExternalForm(),
+                    getClass().getResource("../../../styles/inputs.css").toExternalForm(),
+                    getClass().getResource("../../../styles/containers.css").toExternalForm(),
+                    getClass().getResource("../../../styles/lists_tables.css").toExternalForm(),
+                    getClass().getResource("../../../styles/extras.css").toExternalForm(),
+                    getClass().getResource("../../../styles/utilities.css").toExternalForm()
+            );
             panelJarProcessStage.setScene(scene);       
         }
+        panelJarProcessStage.setResizable(false);
         panelJarProcessStage.show();
     }  
     

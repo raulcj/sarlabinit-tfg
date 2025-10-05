@@ -309,6 +309,15 @@ import javax.swing.JFrame;
                 panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
                 FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
                 Scene scene = new Scene(fxmlLoader.load());
+                scene.getStylesheets().addAll(
+                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
+                );
                 panelConectionExperienceStage.setScene(scene);
             }
             if (panelConectionExperienceController == null) {
@@ -1243,7 +1252,7 @@ import javax.swing.JFrame;
 /*      */     try {
 /* 1497 */       port = Integer.parseInt(sPort);
 /* 1498 */     } catch (NumberFormatException ex) {
-/* 1499 */       this.jTextFieldDesktop.setText("22");
+/* 1499 */       this.jTextFieldsFTP.setText("22");
 /* 1500 */       port = 22;
 /*      */     } 
 /* 1502 */     //if (registerName != null) {
@@ -1368,6 +1377,15 @@ import javax.swing.JFrame;
                    this.panelListGatewayStage = StageManager.getInstance().getStage("PanelListGateway");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelListGateway");     
                    Scene scene = new Scene(fxmlLoader.load());
+                   scene.getStylesheets().addAll(
+                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
+                    );
                    this.panelListGatewayStage.setScene(scene);
                }    
                
@@ -1393,6 +1411,7 @@ import javax.swing.JFrame;
                     } 
                     toUpdate(); 
                 });   
+               this.panelListGatewayStage.setResizable(false);
                this.panelListGatewayStage.show();
 /*      */   }
  
@@ -1402,6 +1421,15 @@ import javax.swing.JFrame;
                    panelEditConfigLocalStage = StageManager.getInstance().getStage("PanelEditConfigLocal");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEditConfigLocal");
                    Scene scene = new Scene(fxmlLoader.load());
+                   scene.getStylesheets().addAll(
+                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
+                   );
                    panelEditConfigLocalStage.setScene(scene);
                }
                panelEditConfigLocalStage.show();
@@ -1532,6 +1560,15 @@ import javax.swing.JFrame;
                    panelConectionLocalhostStage = StageManager.getInstance().getStage("PanelConectionLocalhost");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionLocalhost");
                    Scene scene = new Scene(fxmlLoader.load());
+                   scene.getStylesheets().addAll(
+                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
+                   );
                    panelConectionLocalhostController = fxmlLoader.getController();             
                    panelConectionLocalhostStage.setScene(scene);
                }
@@ -1558,9 +1595,19 @@ import javax.swing.JFrame;
                    panelNodoFrowardingLStage = StageManager.getInstance().getStage("PanelNodoFrowardingL");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelNodoFrowardingL");
                    Scene scene = new Scene(fxmlLoader.load());
+                   scene.getStylesheets().addAll(
+                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
+                   );
                    panelNodoFrowardingLController = fxmlLoader.getController();             
                    panelNodoFrowardingLStage.setScene(scene);
                }
+               panelNodoFrowardingLStage.setResizable(false);
                panelNodoFrowardingLStage.show();
                panelNodoFrowardingLController.setIpInit();
 /*      */   }
@@ -1590,6 +1637,15 @@ import javax.swing.JFrame;
                    panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
                    Scene scene = new Scene(fxmlLoader.load());
+                   scene.getStylesheets().addAll(
+                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
+                   );
                    panelConectionExperienceStage.setScene(scene);
                }
                if (panelConectionExperienceController == null) {
@@ -1650,6 +1706,15 @@ import javax.swing.JFrame;
                     panelConsoleStage = StageManager.getInstance().getStage("PanelConsole");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConsole");
                     Scene scene = new Scene(fxmlLoader.load());
+                    scene.getStylesheets().addAll(
+                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
+                    );
                     panelConsoleController = fxmlLoader.getController();
                     panelConsoleStage.setScene(scene);
                 }

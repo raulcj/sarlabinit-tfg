@@ -1,17 +1,28 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
 <?import javafx.scene.layout.AnchorPane?>
 <?import javafx.scene.layout.VBox?>
+<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="332.0" prefWidth="465.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebsyst.sarlabinit.controller.PanelMainController">
+<AnchorPane prefHeight="332.0" prefWidth="465.0" styleClass="btn-primary, combo-box-base, container, label" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebsyst.sarlabinit.controller.PanelMainController">
    <children>
-      <VBox layoutX="162.0" layoutY="37.0" prefHeight="332.0" prefWidth="465.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox alignment="CENTER" layoutX="162.0" layoutY="37.0" prefHeight="332.0" prefWidth="465.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label text="Elegir idioma de la aplicación Discovery" />
-            <ComboBox fx:id="langCombo" prefWidth="150.0" />
+            <Label alignment="CENTER" contentDisplay="CENTER" text="Elegir idioma de la aplicación Discovery">
+               <VBox.margin>
+                  <Insets bottom="25.0" top="-50.0" />
+               </VBox.margin>
+               <font>
+                  <Font size="16.0" />
+               </font></Label>
+            <ComboBox fx:id="langCombo" prefWidth="150.0">
+               <VBox.margin>
+                  <Insets bottom="100.0" />
+               </VBox.margin></ComboBox>
             <Button fx:id="bAccept" mnemonicParsing="false" onAction="#bAcceptActionPerformed" text="Aceptar" />
          </children>
       </VBox>

@@ -58,7 +58,16 @@ public class MySystemTrayFX {
                 try {
                     this.restoreStage = StageManager.getInstance().getStage("PanelEJSAppList");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEJSAppList");
-                    Scene scene = new Scene(fxmlLoader.load());
+                    Scene scene = new Scene(fxmlLoader.load());    
+                    scene.getStylesheets().addAll(
+                        getClass().getResource("../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../styles/utilities.css").toExternalForm()
+                    );                 
                     this.restoreStage.setScene(scene);
                     this.restoreStage.show();
                 } catch (IOException e) {
@@ -80,6 +89,15 @@ public class MySystemTrayFX {
                     this.discoveryStage = StageManager.getInstance().getStage("PanelClientServerName");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
                     Scene scene = new Scene(fxmlLoader.load()); 
+                    scene.getStylesheets().addAll(
+                        getClass().getResource("../../../styles/base.css").toExternalForm(),
+                        getClass().getResource("../../../styles/buttons.css").toExternalForm(),
+                        getClass().getResource("../../../styles/inputs.css").toExternalForm(),
+                        getClass().getResource("../../../styles/containers.css").toExternalForm(),
+                        getClass().getResource("../../../styles/lists_tables.css").toExternalForm(),
+                        getClass().getResource("../../../styles/extras.css").toExternalForm(),
+                        getClass().getResource("../../../styles/utilities.css").toExternalForm()
+                    );
                     this.discoveryController = fxmlLoader.getController();
                     this.discoveryStage.setScene(scene);
                     this.discoveryStage.show();
