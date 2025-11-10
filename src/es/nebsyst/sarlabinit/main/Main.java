@@ -5,8 +5,6 @@
 package es.nebsyst.sarlabinit.main;
 
 import java.io.IOException;
-import java.util.Locale;
-import java.util.ResourceBundle;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -29,11 +27,16 @@ public class Main extends Application {
     }
        
     @Override
-    public void start(Stage panelMainStage) throws IOException {
+    public void start(Stage panelMainStage) throws IOException {    
+        // Cargar modulo principal
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelMain.fxml"));    
+        Scene scene = new Scene(fxmlLoader.load()); 
         // Inicializa las clases gestoras Manager
         FXMLLoaderManager fxmlLoaderManager = FXMLLoaderManager.getInstance();
-        StageManager stageManager = StageManager.getInstance();
+        StageManager stageManager = StageManager.getInstance();    
         // Registra los FXML de cada vista
+        // Clase Main
+        fxmlLoaderManager.registerLoader("PanelMain", fxmlLoader);
         // es.nebsyst.sarlabinit
         fxmlLoaderManager.registerLoader("PanelEJSAppList", getPanelEJSAppListLoader());
         fxmlLoaderManager.registerLoader("PanelJarProcess", getPanelJarProcessLoader());
@@ -56,11 +59,7 @@ public class Main extends Application {
         stageManager.registerStage("PanelConsole", getPanelConsoleStage());
         stageManager.registerStage("PanelConectionExperience", getPanelConectionExperienceStage());
         stageManager.registerStage("PanelNodoFrowardingL", getPanelNodoFrowardingLStage());
-        stageManager.registerStage("PanelClientServerName", getDiscoveryStage());
-        // Main stage (PanelMain)
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelMain.fxml"));
-        //fxmlLoader.setResources(ResourceBundle.getBundle("../../../uhu/sarlab/discovery/view/bundle/Bundle.properties", getLocale()));
-        Scene scene = new Scene(fxmlLoader.load()); 
+        stageManager.registerStage("PanelClientServerName", getDiscoveryStage());     
         // Añadir estilos
         scene.getStylesheets().addAll(
                 getClass().getResource("../../../styles/base.css").toExternalForm(),
@@ -93,11 +92,8 @@ public class Main extends Application {
     
     public Stage getPanelEJSAppListStage() {
         Stage stage = new Stage();
-        //Scene scene = new Scene(getPanelJarProcessLoader().load());
-        stage.setTitle("Poner titulo en esta ventana? (PanelEJSAppList)");
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
 
@@ -106,12 +102,9 @@ public class Main extends Application {
     }
     
     public Stage getPanelJarProcessStage() {
-        Stage stage = new Stage();
-        //Scene scene = new Scene(getPanelJarProcessLoader().load());
-        stage.setTitle("Poner titulo en esta ventana? (PanelJarProcess)");
+        Stage stage = new Stage(); 
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
     
@@ -122,13 +115,9 @@ public class Main extends Application {
     }
     
     public Stage getDiscoveryStage() {
-        Stage stage = new Stage(); 
-        //Scene scene = new Scene(getDiscoveryLoader().load());       
-        ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vistaTFG/Bundle_PanelClientServerName");
-        stage.setTitle(bundle.getString("PanelClientServerName.title"));
+        Stage stage = new Stage();      
         Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
 
@@ -138,11 +127,8 @@ public class Main extends Application {
      
     public Stage getPanelListGatewayStage() {
         Stage stage = new Stage();
-        //Scene scene = new Scene(getPanelListGatewayLoader().load());
-        stage.setTitle("Poner titulo en esta ventana? (PanelListGateway)");
         Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
     
@@ -152,11 +138,8 @@ public class Main extends Application {
     
     public Stage getPanelConectionLocalhostStage() {
         Stage stage = new Stage();        
-        //Scene scene = new Scene(getPanelConectionLocalhostLoader().load());
-        stage.setTitle("Poner titulo en esta ventana? (PanelConectionLocalhost)");
         Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
     
@@ -166,11 +149,8 @@ public class Main extends Application {
     
     public Stage getPanelConsoleStage() {
         Stage stage = new Stage();         
-        //Scene scene = new Scene(getPanelConsoleLoader().load());
-        stage.setTitle("Poner titulo en esta ventana? (PanelConsole)");
         Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
     
@@ -180,11 +160,8 @@ public class Main extends Application {
     
     public Stage getPanelEditConfigLocalStage() {
         Stage stage = new Stage();
-       //Scene scene = new Scene(getPanelEditConfigLocalLoader().load());
-        stage.setTitle("Poner titulo en esta ventana? (PanelEditConfigLocal)");
         Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
     
@@ -194,11 +171,8 @@ public class Main extends Application {
          
     public Stage getPanelConectionExperienceStage() {
         Stage stage = new Stage();      
-        //Scene scene = new Scene(getPanelConectionExperienceLoader().load());
-        stage.setTitle("Poner titulo en esta ventana? (PanelConectionExperience)");
         Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
     
@@ -206,14 +180,10 @@ public class Main extends Application {
         return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelNodoFrowardingL.fxml"));
     }
     
-    public Stage getPanelNodoFrowardingLStage() {
+    public Stage getPanelNodoFrowardingLStage() throws IOException {
         Stage stage = new Stage();  
-        //Scene scene = new Scene(getPanelNodoFrowardingLLoader().load());
-        ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelNodoFrowardingL");
-        stage.setTitle(bundle.getString("PanelNodoFrowardingL.title"));
         Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
-        //stage.setScene(scene);
         return stage;
     }
     

@@ -2,8 +2,8 @@
 
 /*      */ import clientsarlab.EJSClientSarlab2;
 /*      */ import clientsarlab.GIOTClientSarlab3;
+import es.nebsyst.sarlabinit.controller.PanelMainController;
 import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
-import es.nebsyst.sarlabinit.main.Main;
 import es.nebsyst.sarlabinit.main.StageManager;
 
 /*      */ import es.uhu.execapp.system.ExecApp;
@@ -20,7 +20,6 @@ import es.uhu.sarlab.discovery.view.model.ProgressBarDiscovery;
 import es.uhu.sarlab.discovery.vista.BarLogo;
 import es.uhu.sarlab.discovery.vista.InterfazBarLogo;
 import javafx.scene.layout.Pane;
-import es.uhu.sarlab.discovery.vista.PanelListGateway;
 /*      */ import es.uhu.sarlab.discovery.webservlet.model.HashMapExperienceWeb;
 /*      */ import es.uhu.sarlab.discovery.webservlet.model.ListForwardingL;
 import es.uhu.sarlab.utils.DirectoryFilesUtility;
@@ -31,17 +30,10 @@ import es.uhu.sarlab.utils.DirectoryFilesUtility;
 import java.awt.Toolkit;
 /*      */ import java.awt.event.ActionEvent;
 /*      */ import java.awt.event.ActionListener;
-/*      */ import java.awt.event.FocusAdapter;
-/*      */ import java.awt.event.FocusEvent;
-/*      */ import java.awt.event.KeyAdapter;
 /*      */ import java.awt.event.KeyEvent;
-import java.awt.event.MouseAdapter;
-/*      */ import java.awt.event.MouseEvent;
 /*      */ import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
 /*      */ import java.io.ByteArrayOutputStream;
-import java.io.FileDescriptor;
-import java.io.FileOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
 /*      */ import java.io.IOException;
@@ -55,21 +47,15 @@ import java.net.URL;
 import java.util.Optional;
 /*      */ import java.util.Properties;
 /*      */ import java.util.ResourceBundle;
-/*      */ import java.util.logging.Level;
-/*      */ import java.util.logging.Logger;
 
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
-/*      */ import javax.swing.UIManager;
-/*      */ import javax.swing.UnsupportedLookAndFeelException;
-/*      */ import modbussarlab.MasterModbus;
+import modbussarlab.MasterModbus;
 
 import org.apache.log4j.PropertyConfigurator;
 import java.util.logging.Logger;
-import java.util.logging.Level;
-import javafx.application.Platform;
 import javafx.beans.value.ChangeListener;
 import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
@@ -78,7 +64,6 @@ import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
 import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Parent;
 import javafx.scene.Scene;
 import javafx.scene.control.Alert;
 import javafx.scene.control.Alert.AlertType;
@@ -90,7 +75,6 @@ import javafx.scene.control.TextField;
 import javafx.scene.control.PasswordField;
 import javafx.scene.control.RadioButton;
 import javafx.scene.control.ListView;
-import javafx.scene.control.ProgressBar;
 import javafx.scene.control.TextInputDialog;
 import javafx.scene.control.TitledPane;
 import javafx.scene.control.ToggleGroup;
@@ -100,9 +84,6 @@ import javafx.scene.image.Image;
 import static javafx.stage.Modality.APPLICATION_MODAL;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-import javax.swing.JFrame;
-
-
 /*      */ 
 /*      */ public class PanelClientServerNameController implements Initializable, InterfazBarLogo, PropertyChangeListener {
     
@@ -146,6 +127,8 @@ import javax.swing.JFrame;
             private Stage panelNodoFrowardingLStage;
             private Stage panelConectionExperienceStage;
             private Stage panelConsoleStage;
+            
+            private PanelMainController panelMainController;
             
             private PanelConectionLocalhostController panelConectionLocalhostController;
             private PanelNodoFrowardingLController panelNodoFrowardingLController;
@@ -275,6 +258,7 @@ import javax.swing.JFrame;
 /*  119 */     this.baos = new ByteArrayOutputStream();
 /*  120 */     this.ps = new PrintStream(this.baos);
 /*  121 */     System.setOut(this.ps);
+               initPanelMainController();
 /*  122 */     initComponents();
 /*  124 */     ButtonEnabled(false); // poner en false
 /*  125 */     this.jButtonTools.setDisable(false); // poner en true
@@ -292,7 +276,7 @@ import javax.swing.JFrame;
                ToggleGroup tGroup = new ToggleGroup();
                jRadioFree.setToggleGroup(tGroup);
                jRadioEnlarge.setToggleGroup(tGroup);
-               jRadioAxi.setToggleGroup(tGroup);        
+               jRadioAxi.setToggleGroup(tGroup);  
 /*      */   }
 
        // INICIO - Added backend
@@ -301,7 +285,40 @@ import javax.swing.JFrame;
            jList1.setItems(ejemplos); 
        }
        // FIN - Added backend
+       
+       // INICIO - Added backend
+       private void initPanelMainController() {
+           FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelMain");
+           this.panelMainController = fxmlLoader.getController();
+       }
+       // FIN - Added backend
     
+       // INICIO - Added backend
+       private String getBundleLanguage() { 
+           String language;          
+           if (this.panelMainController.getSelectedLanguage().equals("English")) {
+               language = "_en_GB";
+           } else {
+               language = "_es_ES";
+           }  
+           return language;
+       }
+       // FIN - Added backend
+       
+       // INICIO - Added backend
+       private void addCss(Scene scene) {
+           scene.getStylesheets().addAll(
+                   getClass().getResource("../../../../styles/base.css").toExternalForm(),
+                   getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
+                   getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
+                   getClass().getResource("../../../../styles/containers.css").toExternalForm(),
+                   getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
+                   getClass().getResource("../../../../styles/extras.css").toExternalForm(),
+                   getClass().getResource("../../../../styles/utilities.css").toExternalForm()
+           );
+       }
+       // FIN - Added backend
+       
        // METODO PARA REALIZAR PRUEBAS
        @FXML
        void jButtonTestActionPerformed() throws IOException {          
@@ -309,22 +326,14 @@ import javax.swing.JFrame;
                 panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
                 FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
                 Scene scene = new Scene(fxmlLoader.load());
-                scene.getStylesheets().addAll(
-                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
-                );
+                addCss(scene);
                 panelConectionExperienceStage.setScene(scene);
             }
             if (panelConectionExperienceController == null) {
                 FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
                 panelConectionExperienceController = fxmlLoader.getController();
             }
-            panelConectionExperienceController.initList();
+            panelConectionExperienceController.initList();      
             panelConectionExperienceStage.show();
        }
 
@@ -444,7 +453,7 @@ import javax.swing.JFrame;
 
               
 
-/*  290 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vistaTFG/Bundle_PanelClientServerName");
+/*  290 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelClientServerName");
 /*  291 */     this.title.setText(bundle.getString("PanelClientServerName.title"));
                this.jLabel2.setText(bundle.getString("PanelClientServerName.jLabel2.text_1"));
 /*      */     
@@ -662,10 +671,20 @@ import javax.swing.JFrame;
                Image iconJButtonForwardingLook = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/busco.png").toExternalForm());
                ImageView iconViewJButtonForwardingLook = new ImageView(iconJButtonForwardingLook);
 /*  437 */     this.jButtonForwardingLook.setGraphic(iconViewJButtonForwardingLook);
+               if (this.panelMainController.getSelectedLanguage().equals("English")) {
+                   this.jButtonForwardingLook.setText("RedirectionLook");
+               } else {
+                   this.jButtonForwardingLook.setText("RedireccionBuscar");
+               } 
 /*  759 */    
                Image iconJButtonProfile = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/ver.png").toExternalForm());
                ImageView iconViewJButtonProfile = new ImageView(iconJButtonProfile);
 /*  437 */     this.jButtonProfile.setGraphic(iconViewJButtonProfile);
+               if (this.panelMainController.getSelectedLanguage().equals("English")) {
+                   this.jButtonProfile.setText("Profile");
+               } else {
+                   this.jButtonProfile.setText("Perfil");
+               } 
 
 /*  858 */     //this.jPanelNavegador.setBorder(BorderFactory.createTitledBorder(bundle.getString("PanelClientServerName.jPanelNavegador.border.title")));
 /*      */     Image iconJButtonNavegador = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/navegador.png").toExternalForm());
@@ -897,10 +916,15 @@ import javax.swing.JFrame;
 /*      */      //} 
              // INICIO - Added message
              Alert mensaje = new Alert(AlertType.INFORMATION);
-             mensaje.setTitle("Información");
-             mensaje.setHeaderText("Conexión RDP establecida.");
+             if (this.panelMainController.getSelectedLanguage().equals("English")) { 
+                mensaje.setTitle("Information");
+                mensaje.setHeaderText("Successful RDP connection.");
+             } else { 
+                mensaje.setTitle("Información");
+                mensaje.setHeaderText("Conexión RDP establecida.");
+             }       
              Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
-             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/Display 48_24x24-32.gif")));
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("/es/uhu/sarlab/discovery/vista/resources/Display 48_24x24-32.gif")));
              mensaje.show();
              // FIN - Added message
 /*      */   }
@@ -1008,10 +1032,15 @@ import javax.swing.JFrame;
 /*      */     //} 
              // INICIO - Added message
              Alert mensaje = new Alert(AlertType.INFORMATION);
-             mensaje.setTitle("Información");
-             mensaje.setHeaderText("Conexión VNC establecida.");
+             if (this.panelMainController.getSelectedLanguage().equals("English")) { 
+                mensaje.setTitle("Information");
+                mensaje.setHeaderText("Successful VNC connection.");
+             } else { 
+                mensaje.setTitle("Información");
+                mensaje.setHeaderText("Conexión VNC establecida.");
+             }    
              Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
-             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/vnc.png")));
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("/es/uhu/sarlab/discovery/vista/resources/vnc.png")));
              mensaje.show();
              // FIN - Added message
 /*      */   }
@@ -1174,10 +1203,15 @@ import javax.swing.JFrame;
 /*      */     //} 
              // INICIO - Added message
              Alert mensaje = new Alert(AlertType.INFORMATION);
-             mensaje.setTitle("Información");
-             mensaje.setHeaderText("Conexión SSH establecida.");
+             if (this.panelMainController.getSelectedLanguage().equals("English")) { 
+                mensaje.setTitle("Information");
+                mensaje.setHeaderText("Successful SSH connection.");
+             } else { 
+                mensaje.setTitle("Información");
+                mensaje.setHeaderText("Conexión SSH establecida.");
+             }    
              Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
-             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/ssh.png")));
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("/es/uhu/sarlab/discovery/vista/resources/ssh.png")));
              mensaje.show();
              // FIN - Added message
 /*      */   }
@@ -1229,10 +1263,15 @@ import javax.swing.JFrame;
 /*      */      //} 
              // INICIO - Added message
              Alert mensaje = new Alert(AlertType.INFORMATION);
-             mensaje.setTitle("Información");
-             mensaje.setHeaderText("Conexión Telnet establecida.");
+             if (this.panelMainController.getSelectedLanguage().equals("English")) { 
+                mensaje.setTitle("Information");
+                mensaje.setHeaderText("Successful Telnet connection.");
+             } else { 
+                mensaje.setTitle("Información");
+                mensaje.setHeaderText("Conexión Telnet establecida.");
+             }    
              Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
-             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/telnet.png")));
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("/es/uhu/sarlab/discovery/vista/resources/telnet.png")));
              mensaje.show();
              // FIN - Added message
 /*      */   }
@@ -1285,10 +1324,15 @@ import javax.swing.JFrame;
 /*      */     //} 
              // INICIO - Added message
              Alert mensaje = new Alert(AlertType.INFORMATION);
-             mensaje.setTitle("Información");
-             mensaje.setHeaderText("Conexión sFTP establecida.");
+             if (this.panelMainController.getSelectedLanguage().equals("English")) { 
+                mensaje.setTitle("Information");
+                mensaje.setHeaderText("Successful sFTP connection.");
+             } else { 
+                mensaje.setTitle("Información");
+                mensaje.setHeaderText("Conexión sFTP establecida.");
+             }    
              Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
-             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/Folder 102_24x24-32.gif")));
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("/es/uhu/sarlab/discovery/vista/resources/Folder 102_24x24-32.gif")));
              mensaje.show();
              // FIN - Added message
 /*      */   }
@@ -1328,10 +1372,15 @@ import javax.swing.JFrame;
 /*      */     //} 
              // INICIO - Added message
              Alert mensaje = new Alert(AlertType.INFORMATION);
-             mensaje.setTitle("Información");
-             mensaje.setHeaderText("Conexión Modbus establecida.");
+             if (this.panelMainController.getSelectedLanguage().equals("English")) { 
+                mensaje.setTitle("Information");
+                mensaje.setHeaderText("Successful Modbus connection.");
+             } else { 
+                mensaje.setTitle("Información");
+                mensaje.setHeaderText("Conexión Modbus establecida.");
+             }    
              Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
-             stage.getIcons().add(new Image(getClass().getResourceAsStream("../vistaTFG/resources/modbus.png")));
+             stage.getIcons().add(new Image(getClass().getResourceAsStream("/es/uhu/sarlab/discovery/vista/resources/modbus.png")));
              mensaje.show();
              // FIN - Added message
 /*      */   }
@@ -1377,15 +1426,7 @@ import javax.swing.JFrame;
                    this.panelListGatewayStage = StageManager.getInstance().getStage("PanelListGateway");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelListGateway");     
                    Scene scene = new Scene(fxmlLoader.load());
-                   scene.getStylesheets().addAll(
-                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
-                    );
+                   addCss(scene);
                    this.panelListGatewayStage.setScene(scene);
                }    
                
@@ -1421,15 +1462,7 @@ import javax.swing.JFrame;
                    panelEditConfigLocalStage = StageManager.getInstance().getStage("PanelEditConfigLocal");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEditConfigLocal");
                    Scene scene = new Scene(fxmlLoader.load());
-                   scene.getStylesheets().addAll(
-                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
-                   );
+                   addCss(scene);
                    panelEditConfigLocalStage.setScene(scene);
                }
                panelEditConfigLocalStage.show();
@@ -1560,15 +1593,7 @@ import javax.swing.JFrame;
                    panelConectionLocalhostStage = StageManager.getInstance().getStage("PanelConectionLocalhost");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionLocalhost");
                    Scene scene = new Scene(fxmlLoader.load());
-                   scene.getStylesheets().addAll(
-                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
-                   );
+                   addCss(scene);
                    panelConectionLocalhostController = fxmlLoader.getController();             
                    panelConectionLocalhostStage.setScene(scene);
                }
@@ -1590,23 +1615,17 @@ import javax.swing.JFrame;
 /*      */ 
 /*      */ 
 /*      */   @FXML
-/*      */   void jButtonForwardingActionPerformed() throws IOException {  
+/*      */   void jButtonForwardingActionPerformed() throws IOException { 
                if (panelNodoFrowardingLStage == null) {
                    panelNodoFrowardingLStage = StageManager.getInstance().getStage("PanelNodoFrowardingL");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelNodoFrowardingL");
                    Scene scene = new Scene(fxmlLoader.load());
-                   scene.getStylesheets().addAll(
-                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
-                   );
+                   addCss(scene);
                    panelNodoFrowardingLController = fxmlLoader.getController();             
                    panelNodoFrowardingLStage.setScene(scene);
                }
+               ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelNodoFrowardingL" + getBundleLanguage());
+               panelNodoFrowardingLStage.setTitle(bundle.getString("PanelNodoFrowardingL.title"));
                panelNodoFrowardingLStage.setResizable(false);
                panelNodoFrowardingLStage.show();
                panelNodoFrowardingLController.setIpInit();
@@ -1637,15 +1656,7 @@ import javax.swing.JFrame;
                    panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
                    Scene scene = new Scene(fxmlLoader.load());
-                   scene.getStylesheets().addAll(
-                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
-                   );
+                   addCss(scene);
                    panelConectionExperienceStage.setScene(scene);
                }
                if (panelConectionExperienceController == null) {
@@ -1706,15 +1717,7 @@ import javax.swing.JFrame;
                     panelConsoleStage = StageManager.getInstance().getStage("PanelConsole");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConsole");
                     Scene scene = new Scene(fxmlLoader.load());
-                    scene.getStylesheets().addAll(
-                        getClass().getResource("../../../../styles/base.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/containers.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/extras.css").toExternalForm(),
-                        getClass().getResource("../../../../styles/utilities.css").toExternalForm()
-                    );
+                    addCss(scene);
                     panelConsoleController = fxmlLoader.getController();
                     panelConsoleStage.setScene(scene);
                 }

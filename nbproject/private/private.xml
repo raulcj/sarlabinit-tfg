@@ -5,7 +5,7 @@
         <group>
             <file>file:/C:/Users/alumno/Documents/NetBeansProjects/sarlabinit-tfg/src/es/nebsyst/sarlabinit/main/Main.java</file>
             <file>file:/C:/Users/alumno/Documents/NetBeansProjects/sarlabinit-tfg/src/es/uhu/sarlab/discovery/controller/PanelClientServerNameController.java</file>
-            <file>file:/C:/Users/alumno/Documents/NetBeansProjects/sarlabinit-tfg/src/es/uhu/sarlab/discovery/view/PanelClientServerName.fxml</file>
+            <file>file:/C:/Users/alumno/Documents/NetBeansProjects/sarlabinit-tfg/src/es/nebsyst/sarlabinit/controller/PanelMainController.java</file>
         </group>
     </open-files>
 </project-private>
