@@ -63,12 +63,12 @@ public class Main extends Application {
         // Añadir estilos
         scene.getStylesheets().addAll(
                 getClass().getResource("../../../styles/base.css").toExternalForm(),
+                getClass().getResource("../../../styles/utilities.css").toExternalForm(),
                 getClass().getResource("../../../styles/buttons.css").toExternalForm(),
                 getClass().getResource("../../../styles/inputs.css").toExternalForm(),
-                getClass().getResource("../../../styles/containers.css").toExternalForm(),
                 getClass().getResource("../../../styles/lists_tables.css").toExternalForm(),
-                getClass().getResource("../../../styles/extras.css").toExternalForm(),
-                getClass().getResource("../../../styles/utilities.css").toExternalForm()
+                getClass().getResource("../../../styles/containers.css").toExternalForm(),
+                getClass().getResource("../../../styles/extras.css").toExternalForm()
         );
         panelMainStage.setTitle("Servicio SARLAB");
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/sarlab.png");   
