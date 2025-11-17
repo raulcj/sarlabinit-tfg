@@ -5,7 +5,6 @@
 import es.nebsyst.sarlabinit.controller.PanelMainController;
 import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.StageManager;
-
 /*      */ import es.uhu.execapp.system.ExecApp;
 /*      */ import es.uhu.sarlab.digexlab.experience.model.Connection;
 /*      */ import es.uhu.sarlab.discovery.ClientGIOTLocatorService;
@@ -25,9 +24,6 @@ import javafx.scene.layout.Pane;
 import es.uhu.sarlab.utils.DirectoryFilesUtility;
 /*      */ import es.uhu.sarlab.utils.OS;
 /*      */ import es.uhu.sarlab.utils.PropertiesFiles;
-/*   
-
-import java.awt.Toolkit;
 /*      */ import java.awt.event.ActionEvent;
 /*      */ import java.awt.event.ActionListener;
 /*      */ import java.awt.event.KeyEvent;
@@ -85,42 +81,34 @@ import static javafx.stage.Modality.APPLICATION_MODAL;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
 /*      */ 
-/*      */ public class PanelClientServerNameController implements Initializable, InterfazBarLogo, PropertyChangeListener {
-    
-/*   62 */   public final static Logger log = Logger.getLogger(PanelClientServerNameController.class.getName());
-/*      */   String userLog;
-/*      */   String passwdLog;
-/*      */   boolean enteruserpas;
-/*      */   BarLogo barLogo;
-/*   71 */   String url = "";
-/*      */   GIOTClientSarlab3 sarlab;
-/*   73 */   DirectoryServiceRegisterName directoryRegisterNameSarlab = null;
-/*   74 */   RegisterGateway registerGatewayOld = null;
-/*   75 */   String myirtualFrontierOld = null;
-/*   76 */   String myURIMyGatewayOld = null;
-/*      */   RegisterName selecRegisterName;
-/*   78 */   int portLocalVLC = 0;
-/*   79 */   int portLocalHTTP = 0;
-/*   80 */   //PanelListGateway listGateway = new PanelListGateway(this);
-/*   81 */   //PanelEditConfigLocal editor = new PanelEditConfigLocal(this);
-/*   82 */   //PanelNodoFrowardingL panelNodoFrowardingL = new PanelNodoFrowardingL(this);
-/*   83 */   //PanelConectionLocalhost panelConectionLocalhost = new PanelConectionLocalhost(this);
-/*   84 */   //PanelConectionExperience panelConectionExperience = new PanelConectionExperience(this);
-/*   85 */   ProgressBarDiscovery progressBar = new ProgressBarDiscovery();
-/*   86 */   //ProgressBar progressBarSave = new ProgressBar();
-/*      */   ProgressMonitor progressMonitor;
-/*   88 */   //PanelConsole consoleText = new PanelConsole(this);
-/*      */   private Task task;
-/*      */   private Sentinel sentinel;
-/*   92 */   String fileNameBase = "host.properties"; 
-/*      */   ServerUDPThread serverUDPThread;
-/*   95 */   ByteArrayOutputStream baos = null;
-/*   96 */   PrintStream ps = null;
-/*   97 */   PrintStream old = System.out;
-/*   99 */   String locale = null; 
 
-            // Se declaran para llevar un control de los Stages usados
-            // Quitar estas declaraciones..
+public class PanelClientServerNameController implements Initializable, InterfazBarLogo, PropertyChangeListener {
+    
+/*   62 */  public final static Logger log = Logger.getLogger(PanelClientServerNameController.class.getName());
+/*      */  String userLog;
+/*      */  String passwdLog;
+/*      */  boolean enteruserpas;
+/*      */  BarLogo barLogo;
+/*   71 */  String url = "";
+/*      */  GIOTClientSarlab3 sarlab;
+/*   73 */  DirectoryServiceRegisterName directoryRegisterNameSarlab = null;
+/*   74 */  RegisterGateway registerGatewayOld = null;
+/*   75 */  String myirtualFrontierOld = null;
+/*   76 */  String myURIMyGatewayOld = null;
+/*      */  RegisterName selecRegisterName;
+/*   78 */  int portLocalVLC = 0;
+/*   79 */  int portLocalHTTP = 0;
+/*   85 */  ProgressBarDiscovery progressBar = new ProgressBarDiscovery();
+/*      */  ProgressMonitor progressMonitor;
+/*      */  private Task task;
+/*      */  private Sentinel sentinel;
+/*   92 */  String fileNameBase = "host.properties"; 
+/*      */  ServerUDPThread serverUDPThread;
+/*   95 */  ByteArrayOutputStream baos = null;
+/*   96 */  PrintStream ps = null;
+/*   97 */  PrintStream old = System.out;
+/*   99 */  String locale = null; 
+
             private Stage panelListGatewayStage;
             private Stage panelEditConfigLocalStage;
             private Stage panelConectionLocalhostStage;
@@ -169,11 +157,8 @@ import javafx.stage.StageStyle;
             @FXML
             public Button jButtonTools; 
             @FXML
-            private Button jButtonVNC; 
-            
-            @FXML
-            private Button jButtonTest;
-            
+            private Button jButtonVNC;           
+            @FXML      
             private Dialog jDialog1; 
             @FXML
             private Label jLabel1; 
@@ -195,16 +180,7 @@ import javafx.stage.StageStyle;
             private Label jLabelTituloService; 
             @FXML
             public ListView<String> jList1; 
-            private Pane jPanel1; 
-            //private Pane jPanel2; --> TitledPane
-            private Pane jPanel3; 
-            private Pane jPanel4; 
-            private Pane jPanel5; 
-            //private Pane jPanel6;--> TitledPane
-            private Pane jPanel7; 
-            private Pane jPanelBotones; 
-            private Pane jPanelNavegador; 
-            
+             
             @FXML
             private TitledPane jPanel2;
             @FXML
@@ -307,15 +283,23 @@ import javafx.stage.StageStyle;
        
        // INICIO - Added backend
        private void addCss(Scene scene) {
-           scene.getStylesheets().addAll(
-                   getClass().getResource("../../../../styles/base.css").toExternalForm(),
-                   getClass().getResource("../../../../styles/utilities.css").toExternalForm(),
-                   getClass().getResource("../../../../styles/buttons.css").toExternalForm(),
-                   getClass().getResource("../../../../styles/inputs.css").toExternalForm(),
-                   getClass().getResource("../../../../styles/lists_tables.css").toExternalForm(),
-                   getClass().getResource("../../../../styles/containers.css").toExternalForm(),
-                   getClass().getResource("../../../../styles/extras.css").toExternalForm()
-           );
+            if (scene.getStylesheets().isEmpty()) {
+                String[] cssPaths = new String[] {
+                    "../../../../styles/base.css",
+                    "../../../../styles/utilities.css",
+                    "../../../../styles/buttons.css",
+                    "../../../../styles/inputs.css",
+                    "../../../../styles/lists_tables.css",
+                    "../../../../styles/containers.css",
+                    "../../../../styles/extras.css",
+                };
+                for (String p : cssPaths) {
+                    URL url = getClass().getResource(p);
+                    if (url != null) {
+                        scene.getStylesheets().add(url.toExternalForm());
+                    }
+                }         
+            }     
        }
        // FIN - Added backend
        
@@ -421,37 +405,23 @@ import javafx.stage.StageStyle;
 /*      */   private void initComponents() {
 /*  225 */     this.buttonGroup1 = new ToggleGroup();
 /*  226 */     this.jDialog1 = new Dialog();
-/*  227 */     this.jPanel4 = new Pane();
 /*  228 */     this.jLabel2 = new Label();
-/*  229 */     this.jPanel5 = new Pane();
 /*  230 */     this.lineausuario = new TextField();
 /*  231 */     this.jLabel7 = new Label();
 /*  232 */     this.jLabel8 = new Label();
 /*  233 */     this.lineapass = new PasswordField();
-/*  234 */     this.jPanel7 = new Pane();
 /*  235 */     this.jButtonLogin = new Button();
-/*  236 */     this.jPanelBotones = new Pane();
-/*  237 */  
-/*  243 */     
-/*  244 */     this.jPanel1 = new Pane();
 /*  245 */     this.jScrollPane1 = new ScrollPane();
-/*  246 */ 
-/*  247 */     this.jPanel3 = new Pane();
 /*  248 */     this.jLabel4 = new Label();
 /*  249 */     this.jLabel5 = new Label();
 /*  250 */     this.jLabel6 = new Label();
 /*  251 */     this.jLabelNetConnect = new Label();
-/*  270 */     this.jPanelNavegador = new Pane();
-/*  274 */     this.jLabel3 = new Label();
-/*      */     
-/*  280 */     //this.jDialog1.setIconImage(getIconImage());
+/*  274 */     this.jLabel3 = new Label();  ;
                this.jDialog1.setWidth(400);
                this.jDialog1.setHeight(219);
                // COMPROBAR SI LA MODALIDAD APLICADA ES OK
 /*  282 */     this.jDialog1.initModality(APPLICATION_MODAL);
 /*  283 */     this.jDialog1.setResizable(false);
-
-              
 
 /*  290 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelClientServerName");
 /*  291 */     this.title.setText(bundle.getString("PanelClientServerName.title"));

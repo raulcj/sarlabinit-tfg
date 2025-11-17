@@ -348,15 +348,7 @@ public class PanelEJSAppListController implements Initializable {
             panelJarProcessStage = StageManager.getInstance().getStage("PanelJarProcess");
             FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelJarProcess");
             Scene scene = new Scene(fxmlLoader.load());
-            scene.getStylesheets().addAll(
-                    getClass().getResource("../../../styles/base.css").toExternalForm(),
-                    getClass().getResource("../../../styles/buttons.css").toExternalForm(),
-                    getClass().getResource("../../../styles/inputs.css").toExternalForm(),
-                    getClass().getResource("../../../styles/containers.css").toExternalForm(),
-                    getClass().getResource("../../../styles/lists_tables.css").toExternalForm(),
-                    getClass().getResource("../../../styles/extras.css").toExternalForm(),
-                    getClass().getResource("../../../styles/utilities.css").toExternalForm()
-            );
+            addCss(scene);
             panelJarProcessStage.setScene(scene);       
         }
         panelJarProcessStage.setResizable(false);
@@ -450,7 +442,27 @@ public class PanelEJSAppListController implements Initializable {
             jTextFieldParam.setText(ejsApp.getSettings());
             jTextFieldDescrip.setText(ejsApp.getDescriction());
         }
-    }          
+    }    
+    
+    private void addCss(Scene scene) {
+        if (scene.getStylesheets().isEmpty()) {
+            String[] cssPaths = new String[] {
+                "../../../styles/base.css",
+                "../../../styles/utilities.css",
+                "../../../styles/buttons.css",
+                "../../../styles/inputs.css",
+                "../../../styles/lists_tables.css",
+                "../../../styles/containers.css",
+                "../../../styles/extras.css",
+            };
+            for (String p : cssPaths) {
+                URL url = getClass().getResource(p);
+                if (url != null) {
+                    scene.getStylesheets().add(url.toExternalForm());
+                }
+            }         
+        }     
+    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

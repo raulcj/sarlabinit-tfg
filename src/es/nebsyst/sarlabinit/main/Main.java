@@ -5,6 +5,7 @@
 package es.nebsyst.sarlabinit.main;
 
 import java.io.IOException;
+import java.net.URL;
 import javafx.application.Application;
 import javafx.application.Platform;
 import javafx.fxml.FXMLLoader;
@@ -61,15 +62,7 @@ public class Main extends Application {
         stageManager.registerStage("PanelNodoFrowardingL", getPanelNodoFrowardingLStage());
         stageManager.registerStage("PanelClientServerName", getDiscoveryStage());     
         // Añadir estilos
-        scene.getStylesheets().addAll(
-                getClass().getResource("../../../styles/base.css").toExternalForm(),
-                getClass().getResource("../../../styles/utilities.css").toExternalForm(),
-                getClass().getResource("../../../styles/buttons.css").toExternalForm(),
-                getClass().getResource("../../../styles/inputs.css").toExternalForm(),
-                getClass().getResource("../../../styles/lists_tables.css").toExternalForm(),
-                getClass().getResource("../../../styles/containers.css").toExternalForm(),
-                getClass().getResource("../../../styles/extras.css").toExternalForm()
-        );
+        addCss(scene);
         panelMainStage.setTitle("Servicio SARLAB");
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/sarlab.png");   
         panelMainStage.getIcons().add(icono);
@@ -84,8 +77,27 @@ public class Main extends Application {
         MySystemTrayFX mySystemTrayFX = new MySystemTrayFX(panelMainStage);
     }
     
-    // SARLABINIT (componentes)
+    private void addCss(Scene scene) {
+        if (scene.getStylesheets().isEmpty()) {
+            String[] cssPaths = new String[] {
+                "../../../styles/base.css",
+                "../../../styles/utilities.css",
+                "../../../styles/buttons.css",
+                "../../../styles/inputs.css",
+                "../../../styles/lists_tables.css",
+                "../../../styles/containers.css",
+                "../../../styles/extras.css",
+            };
+            for (String p : cssPaths) {
+                URL url = getClass().getResource(p);
+                if (url != null) {
+                    scene.getStylesheets().add(url.toExternalForm());
+                }
+            }         
+        }     
+    }
     
+    // SARLABINIT (componentes)
     public FXMLLoader getPanelEJSAppListLoader() {
         return new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
     }
