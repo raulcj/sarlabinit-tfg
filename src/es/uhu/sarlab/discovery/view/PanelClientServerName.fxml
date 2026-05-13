@@ -11,90 +11,118 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.ColumnConstraints?>
 <?import javafx.scene.layout.GridPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.RowConstraints?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="625.0" prefWidth="900.0" styleClass="btn-primary, container, form, label, list-view, radio-button, text-field, titled-pane" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
+<AnchorPane prefHeight="690.0" prefWidth="1040.0" styleClass="panel-discovery-raiz" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelClientServerNameController">
    <children>
-      <VBox layoutX="148.0" layoutY="38.0" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" prefHeight="600.0" prefWidth="900.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <HBox alignment="CENTER" maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
+      <BorderPane styleClass="panel-discovery-contenedor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox alignment="TOP_CENTER" prefWidth="210.0" spacing="18.0" styleClass="panel-discovery-marca" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="79.0" fitWidth="97.0" pickOnBounds="true" preserveRatio="true" translateX="-120.0">
+                  <VBox alignment="CENTER" spacing="10.0" styleClass="panel-discovery-bloque-marca">
+                     <children>
+                        <ImageView fitHeight="70.0" fitWidth="76.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@resources/Network-Remote-Desktop-icon.png" />
+                           </image>
+                        </ImageView>
+                        <Label styleClass="panel-discovery-titulo-marca" text="DISCOVERY" />
+                        <Label fx:id="labelTitle2" alignment="CENTER" styleClass="panel-discovery-subtitulo-marca" text="Examinador LAN" wrapText="true" />
+                     </children>
+                  </VBox>
+                  <Region VBox.vgrow="ALWAYS" />
+                  <ImageView fitHeight="123.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@resources/Network-Remote-Desktop-icon.png" />
-                     </image>
-                  </ImageView>
-                  <Label fx:id="title" prefHeight="60.0" prefWidth="290.0" text="Examinador de red LAN" textAlignment="CENTER">
-                     <font>
-                        <Font size="27.0" />
-                     </font>
-                  </Label>
-                  <ImageView fitHeight="73.0" fitWidth="69.0" pickOnBounds="true" preserveRatio="true" translateX="120.0">
-                     <image>
-                        <Image url="@resources/LAN64x64.png" />
+                        <Image url="@../../../../nebsyst/sarlabinit/resource/sarlab.png" />
                      </image>
                   </ImageView>
                </children>
-            </HBox>
-            <HBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308">
+               <padding>
+                  <Insets bottom="20.0" left="18.0" right="18.0" top="24.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <VBox spacing="16.0" styleClass="panel-discovery-contenido-principal" BorderPane.alignment="CENTER">
                <children>
-                  <TitledPane fx:id="jPanel2" animated="false" collapsible="false" prefHeight="367.0" text="Sistemas" HBox.hgrow="ALWAYS">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="337.0" prefWidth="557.0">
+                  <AnchorPane minHeight="104.0" prefHeight="104.0" styleClass="panel-discovery-cabecera">
+                     <children>
+                        <HBox alignment="CENTER_LEFT" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <VBox prefHeight="337.6" prefWidth="541.6" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <VBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label fx:id="jLabelList" text="           Ip                                        Nombre Nebsyst" />
-                                    <AnchorPane prefHeight="302.0" prefWidth="522.0">
-                                       <children>
-                                          <ListView fx:id="jList1" onMouseClicked="#jList1MouseClicked" prefHeight="300.8" prefWidth="522.4" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0" />
-                                       </children>
-                                    </AnchorPane>
+                                    <Label fx:id="title" styleClass="panel-discovery-titulo-pagina" text="Gestor de conexiones" />
+                                    <Label fx:id="labelDescription" styleClass="panel-discovery-descripcion-pagina" text="Sistemas disponibles &amp; Configuración de servicios" wrapText="true" />
                                  </children>
                               </VBox>
+                              <ImageView fitHeight="64.0" fitWidth="64.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@resources/LAN64x64.png" />
+                                 </image>
+                              </ImageView>
                            </children>
-                        </AnchorPane>
-                    </content>
-                  </TitledPane>
-                  <TitledPane fx:id="jPanel6" animated="false" collapsible="false" prefHeight="363.0" prefWidth="288.0" text="Servicios">
-                    <content>
-                      <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="309.0" prefWidth="206.0">
-                           <children>
-                              <GridPane alignment="CENTER" hgap="20.0" prefHeight="336.8" prefWidth="232.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <columnConstraints>
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                  <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
-                                </columnConstraints>
-                                <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                </rowConstraints>
+                           <padding>
+                              <Insets bottom="18.0" left="20.0" right="20.0" top="18.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <HBox spacing="16.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TitledPane fx:id="jPanel2" animated="false" collapsible="false" maxWidth="Infinity" styleClass="panel-discovery-tarjeta" text="Sistemas" HBox.hgrow="ALWAYS">
+                           <content>
+                              <BorderPane styleClass="panel-discovery-contenido-tarjeta">
+                                 <top>
+                                    <HBox alignment="CENTER_LEFT" spacing="32.0" styleClass="panel-discovery-columnas-lista" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <Label fx:id="jLabelList" maxWidth="Infinity" text="Ip                                        Nombre Nebsyst" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                 </top>
+                                 <center>
+                                    <ListView fx:id="jList1" onMouseClicked="#jList1MouseClicked" styleClass="panel-discovery-lista-sistemas" BorderPane.alignment="CENTER" />
+                                 </center>
+                              </BorderPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane fx:id="jPanel6" animated="false" collapsible="false" maxWidth="360.0" minWidth="320.0" prefWidth="340.0" styleClass="panel-discovery-tarjeta panel-discovery-tarjeta-servicios" text="Servicios">
+                           <content>
+                              <GridPane alignment="CENTER" hgap="14.0" styleClass="panel-discovery-grid-servicios" vgap="9.0">
+                                 <columnConstraints>
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="135.0" prefWidth="155.0" />
+                                    <ColumnConstraints hgrow="SOMETIMES" minWidth="95.0" prefWidth="112.0" />
+                                 </columnConstraints>
+                                 <rowConstraints>
+                                    <RowConstraints minHeight="24.0" prefHeight="28.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="30.0" prefHeight="34.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="30.0" prefHeight="34.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="30.0" prefHeight="34.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="30.0" prefHeight="34.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="30.0" prefHeight="34.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="30.0" prefHeight="34.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="34.0" prefHeight="38.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="34.0" prefHeight="38.0" vgrow="NEVER" />
+                                 </rowConstraints>
                                  <children>
-                                    <Label fx:id="jLabelTituloService" text="Servicio" />
-                                    <Label fx:id="jLabel10" text="Puerto" GridPane.columnIndex="1" />
-                                    <Button fx:id="jButtonDesktop" mnemonicParsing="false" onAction="#jButtonDesktopActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Desktop" GridPane.rowIndex="1" />
-                                    <Button fx:id="jButtonVNC" mnemonicParsing="false" onAction="#jButtonVNCActionPerformed" prefHeight="26.0" prefWidth="120.0" text="VNC" GridPane.rowIndex="2" />
-                                    <Button fx:id="jButtonTelnet" mnemonicParsing="false" onAction="#jButtonTelnetActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Telnet" GridPane.rowIndex="3" />
-                                    <Button fx:id="jButtonSsh" mnemonicParsing="false" onAction="#jButtonSshActionPerformed" prefHeight="26.0" prefWidth="120.0" text="SSH" GridPane.rowIndex="4" />
-                                    <Button fx:id="jButtonSFDTP" mnemonicParsing="false" onAction="#jButtonSFDTPActionPerformed" prefHeight="26.0" prefWidth="120.0" text="sFTP" GridPane.rowIndex="5" />
-                                    <Button fx:id="jButtonModbus" mnemonicParsing="false" onAction="#jButtonModbusActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Modbus" GridPane.rowIndex="6" />
-                                    <Button fx:id="jButtonTools" mnemonicParsing="false" onAction="#jButtonToolsActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Herramientas" GridPane.rowIndex="7" />
-                                    <Button fx:id="jButtonForwarding" mnemonicParsing="false" onAction="#jButtonForwardingActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Redirección" GridPane.rowIndex="8" />
-                                    <Button fx:id="jButtonProfile" mnemonicParsing="false" onAction="#jButtonProfileActionPerformed" prefHeight="26.0" prefWidth="120.0" text="Perfil" GridPane.columnIndex="1" GridPane.rowIndex="7" />
-                                    <Button fx:id="jButtonForwardingLook" mnemonicParsing="false" onAction="#jButtonForwardingLookActionPerformed" prefHeight="26.0" prefWidth="120.0" text="RedirecciónBuscar" GridPane.columnIndex="1" GridPane.rowIndex="8" />
-                                    <TextField fx:id="jTextFieldDesktop" onAction="#jTextFieldDesktopActionPerformed" prefHeight="26.0" prefWidth="72.0" GridPane.columnIndex="1" GridPane.rowIndex="1" />
+                                    <Label fx:id="jLabelTituloService" alignment="CENTER" contentDisplay="CENTER" styleClass="panel-discovery-etiqueta-campo" text="Servicio" textAlignment="CENTER" />
+                                    <Label fx:id="jLabel10" alignment="CENTER" contentDisplay="CENTER" styleClass="panel-discovery-etiqueta-campo" text="Puerto" textAlignment="CENTER" GridPane.columnIndex="1" />
+                                    <Button fx:id="jButtonDesktop" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonDesktopActionPerformed" text="Desktop" GridPane.rowIndex="1" />
+                                    <Button fx:id="jButtonVNC" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonVNCActionPerformed" text="VNC" GridPane.rowIndex="2" />
+                                    <Button fx:id="jButtonTelnet" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonTelnetActionPerformed" text="Telnet" GridPane.rowIndex="3" />
+                                    <Button fx:id="jButtonSsh" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonSshActionPerformed" text="SSH" GridPane.rowIndex="4" />
+                                    <Button fx:id="jButtonSFDTP" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonSFDTPActionPerformed" text="sFTP" GridPane.rowIndex="5" />
+                                    <Button fx:id="jButtonModbus" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonModbusActionPerformed" text="Modbus" GridPane.rowIndex="6" />
+                                    <Button fx:id="jButtonTools" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonToolsActionPerformed" text="Herramientas" GridPane.rowIndex="7" />
+                                    <Button fx:id="jButtonForwarding" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonForwardingActionPerformed" text="Redirección" GridPane.rowIndex="8" />
+                                    <Button fx:id="jButtonProfile" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonProfileActionPerformed" text="Perfil" GridPane.columnIndex="1" GridPane.rowIndex="7" />
+                                    <Button fx:id="jButtonForwardingLook" maxWidth="Infinity" mnemonicParsing="false" onAction="#jButtonForwardingLookActionPerformed" text="RedirecciónBuscar" GridPane.columnIndex="1" GridPane.rowIndex="8" />
+                                    <TextField fx:id="jTextFieldDesktop" onAction="#jTextFieldDesktopActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="1" />
                                     <TextField fx:id="jTextFieldVNC" onAction="#jTextFieldVNCActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="2" />
                                     <TextField fx:id="jTextFieldTelnet" onAction="#jTextFieldTelnetActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="3" />
                                     <TextField fx:id="jTextFieldSsh" onAction="#jTextFieldSshActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="4" />
@@ -102,65 +130,54 @@
                                     <TextField fx:id="jTextFieldModbus" onAction="#jTextFieldModbusActionPerformed" GridPane.columnIndex="1" GridPane.rowIndex="6" />
                                  </children>
                               </GridPane>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                  </TitledPane>
-               </children>
-               <VBox.margin>
-                  <Insets />
-               </VBox.margin>
-            </HBox>
-            <VBox maxHeight="1.7976931348623157E308" maxWidth="1.7976931348623157E308" VBox.vgrow="ALWAYS">
-               <children>
-                  <TitledPane animated="false" collapsible="false" text="Web">
-                    <content>
-                      <AnchorPane>
+                           </content>
+                        </TitledPane>
+                     </children>
+                  </HBox>
+                  <TitledPane animated="false" collapsible="false" maxWidth="Infinity" minHeight="146.0" prefHeight="154.0" styleClass="panel-discovery-tarjeta panel-discovery-tarjeta-web" text="Web">
+                     <content>
+                        <VBox spacing="12.0" styleClass="panel-discovery-contenido-web">
                            <children>
-                              <ToolBar prefHeight="55.2" prefWidth="896.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                <items>
-                                  <Button fx:id="jButtonNavegador" mnemonicParsing="false" onAction="#jButtonNavegadorActionPerformed" text="Navegador" />
-                                    <Label fx:id="jLabel1" alignment="CENTER" contentDisplay="CENTER" text="Puerto" />
-                                    <TextField fx:id="jTextFieldPortNav" onAction="#jTextFieldPortNavActionPerformed" />
-                                    <Label alignment="CENTER" contentDisplay="CENTER" text="URL" />
-                                    <TextField fx:id="jTextFieldURL" onAction="#jTextFieldURLActionPerformed" />
+                              <ToolBar styleClass="panel-discovery-barra-web">
+                                 <items>
+                                    <HBox alignment="CENTER_LEFT" fillHeight="false" maxWidth="Infinity" spacing="12.0" styleClass="panel-discovery-fila-web">
+                                       <children>
+                                          <Button fx:id="jButtonNavegador" mnemonicParsing="false" onAction="#jButtonNavegadorActionPerformed" text="Navegador" />
+                                          <Label fx:id="jLabel1" alignment="CENTER" contentDisplay="CENTER" styleClass="panel-discovery-etiqueta-campo" text="Puerto" />
+                                          <TextField fx:id="jTextFieldPortNav" maxWidth="96.0" onAction="#jTextFieldPortNavActionPerformed" prefWidth="88.0" />
+                                          <Label alignment="CENTER" contentDisplay="CENTER" styleClass="panel-discovery-etiqueta-campo" text="URL" />
+                                          <TextField fx:id="jTextFieldURL" onAction="#jTextFieldURLActionPerformed" HBox.hgrow="ALWAYS" />
+                                       </children>
+                                    </HBox>
+                                 </items>
+                                 <VBox.margin>
+                                    <Insets top="10.0" />
+                                 </VBox.margin>
+                              </ToolBar>
+                              <HBox alignment="CENTER_LEFT" spacing="16.0" styleClass="panel-discovery-opciones-web">
+                                 <children>
                                     <RadioButton fx:id="jRadioFree" mnemonicParsing="false" onAction="#jRadioFreeActionPerformed" text="URI Libre" />
                                     <RadioButton fx:id="jRadioEnlarge" mnemonicParsing="false" onAction="#jRadioEnlargeActionPerformed" text="Cámara UHU mjpg" />
                                     <RadioButton fx:id="jRadioAxi" mnemonicParsing="false" onAction="#jRadioAxiActionPerformed" text="Cámara Axis" />
-                                </items>
-                              </ToolBar>
-                           </children>
-                        </AnchorPane>
-                    </content>
-                     <VBox.margin>
-                        <Insets />
-                     </VBox.margin>
-                  </TitledPane>
-                  <TitledPane collapsible="false">
-                     <content>
-                        
-                          
-                              <AnchorPane>
-                                 <children>
-                                    <HBox alignment="CENTER_LEFT" prefHeight="55.2" prefWidth="896.8" spacing="5.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                                       <children>
-                                        <Button fx:id="jButtonActualizar" mnemonicParsing="false" onAction="#jButtonActualizarActionPerformed" text="Actualizar" />
-                                          <Button fx:id="jButtonRemoto" mnemonicParsing="false" onAction="#jButtonRemotoActionPerformed" text="Acceso remoto" />
-                                          <Button fx:id="jButtonLocal" mnemonicParsing="false" onAction="#jButtonLocalActionPerformed" text="Acceso local" />
-                                          <Button fx:id="jButtonConfiguracionLocal" mnemonicParsing="false" onAction="#jButtonConfiguracionLocalActionPerformed" text="Configuración local" />
-                                          <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Consola" />
-                                          <Button fx:id="jButtonTest" mnemonicParsing="false" onAction="#jButtonTestActionPerformed" text="Test" />
-                                       </children>
-                                    </HBox>
                                  </children>
-                              </AnchorPane>
+                              </HBox>
+                           </children>
+                        </VBox>
                      </content>
                   </TitledPane>
-                     
-                  
+                  <HBox alignment="CENTER_LEFT" spacing="12.0" styleClass="panel-discovery-botonera-inferior">
+                     <children>
+                        <Button fx:id="jButtonActualizar" mnemonicParsing="false" onAction="#jButtonActualizarActionPerformed" text="Actualizar" />
+                        <Region HBox.hgrow="ALWAYS" />
+                        <Button fx:id="jButtonRemoto" mnemonicParsing="false" onAction="#jButtonRemotoActionPerformed" text="Acceso remoto" />
+                        <Button fx:id="jButtonLocal" mnemonicParsing="false" onAction="#jButtonLocalActionPerformed" text="Acceso local" />
+                        <Button fx:id="jButtonConfiguracionLocal" mnemonicParsing="false" onAction="#jButtonConfiguracionLocalActionPerformed" text="Configuración local" />
+                        <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Consola" />
+                     </children>
+                  </HBox>
                </children>
             </VBox>
-         </children>
-      </VBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

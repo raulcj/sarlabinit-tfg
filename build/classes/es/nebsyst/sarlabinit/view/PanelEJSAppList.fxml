@@ -11,123 +11,157 @@
 <?import javafx.scene.image.Image?>
 <?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.BorderPane?>
 <?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
-<?import javafx.scene.text.Text?>
 
-<AnchorPane prefHeight="600.0" prefWidth="725.0" styleClass="surface" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebsyst.sarlabinit.controller.PanelEJSAppListController">
+<AnchorPane prefHeight="640.0" prefWidth="860.0" styleClass="panel-ejs-raiz" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebsyst.sarlabinit.controller.PanelEJSAppListController">
    <children>
-      <VBox styleClass="form" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-         <children>
-            <AnchorPane fx:id="jPanel1" VBox.vgrow="ALWAYS">
+      <BorderPane styleClass="panel-ejs-contenedor" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+         <left>
+            <VBox alignment="TOP_CENTER" prefWidth="196.0" spacing="18.0" styleClass="panel-ejs-marca" BorderPane.alignment="CENTER">
                <children>
-                  <ImageView fitHeight="87.0" fitWidth="156.0" layoutX="26.0" layoutY="18.0" pickOnBounds="true" preserveRatio="true">
+                  <VBox alignment="CENTER" spacing="10.0" styleClass="panel-ejs-bloque-marca">
+                     <children>
+                        <ImageView fitHeight="85.0" fitWidth="160.0" pickOnBounds="true" preserveRatio="true">
+                           <image>
+                              <Image url="@../resource/Enlarge_Banner.png" />
+                           </image>
+                        </ImageView>
+                     </children>
+                  </VBox>
+                  <Label styleClass="panel-discovery-titulo-marca" text="SARLABINIT" />
+                  <Label alignment="CENTER" styleClass="panel-discovery-subtitulo-marca" text="Gestor EJS" wrapText="true" /> 
+                  <Region VBox.vgrow="ALWAYS" />
+                  <ImageView fitHeight="37.0" fitWidth="124.0" pickOnBounds="true" preserveRatio="true">
                      <image>
-                        <Image url="@../resource/Enlarge_Banner.png" />
+                        <Image url="@../resource/sarlab.png" />
                      </image>
                   </ImageView>
-                  <Text layoutX="240.0" layoutY="53.0" strokeType="OUTSIDE" strokeWidth="0.0" text="Gestión de servicios EJSApp">
-                     <font>
-                        <Font size="23.0" />
-                     </font>
-                  </Text>
                </children>
-            </AnchorPane>
-            <TitledPane fx:id="jPanel2" collapsible="false" text="Servicios" VBox.vgrow="ALWAYS">
-               <content>
-                  <AnchorPane>
+               <padding>
+                  <Insets bottom="20.0" left="18.0" right="18.0" top="24.0" />
+               </padding>
+            </VBox>
+         </left>
+         <center>
+            <VBox spacing="16.0" styleClass="panel-ejs-contenido-principal" BorderPane.alignment="CENTER">
+               <children>
+                  <AnchorPane fx:id="jPanel1" minHeight="104.0" prefHeight="104.0" styleClass="panel-ejs-cabecera">
                      <children>
-                        <VBox prefHeight="474.4" prefWidth="520.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                        <HBox alignment="CENTER_LEFT" spacing="16.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
                            <children>
-                              <HBox alignment="BOTTOM_LEFT" spacing="50.0" styleClass="form" VBox.vgrow="ALWAYS">
+                             
+                              <VBox alignment="CENTER_LEFT" spacing="5.0" HBox.hgrow="ALWAYS">
                                  <children>
-                                    <Label alignment="BOTTOM_CENTER" contentDisplay="BOTTOM" text="Aplicacion jar" HBox.hgrow="ALWAYS">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label text="Parametros en linea" HBox.hgrow="ALWAYS">
-                                       <HBox.margin>
-                                          <Insets />
-                                       </HBox.margin>
-                                    </Label>
-                                    <Label text="Descripcion" HBox.hgrow="ALWAYS" />
+                                    <Label styleClass="panel-ejs-titulo-pagina" text="Gestión de servicios EJSApp" />
+                                    <Label styleClass="panel-ejs-descripcion-pagina" text="Servicios &amp; Aplicaciones EJS disponibles" wrapText="true" />
                                  </children>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                              </HBox>
-                              <AnchorPane VBox.vgrow="ALWAYS">
-                                 <children>
-                                    <ScrollPane fx:id="jScrollPane1" fitToHeight="true" fitToWidth="true" onInputMethodTextChanged="#jList1ValueChanged" onMouseClicked="#jList1MouseClicked" onMousePressed="#jList1MousePressed" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              </VBox>
+                              <ImageView fitHeight="60.0" fitWidth="60.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resource/execjar64.png" />
+                                 </image>
+                              </ImageView>
+                           </children>
+                           <padding>
+                              <Insets bottom="18.0" left="20.0" right="20.0" top="18.0" />
+                           </padding>
+                        </HBox>
+                     </children>
+                  </AnchorPane>
+                  <VBox spacing="16.0" VBox.vgrow="ALWAYS">
+                     <children>
+                        <TitledPane fx:id="jPanel2" collapsible="false" maxWidth="Infinity" styleClass="panel-ejs-tarjeta" text="Servicios" VBox.vgrow="ALWAYS">
+                           <content>
+                              <BorderPane styleClass="panel-ejs-contenido-tarjeta">
+                                 <top>
+                                    <VBox spacing="8.0" styleClass="panel-ejs-resumen-lista" BorderPane.alignment="CENTER">
+                                       <children>
+                                          <HBox alignment="CENTER_LEFT" fillHeight="false" spacing="46.0" styleClass="panel-ejs-columnas-lista">
+                                             <children>
+                                                <Label alignment="CENTER" maxWidth="Infinity" minWidth="135.0" prefWidth="165.0" text="Aplicación jar" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" maxWidth="Infinity" minWidth="135.0" prefWidth="165.0" text="Parámetros" HBox.hgrow="ALWAYS" />
+                                                <Label alignment="CENTER" maxWidth="Infinity" minWidth="135.0" prefWidth="165.0" text="Descripción" HBox.hgrow="ALWAYS" />
+                                             </children>
+                                          </HBox>
+                                       </children>
+                                    </VBox>
+                                 </top>
+                                 <center>
+                                    <ScrollPane fx:id="jScrollPane1" fitToHeight="true" fitToWidth="true" onInputMethodTextChanged="#jList1ValueChanged" styleClass="panel-ejs-scroll-lista" BorderPane.alignment="CENTER">
                                        <content>
-                                          <ListView />
+                                          <ListView fx:id="jList1" onMouseClicked="#jList1MouseClicked" onMousePressed="#jList1MousePressed" />
                                        </content>
                                     </ScrollPane>
-                                 </children>
-                              </AnchorPane>
-                              <ToolBar VBox.vgrow="ALWAYS">
-                                <items>
-                                  <Button fx:id="jButtonEdit" mnemonicParsing="false" onAction="#jButtonEditActionPerformed" text="Editar" />
-                                    <Button fx:id="jButtonErase" mnemonicParsing="false" onAction="#jButtonEraseActionPerformed" text="Borrar" />
-                                    <Button fx:id="jButtonNew" mnemonicParsing="false" onAction="#jButtonNewActionPerformed" text="Nuevo" />
-                                    <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Ejecutar" />
-                                    <Button fx:id="jButton3" mnemonicParsing="false" onAction="#jButton3ActionPerformed" text="Parar" />
-                                    <Button fx:id="jButton4" mnemonicParsing="false" onAction="#jButton4ActionPerformed" text="ListPS" />
-                                    <Button fx:id="jButton5" mnemonicParsing="false" onAction="#jButton5ActionPerformed" text="Subir" />
-                                </items>
-                                 <VBox.margin>
-                                    <Insets />
-                                 </VBox.margin>
-                                 <opaqueInsets>
-                                    <Insets />
-                                 </opaqueInsets>
-                              </ToolBar>
-                           </children>
-                        </VBox>
-                     </children>
-                  </AnchorPane>
-               </content>
-            </TitledPane>
-            <TitledPane fx:id="jPanel3" collapsible="false" text="Nueva aplicación EJS" VBox.vgrow="ALWAYS">
-               <content>
-                  <AnchorPane>
-                     <children>
-                        <VBox prefHeight="220.0" prefWidth="540.8" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
-                           <children>
-                                    <HBox VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <Label text="Aplicación jar :" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="jTextFieldNameEJSApp" HBox.hgrow="ALWAYS" />
-                                          <Button fx:id="jButton2" mnemonicParsing="false" onAction="#jButton2ActionPerformed" text="Buscar" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <Label text="Parámetros :" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="jTextFieldParam" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                                    <HBox VBox.vgrow="ALWAYS">
-                                       <children>
-                                          <Label text="Descripción :" HBox.hgrow="ALWAYS" />
-                                          <TextField fx:id="jTextFieldDescrip" HBox.hgrow="ALWAYS" />
-                                       </children>
-                                    </HBox>
-                              <HBox>
+                                 </center>
+                                 <bottom>
+                                    <ToolBar styleClass="panel-ejs-barra-acciones panel-ejs-barra-herramientas" BorderPane.alignment="CENTER">
+                                       <items>
+                                          <HBox alignment="CENTER_LEFT" fillHeight="false" maxWidth="Infinity" spacing="14.0" styleClass="panel-ejs-fila-acciones">
+                                             <children>
+                                                <Button fx:id="jButtonEdit" mnemonicParsing="false" onAction="#jButtonEditActionPerformed" text="Editar" />
+                                                <Button fx:id="jButtonErase" mnemonicParsing="false" onAction="#jButtonEraseActionPerformed" text="Borrar" />
+                                                <Button fx:id="jButtonNew" mnemonicParsing="false" onAction="#jButtonNewActionPerformed" text="Nuevo" />
+                                                <Button fx:id="jButton1" mnemonicParsing="false" onAction="#jButton1ActionPerformed" text="Ejecutar" />
+                                                <Button fx:id="jButton3" mnemonicParsing="false" onAction="#jButton3ActionPerformed" text="Parar" />
+                                                <Button fx:id="jButton4" mnemonicParsing="false" onAction="#jButton4ActionPerformed" text="ListPS" />
+                                                <Button fx:id="jButton5" mnemonicParsing="false" onAction="#jButton5ActionPerformed" text="Subir" />
+                                             </children>
+                                          </HBox>
+                                       </items>
+                                    </ToolBar>
+                                 </bottom>
+                              </BorderPane>
+                           </content>
+                        </TitledPane>
+                        <TitledPane fx:id="jPanel3" collapsible="false" maxWidth="Infinity" minHeight="170.0" prefHeight="185.0" styleClass="panel-ejs-tarjeta" text="Nueva aplicación EJS">
+                           <content>
+                              <VBox spacing="13.0" styleClass="panel-ejs-contenido-formulario">
                                  <children>
-                                    <Button fx:id="jButton7" mnemonicParsing="false" onAction="#jButton7ActionPerformed" text="Iniciar" HBox.hgrow="ALWAYS" />
-                                    <Button fx:id="jButtonAñadirModificar" mnemonicParsing="false" onAction="#jButtonAñadirModificarActionPerformed" text="Añadir..." HBox.hgrow="ALWAYS" />
+                                    <HBox alignment="BOTTOM_LEFT" spacing="14.0">
+                                       <children>
+                                          <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="panel-ejs-etiqueta-campo" text="Aplicación jar" />
+                                                <HBox spacing="8.0">
+                                                   <children>
+                                                      <TextField fx:id="jTextFieldNameEJSApp" HBox.hgrow="ALWAYS" />
+                                                      <Button fx:id="jButton2" mnemonicParsing="false" onAction="#jButton2ActionPerformed" text="Buscar" />
+                                                   </children>
+                                                </HBox>
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="panel-ejs-etiqueta-campo" text="Parámetros" />
+                                                <TextField fx:id="jTextFieldParam" />
+                                             </children>
+                                          </VBox>
+                                          <VBox spacing="5.0" HBox.hgrow="ALWAYS">
+                                             <children>
+                                                <Label styleClass="panel-ejs-etiqueta-campo" text="Descripción" />
+                                                <TextField fx:id="jTextFieldDescrip" />
+                                             </children>
+                                          </VBox>
+                                       </children>
+                                    </HBox>
+                                    <HBox alignment="CENTER_RIGHT" spacing="10.0" styleClass="panel-ejs-acciones-formulario">
+                                       <children>
+                                          <Button fx:id="jButton7" mnemonicParsing="false" onAction="#jButton7ActionPerformed" text="Iniciar" />
+                                          <Button fx:id="jButtonAñadirModificar" mnemonicParsing="false" onAction="#jButtonAñadirModificarActionPerformed" text="Añadir..." />
+                                       </children>
+                                    </HBox>
                                  </children>
-                              </HBox>
-                           </children>
-                        </VBox>
+                              </VBox>
+                           </content>
+                        </TitledPane>
                      </children>
-                  </AnchorPane>
-               </content>
-            </TitledPane>
-         </children>
-      </VBox>
+                  </VBox>
+               </children>
+            </VBox>
+         </center>
+      </BorderPane>
    </children>
 </AnchorPane>

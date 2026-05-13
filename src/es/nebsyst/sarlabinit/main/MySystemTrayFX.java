@@ -11,7 +11,6 @@ import javafx.fxml.FXMLLoader;
 import javafx.scene.Scene;
 import javafx.stage.Stage;
 import java.io.IOException;
-import java.net.URL;
 import java.util.logging.Level;
 import java.util.logging.Logger;
 import javafx.scene.control.MenuItem;
@@ -59,9 +58,9 @@ public class MySystemTrayFX {
                 try {
                     this.restoreStage = StageManager.getInstance().getStage("PanelEJSAppList");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEJSAppList");
-                    Scene scene = new Scene(fxmlLoader.load());    
-                    addCss(scene);
+                    Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
                     this.restoreStage.setScene(scene);
+                    this.restoreStage.setMaximized(true);
                     this.restoreStage.show();
                 } catch (IOException e) {
                     Logger.getLogger(MySystemTrayFX.class.getName()).log(Level.SEVERE, null, e);
@@ -69,6 +68,7 @@ public class MySystemTrayFX {
             } else {
                 this.restoreStage.show();
                 if (this.restoreStage.isIconified()) {
+                    this.restoreStage.setMaximized(true);
                     this.restoreStage.show();
                 }
             }
@@ -81,10 +81,10 @@ public class MySystemTrayFX {
                 try {
                     this.discoveryStage = StageManager.getInstance().getStage("PanelClientServerName");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
-                    Scene scene = new Scene(fxmlLoader.load()); 
-                    addCss(scene);
+                    Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
                     this.discoveryController = fxmlLoader.getController();
                     this.discoveryStage.setScene(scene);
+                    this.discoveryStage.setMaximized(true);
                     this.discoveryStage.show();
                 } catch (IOException e) {
                     Logger.getLogger(MySystemTrayFX.class.getName()).log(Level.SEVERE, null, e);
@@ -97,6 +97,7 @@ public class MySystemTrayFX {
             } else {
                 this.discoveryStage.show();
                 if (this.discoveryStage.isIconified()) {
+                    this.discoveryStage.setMaximized(true);
                     this.discoveryStage.show();
                 }     
                 if (this.discoveryController == null) {
@@ -109,26 +110,6 @@ public class MySystemTrayFX {
             // Esconder PanelMain al abrir Discovery
             mainStage.hide();
         });
-    }
-    
-    private void addCss(Scene scene) {
-        if (scene.getStylesheets().isEmpty()) {
-            String[] cssPaths = new String[] {
-                "../../../styles/base.css",
-                "../../../styles/utilities.css",
-                "../../../styles/buttons.css",
-                "../../../styles/inputs.css",
-                "../../../styles/lists_tables.css",
-                "../../../styles/containers.css",
-                "../../../styles/extras.css",
-            };
-            for (String p : cssPaths) {
-                URL url = getClass().getResource(p);
-                if (url != null) {
-                    scene.getStylesheets().add(url.toExternalForm());
-                }
-            }         
-        }     
     }
 
     private void exitApplication() {

@@ -1,5 +1,6 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
+<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.CheckBox?>
 <?import javafx.scene.control.Label?>
@@ -15,9 +16,9 @@
 <?import javafx.scene.layout.VBox?>
 
 
-<AnchorPane prefHeight="467.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelEditConfigLocalController">
+<AnchorPane prefHeight="620.0" prefWidth="534.0" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.uhu.sarlab.discovery.controller.PanelEditConfigLocalController">
    <children>
-      <VBox prefHeight="467.0" prefWidth="534.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <VBox prefHeight="620.0" prefWidth="534.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
             <AnchorPane prefHeight="119.0" prefWidth="534.0">
                <children>
@@ -42,29 +43,32 @@
                   </TitledPane>
                </children>
             </AnchorPane>
-            <AnchorPane prefHeight="348.0" prefWidth="534.0">
+            <AnchorPane prefHeight="501.0" prefWidth="534.0">
                <children>
-                  <TitledPane fx:id="jPanel3" animated="false" collapsible="false" prefHeight="301.6" prefWidth="534.4" text="Editor de servicios" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
+                  <TitledPane fx:id="jPanel3" animated="false" collapsible="false" prefHeight="491.0" prefWidth="534.4" text="Editor de servicios" AnchorPane.bottomAnchor="5.0" AnchorPane.leftAnchor="5.0" AnchorPane.rightAnchor="5.0" AnchorPane.topAnchor="5.0">
                     <content>
                       <AnchorPane minHeight="0.0" minWidth="0.0" prefHeight="180.0" prefWidth="200.0">
                            <children>
-                              <GridPane prefHeight="312.0" prefWidth="523.2" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                              <GridPane hgap="18.0" prefHeight="450.0" prefWidth="523.2" vgap="9.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+                                 <padding>
+                                    <Insets bottom="18.0" left="16.0" right="16.0" top="16.0" />
+                                 </padding>
                                 <columnConstraints>
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                   <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                     <ColumnConstraints hgrow="SOMETIMES" minWidth="10.0" prefWidth="100.0" />
                                 </columnConstraints>
                                 <rowConstraints>
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                  <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
-                                    <RowConstraints minHeight="10.0" prefHeight="30.0" vgrow="SOMETIMES" />
+                                  <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                  <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                  <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="26.0" prefHeight="28.0" vgrow="NEVER" />
+                                    <RowConstraints minHeight="52.0" prefHeight="60.0" vgrow="NEVER" />
                                 </rowConstraints>
                                  <children>
                                     <Label fx:id="jLabel2" text="Label" />
@@ -93,7 +97,11 @@
                                     <CheckBox fx:id="jCheckBoxsFTP" mnemonicParsing="false" onAction="#jCheckBoxsFTPActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="5" />
                                     <CheckBox fx:id="jCheckBoxModbus" mnemonicParsing="false" onAction="#jCheckBoxModbusActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="6" />
                                     <CheckBox fx:id="jCheckBoxHttp" mnemonicParsing="false" onAction="#jCheckBoxHttpActionPerformed" GridPane.columnIndex="2" GridPane.rowIndex="7" />
-                                    <Button fx:id="jButtonSave" mnemonicParsing="false" onAction="#jButtonSaveActionPerformed" text="Salvar" GridPane.columnIndex="1" GridPane.rowIndex="9" />
+                                    <Button fx:id="jButtonSave" mnemonicParsing="false" onAction="#jButtonSaveActionPerformed" text="Salvar" GridPane.columnIndex="1" GridPane.rowIndex="9">
+                                       <GridPane.margin>
+                                          <Insets bottom="12.0" top="16.0" />
+                                       </GridPane.margin>
+                                    </Button>
                                  </children>
                               </GridPane>
                            </children>

@@ -1,32 +1,51 @@
 <?xml version="1.0" encoding="UTF-8"?>
 
-<?import javafx.geometry.Insets?>
 <?import javafx.scene.control.Button?>
 <?import javafx.scene.control.ComboBox?>
 <?import javafx.scene.control.Label?>
+<?import javafx.scene.image.Image?>
+<?import javafx.scene.image.ImageView?>
 <?import javafx.scene.layout.AnchorPane?>
+<?import javafx.scene.layout.HBox?>
+<?import javafx.scene.layout.Region?>
+<?import javafx.scene.layout.StackPane?>
 <?import javafx.scene.layout.VBox?>
-<?import javafx.scene.text.Font?>
 
-<AnchorPane prefHeight="332.0" prefWidth="465.0" styleClass="btn-primary, combo-box-base, container, label" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebsyst.sarlabinit.controller.PanelMainController">
+<AnchorPane prefHeight="360.0" prefWidth="560.0" styleClass="panelmain-root" xmlns="http://javafx.com/javafx/21.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="es.nebsyst.sarlabinit.controller.PanelMainController">
    <children>
-      <VBox alignment="CENTER" layoutX="162.0" layoutY="37.0" prefHeight="332.0" prefWidth="465.0" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
+      <StackPane styleClass="panelmain-wrapper" AnchorPane.bottomAnchor="0.0" AnchorPane.leftAnchor="0.0" AnchorPane.rightAnchor="0.0" AnchorPane.topAnchor="0.0">
          <children>
-            <Label alignment="CENTER" contentDisplay="CENTER" text="Elegir idioma de la aplicación Discovery">
-               <VBox.margin>
-                  <Insets bottom="25.0" top="-50.0" />
-               </VBox.margin>
-               <font>
-                  <Font size="16.0" />
-               </font></Label>
-            <ComboBox fx:id="langCombo" prefWidth="150.0">
-               <VBox.margin>
-                  <Insets bottom="100.0" />
-               </VBox.margin></ComboBox>
-            <Button fx:id="bAccept" mnemonicParsing="false" onAction="#bAcceptActionPerformed" text="Aceptar" />
+            <HBox alignment="CENTER" maxHeight="250.0" maxWidth="480.0" prefHeight="250.0" prefWidth="480.0" styleClass="panelmain-card">
+               <children>
+                  <StackPane prefHeight="250.0" prefWidth="155.0" styleClass="panelmain-brand-panel">
+                     <children>
+                        <VBox alignment="CENTER" spacing="12.0" styleClass="panelmain-brand-content">
+                           <children>
+                              <ImageView fitHeight="43.0" fitWidth="123.0" pickOnBounds="true" preserveRatio="true">
+                                 <image>
+                                    <Image url="@../resource/sarlab.png" />
+                                 </image>
+                              </ImageView>
+                              <Region prefHeight="8.0" prefWidth="84.0" styleClass="panelmain-brand-line-primary" />
+                              <Region prefHeight="8.0" prefWidth="58.0" styleClass="panelmain-brand-line-secondary" />
+                           </children>
+                        </VBox>
+                     </children>
+                  </StackPane>
+                  <VBox alignment="CENTER_LEFT" prefHeight="250.0" spacing="22.0" styleClass="panelmain-content" HBox.hgrow="ALWAYS">
+                     <children>
+                        <Label alignment="CENTER_LEFT" contentDisplay="CENTER" styleClass="panelmain-title" text="Elegir idioma de Discovery" wrapText="true" />
+                        <ComboBox fx:id="langCombo" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="230.0" />
+                        <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" styleClass="panelmain-actions">
+                           <children>
+                              <Button fx:id="bAccept" minWidth="130.0" mnemonicParsing="false" onAction="#bAcceptActionPerformed" text="Aceptar" />
+                           </children>
+                        </HBox>
+                     </children>
+                  </VBox>
+               </children>
+            </HBox>
          </children>
-      </VBox>
+      </StackPane>
    </children>
-  
-
 </AnchorPane>

@@ -22,6 +22,7 @@ public class PanelMainController implements Initializable {
     
     private Stage panelMainStage;
     private Stage discoveryStage;
+    private Stage restoreStage;
     @FXML
     private ComboBox<String> langCombo;
     @FXML
@@ -44,18 +45,12 @@ public class PanelMainController implements Initializable {
        langCombo.setValue("Español"); // valor por defecto seleccionado
        langCombo.setOnAction(e -> {
            String seleccion = langCombo.getSelectionModel().getSelectedItem();
-           if (!seleccion.equals("English")) seleccion = "Español"; // valor por defecto configurado
            if (seleccion.equals("English")) {
                Locale.setDefault(Locale.UK);
                ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelClientServerName_en_GB");
                this.discoveryStage = StageManager.getInstance().getStage("PanelClientServerName");
                this.discoveryStage.setTitle(bundle.getString("PanelClientServerName.title"));
-           } else {
-               Locale.setDefault(Locale.getDefault());
-               ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelClientServerName_es_ES");
-               this.discoveryStage = StageManager.getInstance().getStage("PanelClientServerName");
-               this.discoveryStage.setTitle(bundle.getString("PanelClientServerName.title"));
-           }         
+           }     
        });
     }
     

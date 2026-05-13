@@ -11,6 +11,7 @@ import es.nebsyst.sarlabinit.daemon.model.EjsApp;
 import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.Main;
 import es.nebsyst.sarlabinit.main.StageManager;
+import es.nebsyst.sarlabinit.main.StyleManager;
 import es.nebsyst.util.OS;
 import java.io.File;
 import java.io.FileNotFoundException;
@@ -347,11 +348,11 @@ public class PanelEJSAppListController implements Initializable {
         if (panelJarProcessStage == null) {
             panelJarProcessStage = StageManager.getInstance().getStage("PanelJarProcess");
             FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelJarProcess");
-            Scene scene = new Scene(fxmlLoader.load());
-            addCss(scene);
+            Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
             panelJarProcessStage.setScene(scene);       
         }
         panelJarProcessStage.setResizable(false);
+        panelJarProcessStage.setTitle("Lista de procesos");
         panelJarProcessStage.show();
     }  
     
@@ -443,26 +444,6 @@ public class PanelEJSAppListController implements Initializable {
             jTextFieldDescrip.setText(ejsApp.getDescriction());
         }
     }    
-    
-    private void addCss(Scene scene) {
-        if (scene.getStylesheets().isEmpty()) {
-            String[] cssPaths = new String[] {
-                "../../../styles/base.css",
-                "../../../styles/utilities.css",
-                "../../../styles/buttons.css",
-                "../../../styles/inputs.css",
-                "../../../styles/lists_tables.css",
-                "../../../styles/containers.css",
-                "../../../styles/extras.css",
-            };
-            for (String p : cssPaths) {
-                URL url = getClass().getResource(p);
-                if (url != null) {
-                    scene.getStylesheets().add(url.toExternalForm());
-                }
-            }         
-        }     
-    }
     
     @Override
     public void initialize(URL url, ResourceBundle rb) {

@@ -1,55 +1,53 @@
 /*      */ package es.uhu.sarlab.discovery.controller;
 
-/*      */ import clientsarlab.EJSClientSarlab2;
-/*      */ import clientsarlab.GIOTClientSarlab3;
+import clientsarlab.EJSClientSarlab2;
+import clientsarlab.GIOTClientSarlab3;
 import es.nebsyst.sarlabinit.controller.PanelMainController;
 import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.StageManager;
-/*      */ import es.uhu.execapp.system.ExecApp;
-/*      */ import es.uhu.sarlab.digexlab.experience.model.Connection;
-/*      */ import es.uhu.sarlab.discovery.ClientGIOTLocatorService;
-/*      */ import es.uhu.sarlab.discovery.GetParameters.GetParameters;
-/*      */ import es.uhu.sarlab.discovery.ServerUDPThread;
+import es.nebsyst.sarlabinit.main.StyleManager;
+import es.uhu.execapp.system.ExecApp;
+import es.uhu.sarlab.digexlab.experience.model.Connection;
+import es.uhu.sarlab.discovery.ClientGIOTLocatorService;
+import es.uhu.sarlab.discovery.GetParameters.GetParameters;
+import es.uhu.sarlab.discovery.ServerUDPThread;
 import es.uhu.sarlab.discovery.UtilIp;
-/*      */ import es.uhu.sarlab.discovery.model.DirectoryRegisterName;
+import es.uhu.sarlab.discovery.model.DirectoryRegisterName;
 import es.uhu.sarlab.discovery.model.DirectoryServiceRegisterName;
-/*      */ import es.uhu.sarlab.discovery.model.RegisterGateway;
-/*      */ import es.uhu.sarlab.discovery.model.RegisterName;
+import es.uhu.sarlab.discovery.model.RegisterGateway;
+import es.uhu.sarlab.discovery.model.RegisterName;
 import es.uhu.sarlab.discovery.view.model.ProgressBarDiscovery;
 import es.uhu.sarlab.discovery.vista.BarLogo;
 import es.uhu.sarlab.discovery.vista.InterfazBarLogo;
-import javafx.scene.layout.Pane;
-/*      */ import es.uhu.sarlab.discovery.webservlet.model.HashMapExperienceWeb;
-/*      */ import es.uhu.sarlab.discovery.webservlet.model.ListForwardingL;
+import es.uhu.sarlab.discovery.webservlet.model.HashMapExperienceWeb;
+import es.uhu.sarlab.discovery.webservlet.model.ListForwardingL;
 import es.uhu.sarlab.utils.DirectoryFilesUtility;
-/*      */ import es.uhu.sarlab.utils.OS;
-/*      */ import es.uhu.sarlab.utils.PropertiesFiles;
-/*      */ import java.awt.event.ActionEvent;
-/*      */ import java.awt.event.ActionListener;
-/*      */ import java.awt.event.KeyEvent;
-/*      */ import java.beans.PropertyChangeEvent;
+import es.uhu.sarlab.utils.OS;
+import es.uhu.sarlab.utils.PropertiesFiles;
+import java.awt.event.ActionEvent;
+import java.awt.event.ActionListener;
+import java.awt.event.KeyEvent;
+import java.beans.PropertyChangeEvent;
 import java.beans.PropertyChangeListener;
-/*      */ import java.io.ByteArrayOutputStream;
+import java.io.ByteArrayOutputStream;
 import java.io.FileReader;
 import java.io.FileWriter;
-/*      */ import java.io.IOException;
-/*      */ import java.io.PrintStream;
-/*      */ import java.net.InetAddress;
-/*      */ import java.net.ServerSocket;
+import java.io.IOException;
+import java.io.PrintStream;
+import java.net.InetAddress;
+import java.net.ServerSocket;
 import java.net.URL;
-/*      */ import java.util.ArrayList;
-/*      */ import java.util.Date;
-/*      */ import java.util.Locale;
+import java.util.ArrayList;
+import java.util.Date;
+import java.util.Locale;
 import java.util.Optional;
-/*      */ import java.util.Properties;
-/*      */ import java.util.ResourceBundle;
-
+import java.util.Properties;
+import java.util.ResourceBundle;
 import javax.swing.ProgressMonitor;
 import javax.swing.SwingUtilities;
 import javax.swing.SwingWorker;
 import javax.swing.Timer;
 import modbussarlab.MasterModbus;
-
 import org.apache.log4j.PropertyConfigurator;
 import java.util.logging.Logger;
 import javafx.beans.value.ChangeListener;
@@ -80,7 +78,6 @@ import javafx.scene.image.Image;
 import static javafx.stage.Modality.APPLICATION_MODAL;
 import javafx.stage.Stage;
 import javafx.stage.StageStyle;
-/*      */ 
 
 public class PanelClientServerNameController implements Initializable, InterfazBarLogo, PropertyChangeListener {
     
@@ -213,6 +210,11 @@ public class PanelClientServerNameController implements Initializable, InterfazB
             private TextField lineapass; 
             private TextField lineausuario;
             
+            @FXML
+            private Label labelTitle2;
+            @FXML
+            private Label labelDescription;
+            
             public ByteArrayOutputStream getBaos() { 
                 return this.baos; 
             }
@@ -280,37 +282,14 @@ public class PanelClientServerNameController implements Initializable, InterfazB
            return language;
        }
        // FIN - Added backend
-       
-       // INICIO - Added backend
-       private void addCss(Scene scene) {
-            if (scene.getStylesheets().isEmpty()) {
-                String[] cssPaths = new String[] {
-                    "../../../../styles/base.css",
-                    "../../../../styles/utilities.css",
-                    "../../../../styles/buttons.css",
-                    "../../../../styles/inputs.css",
-                    "../../../../styles/lists_tables.css",
-                    "../../../../styles/containers.css",
-                    "../../../../styles/extras.css",
-                };
-                for (String p : cssPaths) {
-                    URL url = getClass().getResource(p);
-                    if (url != null) {
-                        scene.getStylesheets().add(url.toExternalForm());
-                    }
-                }         
-            }     
-       }
-       // FIN - Added backend
-       
+          
        // METODO PARA REALIZAR PRUEBAS
        @FXML
        void jButtonTestActionPerformed() throws IOException {          
             if (panelConectionExperienceStage == null) {
                 panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
                 FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
-                Scene scene = new Scene(fxmlLoader.load());
-                addCss(scene);
+                Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
                 panelConectionExperienceStage.setScene(scene);
             }
             if (panelConectionExperienceController == null) {
@@ -423,7 +402,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
 /*  282 */     this.jDialog1.initModality(APPLICATION_MODAL);
 /*  283 */     this.jDialog1.setResizable(false);
 
-/*  290 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/vista/Bundle_PanelClientServerName");
+/*  290 */     ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelClientServerName");
 /*  291 */     this.title.setText(bundle.getString("PanelClientServerName.title"));
                this.jLabel2.setText(bundle.getString("PanelClientServerName.jLabel2.text_1"));
 /*      */     
@@ -693,6 +672,8 @@ public class PanelClientServerNameController implements Initializable, InterfazB
 /*  914 */     //this.buttonGroup1.add(this.jRadioFree);
 /*  916 */     this.jRadioFree.setText(bundle.getString("PanelClientServerName.jRadioFree.text"));
 
+               this.labelTitle2.setText(bundle.getString("PanelClientServerName.labelTitle2.text"));
+               this.labelDescription.setText(bundle.getString("PanelClientServerName.labelDescription.text"));
 /*      */   }
 /*      */   
 /*      */   public void toUpdate() {
@@ -1395,9 +1376,10 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (this.panelListGatewayStage == null) {
                    this.panelListGatewayStage = StageManager.getInstance().getStage("PanelListGateway");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelListGateway");     
-                   Scene scene = new Scene(fxmlLoader.load());
-                   addCss(scene);
+                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
                    this.panelListGatewayStage.setScene(scene);
+                   ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelListGateway" + getBundleLanguage());
+                   this.panelListGatewayStage.setTitle(bundle.getString("PanelListGateway.title"));
                }    
                
                if (this.panelListGatewayController == null) {
@@ -1431,10 +1413,12 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (panelEditConfigLocalStage == null) {
                    panelEditConfigLocalStage = StageManager.getInstance().getStage("PanelEditConfigLocal");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEditConfigLocal");
-                   Scene scene = new Scene(fxmlLoader.load());
-                   addCss(scene);
+                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());       
                    panelEditConfigLocalStage.setScene(scene);
-               }
+                   ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelEditConfigLocal" + getBundleLanguage());
+                   panelEditConfigLocalStage.setTitle(bundle.getString("PanelEditConfigLocal.title"));
+                   this.panelEditConfigLocalStage.setResizable(false);
+               }          
                panelEditConfigLocalStage.show();
 /*      */   }
 /*      */ 
@@ -1562,15 +1546,17 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (panelConectionLocalhostStage == null) {
                    panelConectionLocalhostStage = StageManager.getInstance().getStage("PanelConectionLocalhost");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionLocalhost");
-                   Scene scene = new Scene(fxmlLoader.load());
-                   addCss(scene);
+                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
                    panelConectionLocalhostController = fxmlLoader.getController();             
                    panelConectionLocalhostStage.setScene(scene);
+                   ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelConectionLocalhost" + getBundleLanguage());
+                   panelConectionLocalhostStage.setTitle(bundle.getString("PanelConectionLocalhost.title"));
                }
                if (panelConectionLocalhostController == null) {
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionLocalhost");
                    panelConectionLocalhostController = fxmlLoader.getController();          
-               }          
+               }        
+               panelConectionLocalhostStage.setResizable(false);
                panelConectionLocalhostStage.show();              
                ObservableList<String> modelo = observableArrayList(new ArrayList<>());
 /* 1717 */     if (this.sarlab != null) {
@@ -1589,8 +1575,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (panelNodoFrowardingLStage == null) {
                    panelNodoFrowardingLStage = StageManager.getInstance().getStage("PanelNodoFrowardingL");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelNodoFrowardingL");
-                   Scene scene = new Scene(fxmlLoader.load());
-                   addCss(scene);
+                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
                    panelNodoFrowardingLController = fxmlLoader.getController();             
                    panelNodoFrowardingLStage.setScene(scene);
                }
@@ -1625,15 +1610,17 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (panelConectionExperienceStage == null) {
                    panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
-                   Scene scene = new Scene(fxmlLoader.load());
-                   addCss(scene);
+                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
                    panelConectionExperienceStage.setScene(scene);
+                   ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelConectionExperience" + getBundleLanguage());
+                   panelConectionExperienceStage.setTitle(bundle.getString("PanelConectionExperience.title"));
                }
                if (panelConectionExperienceController == null) {
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
                    panelConectionExperienceController = fxmlLoader.getController();
                }
                panelConectionExperienceController.initList();
+               panelConectionExperienceStage.setResizable(false);
                panelConectionExperienceStage.show();
 /*      */   }
 
@@ -1686,12 +1673,14 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                 if (panelConsoleStage == null) {
                     panelConsoleStage = StageManager.getInstance().getStage("PanelConsole");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConsole");
-                    Scene scene = new Scene(fxmlLoader.load());
-                    addCss(scene);
+                    Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
                     panelConsoleController = fxmlLoader.getController();
                     panelConsoleStage.setScene(scene);
+                    panelConsoleStage.setResizable(false);
+                    ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelConsole" + getBundleLanguage());
+                    panelConsoleStage.setTitle(bundle.getString("PanelConsole.title"));
                 }
-                    panelConsoleStage.show();
+                panelConsoleStage.show();
            //Platform.runLater( () -> {      
                 //panelConsoleStage = StageManager.getInstance().getStage("PanelConsole");
                 //panelConsoleStage.show();
