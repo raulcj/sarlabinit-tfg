@@ -13,27 +13,43 @@ import javafx.scene.Scene;
  */
 public class StyleManager 
 { 
+    public static final StyleManager instance = new StyleManager();
+    private String CSS_PATH;
     
-    private static final String CSS_PATH = StyleManager.class.getResource("/es/styles/sarlab-main.css").toExternalForm();
-
+    private StyleManager() { 
+        // La hoja 'sarlab-main.css' es el estilo predeterminado
+        CSS_PATH = StyleManager.class.getResource("/es/styles/sarlab-main.css").toExternalForm();
+    }
+    
+    public static StyleManager getInstance() { 
+        return instance; 
+    }
+    
+    public void setupCss(String cssSheet) {
+        if (cssSheet.equals("Main")) {
+            CSS_PATH = StyleManager.class.getResource("/es/styles/sarlab-main.css").toExternalForm();
+        } else if (cssSheet.equals("Second")) {
+            CSS_PATH = StyleManager.class.getResource("/es/styles/sarlab-main-lab.css").toExternalForm();
+        }
+    }
     /**
      *  Aplica la hoja de estilos a la Scene recibida como argumento
      * 
      * @param scene 
      */
-    public static void applyCss(Scene scene) {
+    private void applyCss(Scene scene) {
         if (!scene.getStylesheets().contains(CSS_PATH)) {
             scene.getStylesheets().add(CSS_PATH);
         }
     }
 
     /**
-     * Devuelve un objeto Scene con los estilos aplicados
+     * Devuelve un objeto Scene con el estilo aplicado
      * 
      * @param parent
-     * @return Scene con estilos aplicados
+     * @return Scene con estilo aplicado
      */
-    public static Scene createSceneCss(Parent parent) {
+    public Scene createSceneCss(Parent parent) {
         Scene scene = new Scene(parent);
         applyCss(scene);
         return scene;

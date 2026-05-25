@@ -22,21 +22,32 @@ import javafx.scene.control.MenuItem;
 
 public class MySystemTrayFX {
 
+    private static MySystemTrayFX instance;
+    
     private Stage mainStage;
     private Stage restoreStage;
     private Stage discoveryStage;
     private PanelClientServerNameController discoveryController;
     private FXTrayIcon trayIcon;
 
-    public MySystemTrayFX(Stage primaryStage) {
-        this.mainStage = primaryStage;
-        setupTrayIcon();
+    public MySystemTrayFX(Stage mainStage) {
+        this.mainStage = mainStage;
+    }
+    
+    public static MySystemTrayFX getInstance() { 
+        if (instance == null) {
+            instance = new MySystemTrayFX(StageManager.getInstance().getStage("PanelMain"));
+        }
+        return instance;
+    }
+    
+    public FXTrayIcon getTrayIcon() { 
+        return trayIcon; 
     }
 
-    private void setupTrayIcon() {
+    public void setupTrayIcon() {
         trayIcon = new FXTrayIcon(mainStage, getClass().getResource("../resource/execjar128.png")); 
         trayIcon.setTooltip("Servicio SARLAB");
-        trayIcon.show();
         // Añadir los elementos del menú contextual
         // Opcion "Salir"
         MenuItem exit = new MenuItem("Salir");
@@ -58,7 +69,7 @@ public class MySystemTrayFX {
                 try {
                     this.restoreStage = StageManager.getInstance().getStage("PanelEJSAppList");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEJSAppList");
-                    Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+                    Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
                     this.restoreStage.setScene(scene);
                     this.restoreStage.setMaximized(true);
                     this.restoreStage.show();
@@ -81,7 +92,7 @@ public class MySystemTrayFX {
                 try {
                     this.discoveryStage = StageManager.getInstance().getStage("PanelClientServerName");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
-                    Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+                    Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
                     this.discoveryController = fxmlLoader.getController();
                     this.discoveryStage.setScene(scene);
                     this.discoveryStage.setMaximized(true);
@@ -107,8 +118,6 @@ public class MySystemTrayFX {
                 this.discoveryController.initList();
             } 
             this.discoveryController.init();
-            // Esconder PanelMain al abrir Discovery
-            mainStage.hide();
         });
     }
 

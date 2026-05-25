@@ -27,7 +27,7 @@ public class Main extends Application {
     public void start(Stage panelMainStage) throws IOException {    
         // Cargar modulo principal y añadir estilos 
         FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelMain.fxml"));    
-        Scene scene = StyleManager.createSceneCss(fxmlLoader.load()); 
+        Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load()); 
         // Inicializa las clases gestoras
         FXMLLoaderManager fxmlLoaderManager = FXMLLoaderManager.getInstance();
         StageManager stageManager = StageManager.getInstance();    
@@ -69,7 +69,7 @@ public class Main extends Application {
         // Permite abrir las opciones del SystemTray mas de una vez
         Platform.setImplicitExit(false);
         // Cargar SystemTrayFX
-        MySystemTrayFX mySystemTrayFX = new MySystemTrayFX(panelMainStage);
+        MySystemTrayFX mySystemTrayFX= new MySystemTrayFX(panelMainStage);
     }
     
     // SARLABINIT (componentes)

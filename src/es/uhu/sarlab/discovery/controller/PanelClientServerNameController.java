@@ -289,7 +289,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
             if (panelConectionExperienceStage == null) {
                 panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
                 FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
-                Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+                Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
                 panelConectionExperienceStage.setScene(scene);
             }
             if (panelConectionExperienceController == null) {
@@ -1376,7 +1376,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (this.panelListGatewayStage == null) {
                    this.panelListGatewayStage = StageManager.getInstance().getStage("PanelListGateway");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelListGateway");     
-                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+                   Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
                    this.panelListGatewayStage.setScene(scene);
                    ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelListGateway" + getBundleLanguage());
                    this.panelListGatewayStage.setTitle(bundle.getString("PanelListGateway.title"));
@@ -1413,7 +1413,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (panelEditConfigLocalStage == null) {
                    panelEditConfigLocalStage = StageManager.getInstance().getStage("PanelEditConfigLocal");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelEditConfigLocal");
-                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());       
+                   Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());       
                    panelEditConfigLocalStage.setScene(scene);
                    ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelEditConfigLocal" + getBundleLanguage());
                    panelEditConfigLocalStage.setTitle(bundle.getString("PanelEditConfigLocal.title"));
@@ -1546,7 +1546,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (panelConectionLocalhostStage == null) {
                    panelConectionLocalhostStage = StageManager.getInstance().getStage("PanelConectionLocalhost");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionLocalhost");
-                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+                   Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
                    panelConectionLocalhostController = fxmlLoader.getController();             
                    panelConectionLocalhostStage.setScene(scene);
                    ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelConectionLocalhost" + getBundleLanguage());
@@ -1575,7 +1575,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (panelNodoFrowardingLStage == null) {
                    panelNodoFrowardingLStage = StageManager.getInstance().getStage("PanelNodoFrowardingL");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelNodoFrowardingL");
-                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+                   Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
                    panelNodoFrowardingLController = fxmlLoader.getController();             
                    panelNodoFrowardingLStage.setScene(scene);
                }
@@ -1610,7 +1610,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                if (panelConectionExperienceStage == null) {
                    panelConectionExperienceStage = StageManager.getInstance().getStage("PanelConectionExperience");
                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConectionExperience");
-                   Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+                   Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
                    panelConectionExperienceStage.setScene(scene);
                    ResourceBundle bundle = ResourceBundle.getBundle("es/uhu/sarlab/discovery/view/bundle/Bundle_PanelConectionExperience" + getBundleLanguage());
                    panelConectionExperienceStage.setTitle(bundle.getString("PanelConectionExperience.title"));
@@ -1673,7 +1673,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                 if (panelConsoleStage == null) {
                     panelConsoleStage = StageManager.getInstance().getStage("PanelConsole");
                     FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelConsole");
-                    Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+                    Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
                     panelConsoleController = fxmlLoader.getController();
                     panelConsoleStage.setScene(scene);
                     panelConsoleStage.setResizable(false);

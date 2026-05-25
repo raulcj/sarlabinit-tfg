@@ -348,7 +348,7 @@ public class PanelEJSAppListController implements Initializable {
         if (panelJarProcessStage == null) {
             panelJarProcessStage = StageManager.getInstance().getStage("PanelJarProcess");
             FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelJarProcess");
-            Scene scene = StyleManager.createSceneCss(fxmlLoader.load());
+            Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load());
             panelJarProcessStage.setScene(scene);       
         }
         panelJarProcessStage.setResizable(false);
