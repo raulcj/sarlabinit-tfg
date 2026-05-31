@@ -1,7 +1,6 @@
 package es.uhu.sarlab.discovery.controller;
 
 import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
-import es.nebsyst.sarlabinit.main.Main;
 import es.nebsyst.sarlabinit.main.StageManager;
 /*     */ import es.uhu.sarlab.discovery.GetParameters.GetParameters;
 /*     */ import es.uhu.sarlab.discovery.model.RegisterGateway;
@@ -72,7 +71,9 @@ import javafx.stage.Stage;
 
             // INICIO - Added backend
             public void initList() {
-                ObservableList<String> modelExperience = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+                ObservableList<String> modelExperience = FXCollections.observableArrayList(""
+                        + "Marcos Antonio G", 
+                          "Laura V"); 
                 jListHardware.setItems(modelExperience); 
             }
             // FIN - Added backend

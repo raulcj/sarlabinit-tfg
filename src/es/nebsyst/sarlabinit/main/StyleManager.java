@@ -13,33 +13,48 @@ import javafx.scene.Scene;
  */
 public class StyleManager 
 { 
-    public static final StyleManager instance = new StyleManager();
-    private String CSS_PATH;
+    private static StyleManager instance;
+    private String cssPath;
     
     private StyleManager() { 
         // La hoja 'sarlab-main.css' es el estilo predeterminado
-        CSS_PATH = StyleManager.class.getResource("/es/styles/sarlab-main.css").toExternalForm();
+        cssPath = StyleManager.class.getResource("/es/styles/sarlab-main-blue.css").toExternalForm();
     }
     
     public static StyleManager getInstance() { 
+        if (instance == null) {
+            instance = new StyleManager();
+        }
         return instance; 
     }
-    
+     /**
+     *  Aplica la hoja de estilo recibida como cadena de texto
+     * 
+     * @param cssSheet
+     */
     public void setupCss(String cssSheet) {
-        if (cssSheet.equals("Main")) {
-            CSS_PATH = StyleManager.class.getResource("/es/styles/sarlab-main.css").toExternalForm();
-        } else if (cssSheet.equals("Second")) {
-            CSS_PATH = StyleManager.class.getResource("/es/styles/sarlab-main-lab.css").toExternalForm();
+        if (cssSheet.equals("Main Blue")) {
+            cssPath = StyleManager.class.getResource("/es/styles/sarlab-main-blue.css").toExternalForm();
+        } else if (cssSheet.equals("Main Orange")) {
+            cssPath = StyleManager.class.getResource("/es/styles/sarlab-main-orange.css").toExternalForm();
+        } else if (cssSheet.equals("Dark Orange")) {
+            cssPath = StyleManager.class.getResource("/es/styles/sarlab-dark-orange.css").toExternalForm();
+        } else if (cssSheet.equals("Dark Fluor Green")) {
+            cssPath = StyleManager.class.getResource("/es/styles/sarlab-dark-fluor-green.css").toExternalForm();
+        } else if (cssSheet.equals("Soft Dark Green")) {
+            cssPath = StyleManager.class.getResource("/es/styles/sarlab-soft-dark-green.css").toExternalForm();
+        } else if (cssSheet.equals("Lila")) {
+            cssPath = StyleManager.class.getResource("/es/styles/sarlab-lila.css").toExternalForm();
         }
     }
     /**
-     *  Aplica la hoja de estilos a la Scene recibida como argumento
+     *  Aplica la hoja de estilo a la Scene recibida como argumento
      * 
      * @param scene 
      */
     private void applyCss(Scene scene) {
-        if (!scene.getStylesheets().contains(CSS_PATH)) {
-            scene.getStylesheets().add(CSS_PATH);
+        if (scene.getStylesheets().isEmpty()) {
+            scene.getStylesheets().add(cssPath);
         }
     }
 

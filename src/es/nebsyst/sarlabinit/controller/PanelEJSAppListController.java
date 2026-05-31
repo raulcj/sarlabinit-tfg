@@ -144,7 +144,10 @@ public class PanelEJSAppListController implements Initializable {
         jScrollPane1.setContent(jList1);
         
         // INICIO - Added backend
-        ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+        ObservableList<String> ejemplos = FXCollections.observableArrayList(""
+          + "PLCMonitorLab.jar                                     --host 192.168.10.22 --port 502 --slaveId 1                 Consulta registros de PLC\n", 
+            "RobotArmControl.jar                                   --host 192.168.10.10 --port 22 --protocol ssh               Control movimiento brazo robot\n", 
+            "OscilloscopeRemoteLab.jar                             --host 192.168.10.13 --port 5900 --mode vnc                 Acceso a osciloscopio");
         jList1.setItems(ejemplos); 
         // FIN - Added backend
     }

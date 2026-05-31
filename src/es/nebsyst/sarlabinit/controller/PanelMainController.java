@@ -4,7 +4,6 @@
  */
 package es.nebsyst.sarlabinit.controller;
 
-import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
 import es.nebsyst.sarlabinit.main.MySystemTrayFX;
 import es.nebsyst.sarlabinit.main.StageManager;
 import es.nebsyst.sarlabinit.main.StyleManager;
@@ -12,9 +11,7 @@ import java.net.URL;
 import java.util.Locale;
 import java.util.ResourceBundle;
 import javafx.fxml.FXML;
-import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
-import javafx.scene.Scene;
 import javafx.scene.control.ComboBox;
 import javafx.stage.Stage;
 
@@ -39,9 +36,9 @@ public class PanelMainController implements Initializable {
        langCombo.getItems().addAll(languages);
        langCombo.setValue("Español"); // valor por defecto
        // 2º ComboBox: estilos visuales
-       String [] styles = {"Main", "Second", "Third", "Fourth"};
+       String [] styles = {"Main Blue", "Main Orange", "Dark Orange", "Dark Fluor Green", "Soft Dark Green", "Lila"};
        cssCombo.getItems().addAll(styles);
-       cssCombo.setValue("Main"); // valor por defecto 
+       cssCombo.setValue("Main Blue"); // valor por defecto 
        // 1º ComboBox: elegir idioma
        langCombo.setOnAction(e -> {
        String seleccion = getSelectedLanguage();
@@ -56,14 +53,8 @@ public class PanelMainController implements Initializable {
        cssCombo.setOnAction(e -> {
            String seleccion = getSelectedCss();
            StyleManager styleManager = StyleManager.getInstance();
-           if (seleccion.equals("Second")) {
-               styleManager.setupCss("Second");
-           } else if (seleccion.equals("Third")) {
-               // to-do
-           } else if (seleccion.equals("Fourth")) {
-               // to-do
-           }
-        });  
+           styleManager.setupCss(seleccion);
+       });  
     }
     
     @FXML
@@ -82,7 +73,7 @@ public class PanelMainController implements Initializable {
         return langCombo.getSelectionModel().getSelectedItem(); 
     }
     
-    public String getSelectedCss() { 
+    private String getSelectedCss() { 
         return cssCombo.getSelectionModel().getSelectedItem(); 
     }
     

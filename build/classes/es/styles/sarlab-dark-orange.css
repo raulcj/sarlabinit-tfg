@@ -1,26 +1,26 @@
 /* PRINCIPAL */
 .root 
 {
-    -sarlab-bg: #f1f5f9;
-    -sarlab-bg-2: #e2e8f0;
-    -sarlab-surface: rgba(255,255,255,0.96);
-    -sarlab-surface-2: #f8fafc;
-    -sarlab-primary: #0e7490;
-    -sarlab-primary-dark: #155e75;
-    -sarlab-secondary: #2563eb;
-    -sarlab-accent: #4f46e5;
-    -sarlab-success: #059669;
-    -sarlab-danger: #e11d48;
-    -sarlab-warning: #d97706;
-    -sarlab-border: rgba(37,99,235,0.24);
-    -sarlab-border-strong: rgba(14,116,144,0.34);
-    -sarlab-text: #0f172a;
-    -sarlab-muted: #64748b;
-    -sarlab-soft-shadow: rgba(15,23,42,0.12);
-    -sarlab-focus: rgba(8,145,178,0.28);
-    -fx-font-family: "Bahnschrift", "Segoe UI", "Arial", sans-serif;
+    -sarlab-bg: #101827;
+    -sarlab-bg-2: #202b3a;
+    -sarlab-surface: rgba(24,34,53,0.96);
+    -sarlab-surface-2: #111827;
+    -sarlab-primary: #f59e0b;
+    -sarlab-primary-dark: #b45309;
+    -sarlab-secondary: #38cffe;
+    -sarlab-accent: #f97316;
+    -sarlab-success: #22c55e;
+    -sarlab-danger: #fb7185;
+    -sarlab-warning: #fbbf24;
+    -sarlab-border: rgba(56,207,254,0.24);
+    -sarlab-border-strong: rgba(245,158,11,0.34);
+    -sarlab-text: #f9fafb;
+    -sarlab-muted: #cbd5e1;
+    -sarlab-soft-shadow: rgba(249,250,251,0.12);
+    -sarlab-focus: rgba(251,191,36,0.28);
+    -fx-font-family: "Inter", "Segoe UI Variable", "Segoe UI", sans-serif;
     -fx-font-size: 13px;
-    -fx-background-color: linear-gradient(to bottom right, #f8fafc, #eef2f7 52%, #dbeafe 100%);
+    -fx-background-color: linear-gradient(to bottom right, #111827, #111827 52%, #312e81 100%);
     -fx-text-fill: -sarlab-text;
 }
 
@@ -45,7 +45,7 @@
 Text,
 .text 
 {
-    -fx-font-family: "Bahnschrift", "Segoe UI", "Arial", sans-serif;
+    -fx-font-family: "Lucida Console", "Segoe UI Variable", "Segoe UI", sans-serif;
 }
 .label {
     -fx-text-fill: -sarlab-text;
@@ -55,8 +55,8 @@ Text,
 #LabelSARLAB {
     -fx-font-size: 1.55em;
     -fx-font-weight: 900;
-    -fx-text-fill: #0e7490;
-    -fx-effect: dropshadow(gaussian, rgba(8,145,178,0.16), 10, 0.18, 0, 2);
+    -fx-text-fill: #f59e0b;
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.16), 10, 0.18, 0, 2);
 }
 
 AnchorPane,
@@ -90,7 +90,7 @@ GridPane
 
 .separator *.line 
 {
-    -fx-border-color: rgba(37,99,235,0.22);
+    -fx-border-color: rgba(56,207,254,0.22);
 }
 
 /* Estilos anteriores */
@@ -100,9 +100,9 @@ GridPane
 .section,
 .container 
 {
-    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.97), rgba(248,250,252,0.95));
+    -fx-background-color: linear-gradient(to bottom, rgba(24,34,53,0.97), rgba(17,24,39,0.95));
     -fx-background-radius: 14px;
-    -fx-border-color: rgba(14,116,144,0.18);
+    -fx-border-color: rgba(245,158,11,0.18);
     -fx-border-radius: 14px;
     -fx-effect: dropshadow(gaussian, -sarlab-soft-shadow, 18, 0.16, 0, 5);
 }
@@ -116,7 +116,7 @@ GridPane
 
 .header 
 {
-    -fx-background-color: linear-gradient(to right, #0891b2, #0e7490);
+    -fx-background-color: linear-gradient(to right, #fbbf24, #f59e0b);
     -fx-text-fill: white;
     -fx-padding: 10 16;
     -fx-font-size: 16px;
@@ -133,24 +133,24 @@ GridPane
 
 .titled-pane > .title 
 {
-    -fx-background-color: linear-gradient(to right, rgba(14,116,144,0.20), rgba(125,211,252,0.14));
+    -fx-background-color: linear-gradient(to right, rgba(245,158,11,0.20), rgba(253,230,138,0.14));
     -fx-background-radius: 14px 14px 0 0;
-    -fx-border-color: rgba(14,116,144,0.22);
+    -fx-border-color: rgba(245,158,11,0.22);
     -fx-border-radius: 14px 14px 0 0;
     -fx-padding: 8px 12px;
 }
 
 .titled-pane > .title > .text 
 {
-    -fx-fill: #0e7490;
+    -fx-fill: #f59e0b;
     -fx-font-weight: 900;
 }
 
 .titled-pane > *.content 
 {
-    -fx-background-color: linear-gradient(to bottom, rgba(255,255,255,0.98), rgba(248,250,252,0.96));
+    -fx-background-color: linear-gradient(to bottom, rgba(24,34,53,0.98), rgba(17,24,39,0.96));
     -fx-background-radius: 0 0 14px 14px;
-    -fx-border-color: rgba(14,116,144,0.20);
+    -fx-border-color: rgba(245,158,11,0.20);
     -fx-border-radius: 0 0 14px 14px;
     -fx-padding: 10px;
 }
@@ -160,9 +160,9 @@ GridPane
 .tool-bar,
 ToolBar 
 {
-    -fx-background-color: linear-gradient(to right, rgba(255,255,255,0.90), rgba(241,245,249,0.96));
+    -fx-background-color: linear-gradient(to right, rgba(24,34,53,0.90), rgba(16,24,39,0.96));
     -fx-background-radius: 12px;
-    -fx-border-color: rgba(14,116,144,0.18);
+    -fx-border-color: rgba(245,158,11,0.18);
     -fx-border-radius: 12px;
     -fx-padding: 8px 10px;
 }
@@ -179,20 +179,20 @@ GridPane .label
 .button,
 Button 
 {
-    -fx-background-color: linear-gradient(to bottom right, #0891b2, #0e7490);
+    -fx-background-color: linear-gradient(to bottom right, #fbbf24, #f59e0b);
     -fx-text-fill: white;
     -fx-font-weight: 800;
-    -fx-background-radius: 12px;
-    -fx-border-radius: 12px;
-    -fx-border-color: rgba(255,255,255,0.34);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
+    -fx-border-color: rgba(24,34,53,0.34);
     -fx-padding: 0.55em 1.0em;
     -fx-cursor: hand;
-    -fx-effect: dropshadow(gaussian, rgba(14,116,144,0.18), 10, 0.18, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(245,158,11,0.18), 10, 0.18, 0, 3);
 }
 .button:hover,
 Button:hover 
 {
-    -fx-background-color: linear-gradient(to bottom right, #22d3ee, #0284c7);
+    -fx-background-color: linear-gradient(to bottom right, #fde68a, #c2410c);
 }
 
 .button:pressed,
@@ -267,9 +267,9 @@ ToolBar Button,
 #jPanel6 #jButtonProfile,
 #jPanel6 #jButtonForwardingLook 
 {
-    -fx-background-color: linear-gradient(to right, #0ea5e9, #4f46e5);
-    -fx-background-radius: 999;
-    -fx-border-radius: 999;
+    -fx-background-color: linear-gradient(to right, #14b8a6, #f97316);
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
     -fx-font-size: 0.95em;
     -fx-padding: 0.42em 0.9em;
 }
@@ -286,7 +286,7 @@ ToolBar Button,
 #jPanel6 #jButtonProfile:hover,
 #jPanel6 #jButtonForwardingLook:hover 
 {
-    -fx-background-color: linear-gradient(to right, #38bdf8, #6366f1);
+    -fx-background-color: linear-gradient(to right, #67e8f9, #f97316);
 }
 .text-field,
 .password-field,
@@ -296,15 +296,15 @@ ToolBar Button,
 .date-picker,
 .combo-box 
 {
-    -fx-background-color: linear-gradient(to bottom, #ffffff, #f8fafc);
+    -fx-background-color: linear-gradient(to bottom, #182235, #111827);
     -fx-background-radius: 10px;
     -fx-border-color: -sarlab-border;
     -fx-border-radius: 10px;
     -fx-border-width: 1;
     -fx-padding: 0.5em 0.75em;
     -fx-text-fill: -sarlab-text;
-    -fx-prompt-text-fill: #94a3b8;
-    -fx-highlight-fill: rgba(8,145,178,0.26);
+    -fx-prompt-text-fill: #a8b5c4;
+    -fx-highlight-fill: rgba(251,191,36,0.26);
 }
 
 .text-field:focused,
@@ -324,8 +324,8 @@ ToolBar Button,
 .check-box .box,
 .radio-button .radio 
 {
-    -fx-background-color: #ffffff;
-    -fx-border-color: rgba(37,99,235,0.35);
+    -fx-background-color: #182235;
+    -fx-border-color: rgba(56,207,254,0.35);
 }
 
 .check-box:selected .mark,
@@ -340,9 +340,9 @@ ToolBar Button,
 .table-view,
 .tree-view 
 {
-    -fx-background-color: rgba(255,255,255,0.92);
+    -fx-background-color: rgba(24,34,53,0.92);
     -fx-background-radius: 12px;
-    -fx-border-color: rgba(37,99,235,0.20);
+    -fx-border-color: rgba(56,207,254,0.20);
     -fx-border-radius: 12px;
     -fx-padding: 4px;
 }
@@ -359,22 +359,22 @@ ToolBar Button,
 .list-cell:filled:hover,
 .table-row-cell:filled:hover 
 {
-    -fx-background-color: rgba(8,145,178,0.12);
+    -fx-background-color: rgba(251,191,36,0.12);
     -fx-background-radius: 8px;
 }
 
 .list-cell:filled:selected,
 .table-row-cell:filled:selected
 {
-    -fx-background-color: linear-gradient(to right, rgba(8,145,178,0.26), rgba(79,70,229,0.18));
-    -fx-text-fill: #1e293b;
+    -fx-background-color: linear-gradient(to right, rgba(251,191,36,0.26), rgba(249,115,22,0.18));
+    -fx-text-fill: #fffbeb;
     -fx-font-weight: 800;
     -fx-background-radius: 8px;
 }
 
 .table-view .column-header-background
 {
-    -fx-background-color: linear-gradient(to right, rgba(8,145,178,0.16), rgba(79,70,229,0.12));
+    -fx-background-color: linear-gradient(to right, rgba(251,191,36,0.16), rgba(249,115,22,0.12));
 }
 
 .scroll-pane,
@@ -392,7 +392,7 @@ ToolBar Button,
 
 .scroll-bar:vertical .thumb,
 .scroll-bar:horizontal .thumb {
-    -fx-background-color: rgba(37,99,235,0.35);
+    -fx-background-color: rgba(56,207,254,0.35);
     -fx-background-radius: 999;
 }
 
@@ -400,58 +400,58 @@ ToolBar Button,
 
 .text-area 
 {
-    -fx-font-family: "Bahnschrift", "Segoe UI", "Arial", sans-serif;
+    -fx-font-family: "Inter", "Segoe UI Variable", "Segoe UI", sans-serif;
     -fx-font-size: 0.95em;
-    -fx-control-inner-background: #e0f2fe;
-    -fx-background-color: #e0f2fe;
-    -fx-text-fill: #164e63;
-    -fx-background-radius: 12px;
-    -fx-border-color: rgba(14,116,144,0.22);
-    -fx-border-radius: 12px;
+    -fx-control-inner-background: #020617;
+    -fx-background-color: #020617;
+    -fx-text-fill: #fde68a;
+    -fx-background-radius: 8px;
+    -fx-border-color: rgba(245,158,11,0.22);
+    -fx-border-radius: 8px;
 }
 
 .text-area .content 
 {
-    -fx-background-color: #e0f2fe;
+    -fx-background-color: #020617;
 }
 
 #jTextConsole,
 #consoleArea,
 .console 
 {
-    -fx-control-inner-background: linear-gradient(to bottom, #eef2f7, #e2e8f0);
-    -fx-background-color: linear-gradient(to bottom, #eef2f7, #e2e8f0);
-    -fx-text-fill: #164e63;
-    -fx-border-color: rgba(14,116,144,0.24);
-    -fx-effect: dropshadow(gaussian, rgba(8,145,178,0.10), 10, 0.12, 0, 2);
+    -fx-control-inner-background: linear-gradient(to bottom, #111827, #202b3a);
+    -fx-background-color: linear-gradient(to bottom, #111827, #202b3a);
+    -fx-text-fill: #fde68a;
+    -fx-border-color: rgba(245,158,11,0.24);
+    -fx-effect: dropshadow(gaussian, rgba(251,191,36,0.10), 10, 0.12, 0, 2);
 }
 
 #jTextConsole,
 #jTextConsole:focused 
 {
-    -fx-control-inner-background: #ffffff;
-    -fx-background-color: #ffffff;
-    -fx-text-fill: #164e63;
+    -fx-control-inner-background: #182235;
+    -fx-background-color: #182235;
+    -fx-text-fill: #fde68a;
 }
 #jTextConsole .content 
 {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #182235;
 }
 
 #jTextConsole .scroll-pane,
 #jTextConsole .scroll-pane > .viewport 
 {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #182235;
 }
 
 .progress-bar 
 {
-    -fx-accent: #0e7490;
+    -fx-accent: #f59e0b;
 }
 
 .progress-indicator 
 {
-    -fx-progress-color: #0e7490;
+    -fx-progress-color: #f59e0b;
 }
 
 /* PanelMain */
@@ -492,6 +492,30 @@ ToolBar Button,
     -fx-padding: 4px 6px 4px 6px;
 }
 
+/* nuevo */
+#jPanel2 .text {
+    -fx-font-size: 14px;
+    -fx-font-color: grey;
+}
+
+#jPanel6 .text {
+    -fx-font-size: 13px;
+}
+
+#jList1 .list-cell {
+    -fx-text-fill: #f5f7fa;
+}
+
+#jLabelList {
+    -fx-font-size: 15px;
+    -fx-font-weight: bold;
+}
+
+#jLabel1, #jLabelURL {
+    -fx-font-size: 15px;
+}
+/* nuevo */
+
 #jPanel6 GridPane 
 {
     -fx-hgap: 12px;
@@ -519,13 +543,13 @@ ToolBar Button,
 
 .tooltip 
 {
-    -fx-background-color: rgba(15,23,42,0.94);
+    -fx-background-color: rgba(249,250,251,0.94);
     -fx-text-fill: white;
     -fx-background-radius: 8px;
 }
 .dialog-pane 
 {
-    -fx-background-color: linear-gradient(to bottom, #ffffff, #f8fafc);
+    -fx-background-color: linear-gradient(to bottom, #182235, #111827);
 }
 
 .dialog-pane .content.label 
@@ -537,7 +561,7 @@ ToolBar Button,
 /* PanelMain */
 .panelmain-root 
 {
-    -fx-background-color: linear-gradient(to bottom right, #f1f5f9, #e2e8f0);
+    -fx-background-color: linear-gradient(to bottom right, #101827, #202b3a);
 }
 
 .panelmain-wrapper 
@@ -547,15 +571,15 @@ ToolBar Button,
 
 .panelmain-card 
 {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #182235;
     -fx-background-radius: 16px;
-    -fx-border-color: rgba(14,116,144,0.18);
+    -fx-border-color: rgba(245,158,11,0.18);
     -fx-border-radius: 16px;
-    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.16), 22, 0.18, 0, 8);
+    -fx-effect: dropshadow(gaussian, rgba(249,250,251,0.16), 22, 0.18, 0, 8);
 }
 .panelmain-brand-panel 
 {
-    -fx-background-color: linear-gradient(to bottom right, #0891b2, #0e7490);
+    -fx-background-color: linear-gradient(to bottom right, #fbbf24, #f59e0b);
     -fx-background-radius: 16px 0 0 16px;
 }
 
@@ -564,27 +588,27 @@ ToolBar Button,
     -fx-font-size: 23px;
     -fx-font-weight: 800;
     -fx-letter-spacing: 1.2px;
-    -fx-fill: #d71920;
-    -fx-stroke: #000000;
+    -fx-fill: #f43f5e;
+    -fx-stroke: #020617;
     -fx-stroke-width: 0.75px;
 }
 
 .panelmain-brand-icon 
 {
-    -fx-background-color: rgba(255,255,255,0.95);
+    -fx-background-color: rgba(24,34,53,0.95);
     -fx-background-radius: 999px;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.14), 12, 0.16, 0, 3);
+    -fx-effect: dropshadow(gaussian, rgba(2,6,23,0.14), 12, 0.16, 0, 3);
 }
 
 .panelmain-brand-line-primary 
 {
-    -fx-background-color: rgba(255,255,255,0.75);
+    -fx-background-color: rgba(24,34,53,0.75);
     -fx-background-radius: 999px;
 }
 
 .panelmain-brand-line-secondary 
 {
-    -fx-background-color: rgba(255,255,255,0.45);
+    -fx-background-color: rgba(24,34,53,0.45);
     -fx-background-radius: 999px;
 }
 
@@ -597,7 +621,7 @@ ToolBar Button,
 {
     -fx-font-size: 15px;
     -fx-font-weight: 700;
-    -fx-text-fill: #0f172a;
+    -fx-text-fill: #f9fafb;
 }
 .panelmain-actions 
 {
@@ -606,7 +630,7 @@ ToolBar Button,
 /* PanelEJSAPPList */
 .panel-ejs-raiz 
 {
-    -fx-background-color: linear-gradient(to bottom right, #f1f5f9, #e2e8f0 58%, #dbeafe 100%);
+    -fx-background-color: linear-gradient(to bottom right, #101827, #202b3a 58%, #312e81 100%);
 }
 
 .panel-ejs-contenedor 
@@ -616,9 +640,9 @@ ToolBar Button,
 
 .panel-ejs-marca 
 {
-    -fx-background-color: linear-gradient(to bottom right, #0891b2, #0e7490 62%, #155e75 100%);
+    -fx-background-color: linear-gradient(to bottom right, #fbbf24, #f59e0b 62%, #b45309 100%);
     -fx-background-radius: 0 22px 22px 0;
-    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.18), 20, 0.18, 5, 0);
+    -fx-effect: dropshadow(gaussian, rgba(249,250,251,0.18), 20, 0.18, 5, 0);
 }
 
 .panel-ejs-bloque-marca 
@@ -630,37 +654,37 @@ ToolBar Button,
 {
     -fx-font-size: 24px;
     -fx-font-weight: 900;
-    -fx-fill: #d71920;
-    -fx-stroke: #000000;
+    -fx-fill: #f43f5e;
+    -fx-stroke: #020617;
     -fx-stroke-width: 0.75px;
 }
 
 .panel-ejs-subtitulo-marca 
 {
-    -fx-text-fill: rgba(255,255,255,0.92);
+    -fx-text-fill: rgba(24,34,53,0.92);
     -fx-font-size: 13px;
     -fx-font-weight: 800;
 }
 
 .panel-ejs-tarjeta-lateral 
 {
-    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-background-color: rgba(24,34,53,0.16);
     -fx-background-radius: 16px;
-    -fx-border-color: rgba(255,255,255,0.22);
+    -fx-border-color: rgba(24,34,53,0.22);
     -fx-border-radius: 16px;
     -fx-padding: 14px;
 }
 
 .panel-ejs-titulo-tarjeta-lateral 
 {
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #182235;
     -fx-font-size: 14px;
     -fx-font-weight: 900;
 }
 
 .panel-ejs-texto-tarjeta-lateral 
 {
-    -fx-text-fill: rgba(255,255,255,0.86);
+    -fx-text-fill: rgba(24,34,53,0.86);
     -fx-font-size: 12px;
     -fx-line-spacing: 2px;
 }
@@ -672,18 +696,18 @@ ToolBar Button,
 
 .panel-ejs-opcion-lateral 
 {
-    -fx-text-fill: rgba(255,255,255,0.94);
+    -fx-text-fill: rgba(24,34,53,0.94);
     -fx-font-weight: 800;
-    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-background-color: rgba(24,34,53,0.15);
     -fx-background-radius: 999px;
     -fx-padding: 8px 12px;
-    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-border-color: rgba(24,34,53,0.18);
     -fx-border-radius: 999px;
 }
 
 .panel-ejs-pie-lateral 
 {
-    -fx-text-fill: rgba(255,255,255,0.72);
+    -fx-text-fill: rgba(24,34,53,0.72);
     -fx-font-size: 11px;
     -fx-font-weight: 700;
 }
@@ -696,37 +720,37 @@ ToolBar Button,
 .panel-ejs-cabecera,
 .panel-ejs-tarjeta 
 {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #182235;
     -fx-background-radius: 18px;
-    -fx-border-color: rgba(14,116,144,0.17);
+    -fx-border-color: rgba(245,158,11,0.17);
     -fx-border-radius: 18px;
-    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.13), 18, 0.16, 0, 7);
+    -fx-effect: dropshadow(gaussian, rgba(249,250,251,0.13), 18, 0.16, 0, 7);
 }
 
 .panel-ejs-icono-cabecera 
 {
-    -fx-background-color: linear-gradient(to bottom right, #0891b2, #0e7490);
+    -fx-background-color: linear-gradient(to bottom right, #fbbf24, #f59e0b);
     -fx-background-radius: 16px;
-    -fx-effect: dropshadow(gaussian, rgba(14,116,144,0.22), 12, 0.18, 0, 4);
+    -fx-effect: dropshadow(gaussian, rgba(245,158,11,0.22), 12, 0.18, 0, 4);
 }
 
 .panel-ejs-etiqueta-superior 
 {
-    -fx-text-fill: #0e7490;
+    -fx-text-fill: #f59e0b;
     -fx-font-size: 11px;
     -fx-font-weight: 900;
 }
 
 .panel-ejs-titulo-pagina 
 {
-    -fx-text-fill: #0f172a;
+    -fx-text-fill: #f9fafb;
     -fx-font-size: 20px;
     -fx-font-weight: 900;
 }
 
 .panel-ejs-descripcion-pagina 
 {
-    -fx-text-fill: #64748b;
+    -fx-text-fill: #cbd5e1;
     -fx-font-size: 12.5px;
     -fx-font-weight: 700;
 }
@@ -734,13 +758,13 @@ ToolBar Button,
 {
     -fx-background-color: transparent;
     -fx-background-radius: 18px 18px 0 0;
-    -fx-border-color: transparent transparent rgba(14,116,144,0.12) transparent;
+    -fx-border-color: transparent transparent rgba(245,158,11,0.12) transparent;
     -fx-padding: 12px 16px;
 }
 
 .panel-ejs-tarjeta > .title > .text 
 {
-    -fx-fill: #0f172a;
+    -fx-fill: #f9fafb;
     -fx-font-size: 15px;
     -fx-font-weight: 900;
 }
@@ -763,14 +787,14 @@ ToolBar Button,
 
 .panel-ejs-titulo-seccion 
 {
-    -fx-text-fill: #0f172a;
+    -fx-text-fill: #f9fafb;
     -fx-font-size: 13px;
     -fx-font-weight: 900;
 }
 
 .panel-ejs-columnas-lista 
 {
-    -fx-background-color: linear-gradient(to right, rgba(8,145,178,0.12), rgba(79,70,229,0.08));
+    -fx-background-color: linear-gradient(to right, rgba(251,191,36,0.12), rgba(249,115,22,0.08));
     -fx-background-radius: 10px;
     -fx-padding: 9px 22px;
     -fx-spacing: 46px;
@@ -778,7 +802,7 @@ ToolBar Button,
 
 .panel-ejs-columnas-lista .label
 {
-    -fx-text-fill: #475569;
+    -fx-text-fill: #dbe4ef;
     -fx-font-size: 11px;
     -fx-font-weight: 900;
     -fx-alignment: center;
@@ -809,8 +833,8 @@ ToolBar Button,
 {
     -fx-font-size: 0.92em;
     -fx-padding: 0.44em 0.72em;
-    -fx-background-radius: 10px;
-    -fx-border-radius: 10px;
+    -fx-background-radius: 8px;
+    -fx-border-radius: 8px;
 }
 
 .panel-ejs-contenido-formulario 
@@ -821,7 +845,7 @@ ToolBar Button,
 
 .panel-ejs-etiqueta-campo 
 {
-    -fx-text-fill: #475569;
+    -fx-text-fill: #dbe4ef;
     -fx-font-size: 12px;
     -fx-font-weight: 900;
 }
@@ -845,7 +869,7 @@ ToolBar Button,
 /* PanelClientServerName.fxml (DISCOVERY) */
 .panel-discovery-raiz 
 {
-    -fx-background-color: linear-gradient(to bottom right, #f1f5f9, #e2e8f0 58%, #dbeafe 100%);
+    -fx-background-color: linear-gradient(to bottom right, #101827, #202b3a 58%, #312e81 100%);
 }
 
 .panel-discovery-contenedor 
@@ -855,9 +879,9 @@ ToolBar Button,
 
 .panel-discovery-marca 
 {
-    -fx-background-color: linear-gradient(to bottom right, #0891b2, #0e7490 62%, #155e75 100%);
+    -fx-background-color: linear-gradient(to bottom right, #fbbf24, #f59e0b 62%, #b45309 100%);
     -fx-background-radius: 0 22px 22px 0;
-    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.18), 20, 0.18, 5, 0);
+    -fx-effect: dropshadow(gaussian, rgba(249,250,251,0.18), 20, 0.18, 5, 0);
 }
 
 .panel-discovery-bloque-marca 
@@ -870,34 +894,34 @@ ToolBar Button,
     -fx-font-size: 23px;
     -fx-font-weight: 900;
     -fx-text-fill: white;
-    -fx-effect: dropshadow(gaussian, rgba(0,0,0,0.16), 10, 0.18, 0, 2);
+    -fx-effect: dropshadow(gaussian, rgba(2,6,23,0.16), 10, 0.18, 0, 2);
 }
 
 .panel-discovery-subtitulo-marca 
 {
-    -fx-text-fill: rgba(255,255,255,0.92);
+    -fx-text-fill: rgba(24,34,53,0.92);
     -fx-font-size: 13px;
     -fx-font-weight: 800;
 }
 .panel-discovery-tarjeta-lateral 
 {
-    -fx-background-color: rgba(255,255,255,0.16);
+    -fx-background-color: rgba(24,34,53,0.16);
     -fx-background-radius: 16px;
-    -fx-border-color: rgba(255,255,255,0.22);
+    -fx-border-color: rgba(24,34,53,0.22);
     -fx-border-radius: 16px;
     -fx-padding: 14px;
 }
 
 .panel-discovery-titulo-tarjeta-lateral 
 {
-    -fx-text-fill: #ffffff;
+    -fx-text-fill: #182235;
     -fx-font-size: 14px;
     -fx-font-weight: 900;
 }
 
 .panel-discovery-texto-tarjeta-lateral 
 {
-    -fx-text-fill: rgba(255,255,255,0.86);
+    -fx-text-fill: rgba(24,34,53,0.86);
     -fx-font-size: 12px;
     -fx-line-spacing: 2px;
 }
@@ -909,17 +933,17 @@ ToolBar Button,
 
 .panel-discovery-opcion-lateral 
 {
-    -fx-text-fill: rgba(255,255,255,0.94);
+    -fx-text-fill: rgba(24,34,53,0.94);
     -fx-font-weight: 800;
-    -fx-background-color: rgba(255,255,255,0.15);
+    -fx-background-color: rgba(24,34,53,0.15);
     -fx-background-radius: 999px;
     -fx-padding: 8px 12px;
-    -fx-border-color: rgba(255,255,255,0.18);
+    -fx-border-color: rgba(24,34,53,0.18);
     -fx-border-radius: 999px;
 }
 .panel-discovery-pie-lateral 
 {
-    -fx-text-fill: rgba(255,255,255,0.72);
+    -fx-text-fill: rgba(24,34,53,0.72);
     -fx-font-size: 11px;
     -fx-font-weight: 700;
 }
@@ -933,30 +957,30 @@ ToolBar Button,
 .panel-discovery-tarjeta,
 .panel-discovery-botonera-inferior 
 {
-    -fx-background-color: #ffffff;
+    -fx-background-color: #182235;
     -fx-background-radius: 18px;
-    -fx-border-color: rgba(14,116,144,0.17);
+    -fx-border-color: rgba(245,158,11,0.17);
     -fx-border-radius: 18px;
-    -fx-effect: dropshadow(gaussian, rgba(15,23,42,0.13), 18, 0.16, 0, 7);
+    -fx-effect: dropshadow(gaussian, rgba(249,250,251,0.13), 18, 0.16, 0, 7);
 }
 
 .panel-discovery-etiqueta-superior 
 {
-    -fx-text-fill: #0e7490;
+    -fx-text-fill: #f59e0b;
     -fx-font-size: 11px;
     -fx-font-weight: 900;
 }
 
 .panel-discovery-titulo-pagina 
 {
-    -fx-text-fill: #0f172a;
+    -fx-text-fill: #f9fafb;
     -fx-font-size: 20px;
     -fx-font-weight: 900;
 }
 
 .panel-discovery-descripcion-pagina 
 {
-    -fx-text-fill: #64748b;
+    -fx-text-fill: #cbd5e1;
     -fx-font-size: 12.5px;
     -fx-font-weight: 700;
 }
@@ -965,13 +989,13 @@ ToolBar Button,
 {
     -fx-background-color: transparent;
     -fx-background-radius: 18px 18px 0 0;
-    -fx-border-color: transparent transparent rgba(14,116,144,0.12) transparent;
+    -fx-border-color: transparent transparent rgba(245,158,11,0.12) transparent;
     -fx-padding: 12px 16px;
 }
 
 .panel-discovery-tarjeta > .title > .text 
 {
-    -fx-fill: #0f172a;
+    -fx-fill: #f9fafb;
     -fx-font-size: 15px;
     -fx-font-weight: 900;
 }
@@ -991,14 +1015,14 @@ ToolBar Button,
 
 .panel-discovery-columnas-lista 
 {
-    -fx-background-color: linear-gradient(to right, rgba(8,145,178,0.12), rgba(79,70,229,0.08));
+    -fx-background-color: linear-gradient(to right, rgba(251,191,36,0.12), rgba(249,115,22,0.08));
     -fx-background-radius: 10px;
     -fx-padding: 9px 16px;
 }
 
 .panel-discovery-columnas-lista .label 
 {
-    -fx-text-fill: #475569;
+    -fx-text-fill: #dbe4ef;
     -fx-font-size: 11px;
     -fx-font-weight: 900;
     -fx-alignment: center-left;
@@ -1017,7 +1041,7 @@ ToolBar Button,
 
 .panel-discovery-etiqueta-campo 
 {
-    -fx-text-fill: #475569;
+    -fx-text-fill: #dbe4ef;
     -fx-font-size: 12px;
     -fx-font-weight: 900;
 }
@@ -1063,7 +1087,7 @@ ToolBar Button,
 
 .panel-discovery-opciones-web 
 {
-    -fx-background-color: linear-gradient(to right, rgba(8,145,178,0.09), rgba(79,70,229,0.06));
+    -fx-background-color: linear-gradient(to right, rgba(251,191,36,0.09), rgba(249,115,22,0.06));
     -fx-background-radius: 12px;
     -fx-padding: 10px 14px;
 }

@@ -34,9 +34,9 @@
                   </StackPane>
                   <VBox alignment="CENTER_LEFT" prefHeight="250.0" spacing="22.0" styleClass="panelmain-content" HBox.hgrow="ALWAYS">
                      <children>
-                        <Label alignment="CENTER_LEFT" contentDisplay="CENTER" styleClass="panelmain-title" text="Elegir idioma de Discovery" wrapText="true" />
+                        <Label alignment="CENTER_LEFT" contentDisplay="CENTER" styleClass="panelmain-title" text="Idioma de Discovery" wrapText="true" />
                         <ComboBox fx:id="langCombo" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="230.0" />
-                        <Label alignment="CENTER_LEFT" contentDisplay="CENTER" styleClass="panelmain-title" text="Elegir estilo visual de SARLAB" wrapText="true" />
+                        <Label alignment="CENTER_LEFT" contentDisplay="CENTER" styleClass="panelmain-title" text="Estilo visual de SARLAB" wrapText="true" />
                         <ComboBox fx:id="cssCombo" maxWidth="1.7976931348623157E308" prefHeight="34.0" prefWidth="230.0" />
                         <HBox alignment="CENTER_RIGHT" maxWidth="1.7976931348623157E308" styleClass="panelmain-actions">
                            <children>

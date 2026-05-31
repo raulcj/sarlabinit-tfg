@@ -5,9 +5,6 @@
 package es.uhu.sarlab.discovery.controller;
 
 import es.nebsyst.encrypt.CryptographyAESSarlab2;
-import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
-import es.nebsyst.sarlabinit.main.Main;
-import es.nebsyst.sarlabinit.main.StageManager;
 import es.uhu.sarlab.digexlab.giot.model.ParameterAccess;
 import es.uhu.sarlab.digexlab.giot.model.ParameterTunnel;
 import es.uhu.sarlab.digexlab.giot.model.ParameterVirtualFrontier;
@@ -214,7 +211,9 @@ public class PanelListGatewayController implements Initializable {
     
     // INICIO - Added backend
     public void initList() {
-      ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+      ObservableList<String> ejemplos = FXCollections.observableArrayList(""
+           + "edutechfrontier", 
+             "nebsystmain"); 
       jList1.setItems(ejemplos); 
     }
     // FIN - Added backend  

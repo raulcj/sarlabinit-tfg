@@ -145,7 +145,7 @@
                                           <Button fx:id="jButtonNavegador" mnemonicParsing="false" onAction="#jButtonNavegadorActionPerformed" text="Navegador" />
                                           <Label fx:id="jLabel1" alignment="CENTER" contentDisplay="CENTER" styleClass="panel-discovery-etiqueta-campo" text="Puerto" />
                                           <TextField fx:id="jTextFieldPortNav" maxWidth="96.0" onAction="#jTextFieldPortNavActionPerformed" prefWidth="88.0" />
-                                          <Label alignment="CENTER" contentDisplay="CENTER" styleClass="panel-discovery-etiqueta-campo" text="URL" />
+                                          <Label fx:id="jLabelURL" alignment="CENTER" contentDisplay="CENTER" styleClass="panel-discovery-etiqueta-campo" text="URL" />
                                           <TextField fx:id="jTextFieldURL" onAction="#jTextFieldURLActionPerformed" HBox.hgrow="ALWAYS" />
                                        </children>
                                     </HBox>

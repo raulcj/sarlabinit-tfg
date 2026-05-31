@@ -15,20 +15,22 @@ import javafx.fxml.FXMLLoader;
 public class FXMLLoaderManager {
     
     private static final FXMLLoaderManager instance = new FXMLLoaderManager();
-    private final Map<String, FXMLLoader> stageMap = new HashMap<>();
+    private final Map<String, FXMLLoader> fxmlMap;
 
-    private FXMLLoaderManager() {} 
+    private FXMLLoaderManager() {
+        fxmlMap = new HashMap<>();
+    } 
 
     public static FXMLLoaderManager getInstance() {
         return instance;
     }
 
     public void registerLoader(String name, FXMLLoader loader) {
-        stageMap.put(name, loader);
+        fxmlMap.put(name, loader);
     }
 
     public FXMLLoader getLoader(String name) {
-        return stageMap.get(name);
+        return fxmlMap.get(name);
     }
     
 }

@@ -62,14 +62,13 @@ public class Main extends Application {
         Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/sarlab.png");   
         panelMainStage.getIcons().add(icono);
         panelMainStage.setScene(scene);    
-        // Registrar stage principal
+        panelMainStage.setOnCloseRequest(event -> {
+            Platform.exit();
+            System.exit(0);
+        });
+        // Registrar y mostrar stage principal
         stageManager.registerStage("PanelMain", panelMainStage);
-        //panelMainStage.setResizable(false);
         panelMainStage.show();
-        // Permite abrir las opciones del SystemTray mas de una vez
-        Platform.setImplicitExit(false);
-        // Cargar SystemTrayFX
-        MySystemTrayFX mySystemTrayFX= new MySystemTrayFX(panelMainStage);
     }
     
     // SARLABINIT (componentes)

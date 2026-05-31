@@ -23,14 +23,13 @@ import javafx.scene.control.MenuItem;
 public class MySystemTrayFX {
 
     private static MySystemTrayFX instance;
-    
-    private Stage mainStage;
+    private final Stage mainStage;
     private Stage restoreStage;
     private Stage discoveryStage;
     private PanelClientServerNameController discoveryController;
     private FXTrayIcon trayIcon;
 
-    public MySystemTrayFX(Stage mainStage) {
+    private MySystemTrayFX(Stage mainStage) {
         this.mainStage = mainStage;
     }
     
@@ -64,7 +63,6 @@ public class MySystemTrayFX {
     }
 
     private void showRestaurar() {
-        Platform.runLater(() -> {
             if (this.restoreStage == null) {
                 try {
                     this.restoreStage = StageManager.getInstance().getStage("PanelEJSAppList");
@@ -83,11 +81,9 @@ public class MySystemTrayFX {
                     this.restoreStage.show();
                 }
             }
-        });
     }
 
     private void showDiscovery() {
-        Platform.runLater(() -> {
             if (this.discoveryStage == null) {
                 try {
                     this.discoveryStage = StageManager.getInstance().getStage("PanelClientServerName");
@@ -99,10 +95,6 @@ public class MySystemTrayFX {
                     this.discoveryStage.show();
                 } catch (IOException e) {
                     Logger.getLogger(MySystemTrayFX.class.getName()).log(Level.SEVERE, null, e);
-                }
-                if (this.discoveryController == null) {
-                    FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
-                    this.discoveryController = fxmlLoader.getController();       
                 }
                 this.discoveryController.initList();
             } else {
@@ -118,7 +110,6 @@ public class MySystemTrayFX {
                 this.discoveryController.initList();
             } 
             this.discoveryController.init();
-        });
     }
 
     private void exitApplication() {
@@ -126,4 +117,5 @@ public class MySystemTrayFX {
         Platform.exit();
         System.exit(0);
     }
+    
 }

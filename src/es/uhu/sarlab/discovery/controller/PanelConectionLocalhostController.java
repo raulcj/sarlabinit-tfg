@@ -2,15 +2,12 @@
 package es.uhu.sarlab.discovery.controller;
 
 import es.nebsyst.sarlabinit.main.FXMLLoaderManager;
-import es.nebsyst.sarlabinit.main.Main;
 import es.nebsyst.sarlabinit.main.StageManager;
 import java.io.IOException;
 import java.net.URL;
 import java.util.ArrayList;
 import java.util.Locale;
 import java.util.ResourceBundle;
-import java.util.logging.Level;
-import java.util.logging.Logger;
 import javafx.application.Platform;
 import javafx.collections.FXCollections;
 import static javafx.collections.FXCollections.observableArrayList;
@@ -88,7 +85,10 @@ import javafx.stage.Stage;
 
        // INICIO - Added backend
        public void initList() {
-           ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+           ObservableList<String> ejemplos = FXCollections.observableArrayList(""
+                   + "192.168.10.10:3389", 
+                     "192.168.10.15:22",
+                     "192.168.10.20:554"); 
            jListHardware.setItems(ejemplos); 
        }
        // FIN - Added backend

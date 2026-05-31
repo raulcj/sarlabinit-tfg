@@ -16,9 +16,11 @@ import javafx.stage.Stage;
 public class StageManager {
     
     private static final StageManager instance = new StageManager();
-    private final Map<String, Stage> stageMap = new HashMap<>();
+    private final Map<String, Stage> stageMap;
 
-    private StageManager() {} 
+    private StageManager() {
+        stageMap = new HashMap<>();
+    } 
 
     public static StageManager getInstance() {
         return instance;

@@ -35,7 +35,10 @@ public class PanelJarProcessController implements Initializable {
         
     public void setList() {
         // INICIO - Added backend
-        ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+        ObservableList<String> ejemplos = FXCollections.observableArrayList(""
+          + "PLCMonitorLab", 
+            "RobotArmControl", 
+            "OscilloscopeRemoteLab");      
         jList1.setItems(ejemplos); 
         // FIN - Added backend
     } 

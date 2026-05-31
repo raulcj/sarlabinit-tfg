@@ -121,7 +121,6 @@ public class PanelClientServerNameController implements Initializable, InterfazB
             private PanelConsoleController panelConsoleController;
             private PanelListGatewayController panelListGatewayController;
             
-            private ToggleGroup buttonGroup1; // misma funcionalidad que ButtonGroup pero diferente funcionamiento
             @FXML
             private Button jButton1; 
             @FXML
@@ -157,6 +156,8 @@ public class PanelClientServerNameController implements Initializable, InterfazB
             private Button jButtonVNC;           
             @FXML      
             private Dialog jDialog1; 
+            @FXML
+            private Label jLabelURL;
             @FXML
             private Label jLabel1; 
             private Label jLabel2; 
@@ -259,7 +260,17 @@ public class PanelClientServerNameController implements Initializable, InterfazB
 
        // INICIO - Added backend
        public void initList() {
-           ObservableList<String> ejemplos = FXCollections.observableArrayList("Ejemplo 1", "Ejemplo 2", "Ejemplo 3");
+           ObservableList<String> ejemplos = FXCollections.observableArrayList(""
+                   + "192.168.10.10                                              PC-DESKTOP", 
+                     "192.168.10.12                                              INST. SERVER", 
+                     "192.168.10.15                                              DIAGNOSIS CONSOLE",
+                     "192.168.10.13                                              LINUX SERVER", 
+                     "192.168.10.16                                              RESULTS REPOSITORY",
+                     "192.168.10.20                                              CAMERA AXIS-A",
+                     "192.168.10.21                                              CAMERA AXIS-B",
+                     "192.168.10.22                                              PLC CONTROLLER",
+                     "192.168.10.30                                              HP BROTHER DCP L2660DW",                  
+                     "192.168.10.31                                              HP SCANJET ENTERPRISE FLOW 5000");
            jList1.setItems(ejemplos); 
        }
        // FIN - Added backend
@@ -382,7 +393,6 @@ public class PanelClientServerNameController implements Initializable, InterfazB
 /*      */   }
 /*      */ 
 /*      */   private void initComponents() {
-/*  225 */     this.buttonGroup1 = new ToggleGroup();
 /*  226 */     this.jDialog1 = new Dialog();
 /*  228 */     this.jLabel2 = new Label();
 /*  230 */     this.lineausuario = new TextField();
