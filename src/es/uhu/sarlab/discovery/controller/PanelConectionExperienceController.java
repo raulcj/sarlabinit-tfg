@@ -43,7 +43,6 @@ import javafx.stage.Stage;
 /*  53 */   int selectorListExperience = -1; 
             String url; 
             
-            // Stages usados
             private Stage panelConectionExperienceStage;
             
             @FXML

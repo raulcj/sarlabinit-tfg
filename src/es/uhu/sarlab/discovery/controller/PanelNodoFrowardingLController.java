@@ -26,7 +26,6 @@ import javafx.scene.image.Image;
 import javafx.stage.Stage;
 
 /**
- * TO-DO: Modificar la UI en SceneBuilder: quitar BorderPane y poner VBox/HBox en su lugar
  * 
  * @author alumno
  */
@@ -76,33 +75,13 @@ import javafx.stage.Stage;
 /*     */   
             private PanelClientServerNameController panelClientServerNameController;
             
-/*     */   public void initPanelNodoFrowardingL() throws IOException {
-              /**
-               * 
-               * ¡¡¡¡ IMPORTANTE !!!!
-               * 
-               * 
-               * Los objetos declarados aqui que no se encuentren anotados con @FXML seran nulos para 
-               * los metodos anotados tambien con @FXML. Los metodos que no esten anotados con @FXML
-               * pueden recibir con exito las referencias pasadas a los objetos declarados aqui
-               * y no obtener NPE.
-               * 
-               * Por ej.: la inicializacion del controller de PanelClientServerName la puede aprovechar
-               * el metodo setIpInit()
-               *
-              // Controlador de PanelClientServerName
-              //FXMLLoader fxmlLoader = FXMLLoaderManager.getInstance().getLoader("PanelClientServerName");
-              //panelClientServerNameController = fxmlLoader.getController();
-              //
-              //(Para homogeneizar la estructura del codigo se borraran las ultimas lineas comentadas)
-              
+/*     */   public void initPanelNodoFrowardingL() throws IOException {        
 /*  44 */     initComponents();
 /*  46 */     this.jTextFieldIPL.setText("127.0.0.1");
 /*  47 */     this.jTextFieldIPL.setEditable(false);
 /*  48 */     this.jTextFieldPortL.setText("0");
 /*  49 */     this.jTextFieldPortR.setText("0");
-/*  50 */     this.mode = "local";
-              
+/*  50 */     this.mode = "local";        
 /*     */   }
 
 /*     */   public void setIpInit() {
@@ -215,15 +194,6 @@ import javafx.stage.Stage;
 /*     */       } 
 /* 410 */     } catch (UnknownHostException unknownHostException) {}
 /*     */   }
-/*     */   
-/*     */   public static void main(String[] args) {
-/* 419 */     Locale.setDefault(new Locale("en", "GB"));
-              Platform.runLater(() -> {
-               // ¿Esto es UTIL?
-               StageManager.getInstance().getStage("PanelNodoFrowardingL");   
-              });  
-/*     */   }
-/*     */
 
     @Override
     public void initialize(URL url, ResourceBundle rb) {

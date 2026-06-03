@@ -270,7 +270,7 @@ public class PanelClientServerNameController implements Initializable, InterfazB
                      "192.168.10.21                                              CAMERA AXIS-B",
                      "192.168.10.22                                              PLC CONTROLLER",
                      "192.168.10.30                                              HP BROTHER DCP L2660DW",                  
-                     "192.168.10.31                                                     HP SCANJET ENTERPRISE FLOW 5000");
+                     "192.168.10.31                                              HP SCANJET ENTERPRISE FLOW 5000");
            jList1.setItems(ejemplos); 
        }
        // FIN - Added backend

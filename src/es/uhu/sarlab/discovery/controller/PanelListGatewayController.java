@@ -54,7 +54,6 @@ import javax.swing.event.ListSelectionEvent;
 //import javax.swing.ListModel;
 
 /**
- * REVISAR Y MODIFICAR: lineas con PanelClientServerName clientName
  * 
  * @author alumno
  */
@@ -101,8 +100,6 @@ public class PanelListGatewayController implements Initializable {
     private Label jLabelIdGIOT;
     @FXML
     private Label jLabelIpServerSarlab;
-    // No se usa:
-    //private Label jLabelKeyGIOT;
     @FXML
     private Label jLabelPass; 
     @FXML
@@ -181,7 +178,6 @@ public class PanelListGatewayController implements Initializable {
         this.jTextPortInputGIOTWeb.setText(bundle.getString("PanelListGateway.jTextPortInputGIOTWeb.text"));  
         // FUNCIONALIDAD
         testParameter();
-        //this.clientName = clientName;
         initJText();
         this.directoryGatewayRemote = new DirectoryGatewayRemote();
         this.directoryGatewayRemote = (DirectoryGatewayRemote)this.directoryGatewayRemote.generateTfromFileXML(giveMeFileNameConfigXML(), DirectoryGatewayRemote.class);
