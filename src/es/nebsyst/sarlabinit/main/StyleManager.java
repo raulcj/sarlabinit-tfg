@@ -17,7 +17,7 @@ public class StyleManager
     private String cssPath;
     
     private StyleManager() { 
-        // La hoja 'sarlab-main.css' es el estilo predeterminado
+        // La hoja 'sarlab-main-blue.css' es el estilo predeterminado
         cssPath = StyleManager.class.getResource("/es/styles/sarlab-main-blue.css").toExternalForm();
     }
     
