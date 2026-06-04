@@ -151,7 +151,19 @@ public class PanelListGatewayController implements Initializable {
         this.jButtonDel.setText(bundle.getString("PanelListGateway.jButtonDel.text"));
         this.jButtonSelect.setText(bundle.getString("PanelListGateway.jButtonSelect.text"));
         this.jCheckBoxGIoT.setText(bundle.getString("PanelListGateway.jCheckBoxGIoT.text"));
-        // No necesario, es Title de JTitledPane3:
+        // Seteo de imágenes de botones
+        Image iconJButtonSave = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/salvar.png").toExternalForm());
+        ImageView iconViewJButtonSave = new ImageView(iconJButtonSave);
+        this.jButtonSave.setGraphic(iconViewJButtonSave);    
+        Image iconJButtonNew = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/plus24x24.png").toExternalForm());
+        ImageView iconViewJButtonNew = new ImageView(iconJButtonNew);
+        this.jButtonNew.setGraphic(iconViewJButtonNew);  
+        Image iconJButtonDel = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/borrar.png").toExternalForm());
+        ImageView iconViewJButtonDel = new ImageView(iconJButtonDel);
+        this.jButtonDel.setGraphic(iconViewJButtonDel);
+        Image iconJButtonSelect = new Image(getClass().getResource("/es/uhu/sarlab/discovery/vista/resources/select.png").toExternalForm());
+        ImageView iconViewJButtonSelect = new ImageView(iconJButtonSelect);
+        this.jButtonSelect.setGraphic(iconViewJButtonSelect);
         //this.jLabelIdConnectT.setText(bundle.getString("PanelListGateway.jLabelIdConnectT.text"));
         this.jLabelIdConnect.setText(bundle.getString("PanelListGateway.jLabelIdConnect.text"));
         this.jLabelIdExp.setText(bundle.getString("PanelListGateway.jLabelIdExp.text"));
