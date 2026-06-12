@@ -45,7 +45,7 @@ public class MySystemTrayFX {
     }
 
     public void setupTrayIcon() {
-        trayIcon = new FXTrayIcon(mainStage, getClass().getResource("../resource/execjar128.png")); 
+        trayIcon = new FXTrayIcon(mainStage, getClass().getResource("/es/nebsyst/sarlabinit/resource/execjar128.png")); 
         trayIcon.setTooltip("Servicio SARLAB");
         // Añadir los elementos del menú contextual
         // Opcion "Salir"

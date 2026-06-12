@@ -26,7 +26,7 @@ public class Main extends Application {
     @Override
     public void start(Stage panelMainStage) throws IOException {    
         // Cargar modulo principal y añadir estilos 
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelMain.fxml"));    
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/es/nebsyst/sarlabinit/view/PanelMain.fxml"));    
         Scene scene = StyleManager.getInstance().createSceneCss(fxmlLoader.load()); 
         // Inicializa las clases gestoras
         FXMLLoaderManager fxmlLoaderManager = FXMLLoaderManager.getInstance();
@@ -59,7 +59,7 @@ public class Main extends Application {
         stageManager.registerStage("PanelClientServerName", getDiscoveryStage());     
         // Configurar stage principal
         panelMainStage.setTitle("Servicio SARLAB");
-        Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/sarlab.png");   
+        Image icono = new Image("/es/nebsyst/sarlabinit/resource/sarlab.png");   
         panelMainStage.getIcons().add(icono);
         panelMainStage.setScene(scene);    
         panelMainStage.setOnCloseRequest(event -> {
@@ -73,24 +73,24 @@ public class Main extends Application {
     
     // SARLABINIT (componentes)
     public FXMLLoader getPanelEJSAppListLoader() {
-        return new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/nebsyst/sarlabinit/view/PanelEJSAppList.fxml"));
     }
     
     public Stage getPanelEJSAppListStage() {
         Stage stage = new Stage();
         stage.setTitle("Gestor EJS");
-        Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
+        Image icono = new Image("/es/nebsyst/sarlabinit/resource/execjar128.png");   
         stage.getIcons().add(icono);
         return stage;
     }
 
     public FXMLLoader getPanelJarProcessLoader() { 
-        return new FXMLLoader(Main.class.getResource("../view/PanelJarProcess.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/nebsyst/sarlabinit/view/PanelJarProcess.fxml"));
     }
     
     public Stage getPanelJarProcessStage() {
         Stage stage = new Stage(); 
-        Image icono = new Image("file:src/es/nebsyst/sarlabinit/resource/execjar128.png");   
+        Image icono = new Image("/es/nebsyst/sarlabinit/resource/execjar128.png");   
         stage.getIcons().add(icono);
         return stage;
     }
@@ -98,79 +98,79 @@ public class Main extends Application {
     // SARLAB DISCOVERY (componentes)
     
     public FXMLLoader getDiscoveryLoader() {
-        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelClientServerName.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/uhu/sarlab/discovery/view/PanelClientServerName.fxml"));
     }
     
     public Stage getDiscoveryStage() {
         Stage stage = new Stage();   
         stage.setTitle("Gestor de conexiones");
-        Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+        Image icono = new Image("/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
         return stage;
     }
 
      public FXMLLoader getPanelListGatewayLoader() {
-        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelListGateway.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/uhu/sarlab/discovery/view/PanelListGateway.fxml"));
     }
      
     public Stage getPanelListGatewayStage() {
         Stage stage = new Stage();
-        Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+        Image icono = new Image("/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
         return stage;
     }
     
     public FXMLLoader getPanelConectionLocalhostLoader() {
-        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConectionLocalhost.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/uhu/sarlab/discovery/view/PanelConectionLocalhost.fxml"));
     }
     
     public Stage getPanelConectionLocalhostStage() {
         Stage stage = new Stage();        
-        Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+        Image icono = new Image("/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
         return stage;
     }
     
     public FXMLLoader getPanelConsoleLoader() {
-        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConsole.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/uhu/sarlab/discovery/view/PanelConsole.fxml"));
     }
     
     public Stage getPanelConsoleStage() {
         Stage stage = new Stage();         
-        Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+        Image icono = new Image("/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
         return stage;
     }
     
     public FXMLLoader getPanelEditConfigLocalLoader() {
-        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelEditConfigLocal.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/uhu/sarlab/discovery/view/PanelEditConfigLocal.fxml"));
     }
     
     public Stage getPanelEditConfigLocalStage() {
         Stage stage = new Stage();
-        Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+        Image icono = new Image("/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
         return stage;
     }
     
     public FXMLLoader getPanelConectionExperienceLoader() {
-        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelConectionExperience.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/uhu/sarlab/discovery/view/PanelConectionExperience.fxml"));
     }
          
     public Stage getPanelConectionExperienceStage() {
         Stage stage = new Stage();      
-        Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+        Image icono = new Image("/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
         return stage;
     }
     
     public FXMLLoader getPanelNodoFrowardingLLoader() {
-        return new FXMLLoader(Main.class.getResource("../../../uhu/sarlab/discovery/view/PanelNodoFrowardingL.fxml"));
+        return new FXMLLoader(Main.class.getResource("/es/uhu/sarlab/discovery/view/PanelNodoFrowardingL.fxml"));
     }
     
     public Stage getPanelNodoFrowardingLStage() throws IOException {
         Stage stage = new Stage();  
-        Image icono = new Image("file:src/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
+        Image icono = new Image("/es/uhu/sarlab/discovery/view/resources/Remote-Desktop32x32.png");      
         stage.getIcons().add(icono);
         return stage;
     }

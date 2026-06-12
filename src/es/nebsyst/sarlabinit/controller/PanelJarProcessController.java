@@ -53,7 +53,7 @@ public class PanelJarProcessController implements Initializable {
         mensaje.setTitle("Información");
         mensaje.setHeaderText("Estado del proceso actualizado.");
         Stage stage = (Stage) mensaje.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("../resource/exec128.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/es/nebsyst/sarlabinit/resource/exec128.png")));
         mensaje.show();
         // FIN - Added message
     }
@@ -85,7 +85,7 @@ public class PanelJarProcessController implements Initializable {
         mensaje_info.setTitle("Información");
         mensaje_info.setHeaderText("Proceso detenido.");
         Stage stage = (Stage) mensaje_info.getDialogPane().getScene().getWindow();
-        stage.getIcons().add(new Image(getClass().getResourceAsStream("../resource/exec128.png")));
+        stage.getIcons().add(new Image(getClass().getResourceAsStream("/es/nebsyst/sarlabinit/resource/exec128.png")));
         mensaje_info.show();
         // FIN - Added message
     }

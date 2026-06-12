@@ -235,7 +235,7 @@ public class PanelEJSAppListController implements Initializable {
         chooser.setSelectedExtensionFilter(filtro);
         //Si seleccionamos algún archivo retornaremos su directorio
         // COMPROBAR: si el stage principal (PanelEJSAppList) es el que hay que elegir o no
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/es/nebsyst/sarlabinit/view/PanelEJSAppList.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         File selectedFile = chooser.showOpenDialog(scene.getWindow());
         if (selectedFile != null) {
@@ -264,7 +264,7 @@ public class PanelEJSAppListController implements Initializable {
         chooser.setSelectedExtensionFilter(filtro);
         //Si seleccionamos algún archivo retornaremos su directorio
         // COMPROBAR: si el stage principal (PanelEJSAppList) es el que hay que elegir o no
-        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("../view/PanelEJSAppList.fxml"));
+        FXMLLoader fxmlLoader = new FXMLLoader(Main.class.getResource("/es/nebsyst/sarlabinit/view/PanelEJSAppList.fxml"));
         Scene scene = new Scene(fxmlLoader.load());
         File selectedFile = chooser.showOpenDialog(scene.getWindow());
         if (selectedFile != null) {
